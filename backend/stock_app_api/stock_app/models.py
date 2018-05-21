@@ -1,4 +1,9 @@
-#NOTE: python3 manage.py flush deletes your database entirely!!
+#NOTE: python3 manage.py flush deletes your database entirely!! BUT DOESN'T FIX PRIMARY KEYS
+#NOTE: process for adding a custom user:
+# user = User.objects.create_user('username', password='password')
+# user.profile.bio = 'bio'......
+# ....
+# user.save()
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
