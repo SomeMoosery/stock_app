@@ -1,7 +1,9 @@
 from rest_framework import serializers
-from stock_app.models import Profile, Stock
+# from stock_app.models import Profile, Stock
+from . import models
 
-class ProfileSerializer(serializers.Serializer):
+class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username') #NOTE: may need to change to not be read_only at some point
     class Meta:
         fields = (
             'id',
@@ -11,9 +13,9 @@ class ProfileSerializer(serializers.Serializer):
             'age',
             'university',
         )
-        models = models.Profile
+        model = models.Profile
 
-class StockSerializer(serializers.Serializer):
+class StockSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
             'id',
@@ -22,4 +24,4 @@ class StockSerializer(serializers.Serializer):
             'count',
             'first_bought_date',
         )
-        models = models.Stock
+        model = models.Stock

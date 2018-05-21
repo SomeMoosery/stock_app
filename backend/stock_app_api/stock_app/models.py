@@ -1,3 +1,4 @@
+#NOTE: python3 manage.py flush deletes your database entirely!!
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -9,7 +10,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     bio = models.CharField(max_length = 500, blank=True)
     location = models.CharField(max_length=100, blank=True)
-    age = models.IntegerField(blank=True)
+    age = models.IntegerField(blank=True, null=True)
     university = models.CharField(max_length=100, blank=True)
 
     class Meta:
@@ -29,7 +30,7 @@ class Stock(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return self.name
+        return str(self.owner.user) + "_" + self.name
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
