@@ -6,3 +6,15 @@ from . import serializers
 class ListProfile(generics.ListCreateAPIView):
     queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializer
+
+class DetailProfile(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Profile.objects.all()
+    serializer_class = serializers.ProfileSerializer
+
+class ListStock(generics.ListCreateAPIView):
+    queryset = models.Stock.objects.all()
+    serializer_class = serializers.StockSerializer
+
+class DetailStock(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Stock.objects.all()
+    serializer_class = serializers.StockSerializer
