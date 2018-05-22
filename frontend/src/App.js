@@ -22,6 +22,7 @@ class App extends React.Component {
         <br/>
         <Route path="/main" component={Main}/>
         <Route path='/profiles/:userId' component={Profile}/>
+        <Route path='/stocks/:stockId' component={Stock}/>
       </div>
     );
   }
@@ -112,9 +113,53 @@ class Profile extends React.Component{
         <h3> Owned Stocks for {this.state.user}</h3>
         {this.state.stocks.map(stock => (
           <div key = {stock.id}>
-            <span>{stock.name}: {stock.count} shares.</span>
+            {this.state.userId}
+            <span><Link to={`/stocks/${stock.id}`}>{stock.name}:</Link> {stock.count} shares.</span>
           </div>
         ))}
+      </div>
+    );
+  }
+}
+
+class Stock extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      owner: '',
+      name: '',
+      count: null,
+      first_bought_date: '',
+    }
+  }
+  componentDidMount(){
+    const { match : { params } } = this.props;
+    console.log("Stock id: " + params.stockId);
+    axios.get(`http://127.0.0.1:8000/api/stocks/${params.stockId}`)
+    .then(function(res){
+      console.log(res.data);
+    });
+    axios.get(`http://127.0.0.1:8000/api/stocks/${params.stockId}`)
+    .then(({ data: stock }) => {
+      this.setState({
+        owner: stock.owner,
+        name: stock.name,
+        count: stock.count,
+        first_bought_date: stock.first_bought_date,
+      });
+    })
+    .catch(function(err){
+      console.log("Error! " + err);
+    });
+  }
+  render(){
+    return(
+      <div>
+        <h1>Stock Detail Page for {this.state.name} stock of {this.state.owner}</h1>
+        <h4>User: {this.state.owner}</h4>
+        <h5>Name: {this.state.name}</h5>
+        <h5>Count: {this.state.count}</h5>
+        <h5>First Bought On: {this.state.first_bought_date}</h5>
       </div>
     );
   }

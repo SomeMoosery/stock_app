@@ -16,6 +16,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = models.Profile
 
 class StockSerializer(serializers.ModelSerializer):
+    # owner = serializers.ReadOnlyField(source='profile.user')
     class Meta:
         fields = (
             'id',
