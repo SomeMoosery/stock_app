@@ -18,3 +18,10 @@ class ListStock(generics.ListCreateAPIView):
 class DetailStock(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Stock.objects.all()
     serializer_class = serializers.StockSerializer
+
+class ListProfileStock(generics.ListCreateAPIView):
+    serializer_class = serializers.StockSerializer
+
+    def get_queryset(self):
+        username = self.kwargs['pk']
+        return models.Stock.objects.filter(owner=username)

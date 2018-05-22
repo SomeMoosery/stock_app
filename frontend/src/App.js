@@ -29,7 +29,6 @@ class App extends React.Component {
 
 class Main extends React.Component{
   constructor(props){
-    console.log('constructor main');
     super(props);
     this.state = {
       profiles: [],
@@ -37,7 +36,6 @@ class Main extends React.Component{
   }
 
   async componentDidMount(){
-    console.log('mounted main');
     try{
       const res = await fetch('http://127.0.0.1:8000/api/profiles/');
       const profiles = await res.json();
@@ -67,7 +65,6 @@ class Main extends React.Component{
 
 class Profile extends React.Component{
   constructor(props){
-    console.log('constructor profile');
     super(props);
     this.state = {
       user: '',
@@ -75,34 +72,49 @@ class Profile extends React.Component{
       location: '',
       age: null,
       university: '',
+      stocks: [],
     }
   }
   componentDidMount(){
-    console.log('mounted');
     const { match : { params } } = this.props;
+    const emptyStocks = false;
     axios.get(`http://127.0.0.1:8000/api/profiles/${params.userId}`)
-    .then(({ data: user }) => {
+    .then(({ data: profile }) => {
       this.setState({
-        user: user.user,
-        bio: user.bio,
-        location: user.location,
-        age: user.age,
-        university: user.university,
+        user: profile.user,
+        bio: profile.bio,
+        location: profile.location,
+        age: profile.age,
+        university: profile.university,
       });
     })
     .catch(function(err){
       console.log("Error! " + err);
+    });
+    axios.get(`http://127.0.0.1:8000/api/profiles/${params.userId}/stocks/`)
+    .then((response) => {
+      this.setState({stocks: response.data})
+    })
+    .catch(function(err){
+      console.log("Error!: " + err);
     });
   }
   render(){
     return(
       <div>
         <h1>Profile Detail Page for {this.state.user}</h1>
-        <h3>User: {this.state.user}</h3>
+        <h4>User: {this.state.user}</h4>
         <h5>Bio: {this.state.bio}</h5>
         <h5>Location: {this.state.location}</h5>
         <h5>Age: {this.state.age}</h5>
         <h5>University: {this.state.university}</h5>
+        <br/>
+        <h3> Owned Stocks for {this.state.user}</h3>
+        {this.state.stocks.map(stock => (
+          <div key = {stock.id}>
+            <span>{stock.name}: {stock.count} shares.</span>
+          </div>
+        ))}
       </div>
     );
   }

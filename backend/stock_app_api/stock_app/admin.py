@@ -6,8 +6,6 @@ admin.site.unregister(User)
 
 class ExtendedUserInline(admin.TabularInline):
     model = Profile
-    # fk_name = 'user'
-    # max_num = 1
 
 class ExtendedUserAdmin(UserAdmin):
     inlines = [ExtendedUserInline, ]
