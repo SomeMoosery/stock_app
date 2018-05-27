@@ -81,20 +81,28 @@ class Profile extends React.Component{
     const emptyStocks = false;
     axios.get(`http://127.0.0.1:8000/api/profiles/${params.userId}`)
     .then(({ data: profile }) => {
+      // console.log(profile);
       this.setState({
         user: profile.user,
+        email: profile.email,
         bio: profile.bio,
         location: profile.location,
         age: profile.age,
         university: profile.university,
       });
+      // console.log(this.state.email);
     })
     .catch(function(err){
       console.log("Error! " + err);
     });
     axios.get(`http://127.0.0.1:8000/api/profiles/${params.userId}/stocks/`)
     .then((response) => {
-      this.setState({stocks: response.data})
+      this.setState({stocks: response.data});
+      //TODO: Figure out where to implement this capitalization so that all stocks are capitalized. Probably in form to submit new stock.
+      this.state.stocks.forEach(function(res){
+        res = res.name.toUpperCase();
+        console.log(res);
+      });
     })
     .catch(function(err){
       console.log("Error!: " + err);
@@ -105,6 +113,7 @@ class Profile extends React.Component{
       <div>
         <h1>Profile Detail Page for {this.state.user}</h1>
         <h4>User: {this.state.user}</h4>
+        <h5>Email: {this.state.email}</h5>
         <h5>Bio: {this.state.bio}</h5>
         <h5>Location: {this.state.location}</h5>
         <h5>Age: {this.state.age}</h5>

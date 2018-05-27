@@ -4,10 +4,12 @@ from . import models
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username') #NOTE: may need to change to not be read_only at some point
+    email = serializers.ReadOnlyField(source='user.email')
     class Meta:
         fields = (
             'id',
             'user',
+            'email',
             'bio',
             'location',
             'age',
