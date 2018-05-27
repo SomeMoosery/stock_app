@@ -5,6 +5,11 @@ from . import models
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username') #NOTE: may need to change to not be read_only at some point
     email = serializers.ReadOnlyField(source='user.email')
+
+    # def create(self, validated_data):
+    #     user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
+    #     return user;
+
     class Meta:
         fields = (
             'id',
