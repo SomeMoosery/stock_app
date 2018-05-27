@@ -70,6 +70,7 @@ class Profile extends React.Component{
     this.state = {
       user: '',
       bio: '',
+      email: '',
       location: '',
       age: null,
       university: '',
@@ -136,6 +137,7 @@ class Stock extends React.Component{
     super(props);
     this.state = {
       owner: '',
+      owner_id: null,
       name: '',
       count: null,
       first_bought_date: '',
@@ -154,6 +156,7 @@ class Stock extends React.Component{
     .then(({ data: stock }) => {
       this.setState({
         owner: stock.owner,
+        owner_id: stock.owner_id,
         name: stock.name.toUpperCase(),
         count: stock.count,
         first_bought_date: stock.first_bought_date,
@@ -179,7 +182,7 @@ class Stock extends React.Component{
   render(){
     return(
       <div>
-        <h1>Stock Detail Page for {this.state.name} stock of User {this.state.owner}</h1>
+        <h1>Stock Detail Page for {this.state.name} stock of User {this.state.owner} (ID: {this.state.owner_id})</h1>
         <h5>You Own {this.state.count} shares of {this.state.name}</h5>
         <h5>{this.state.name} Open Price Today: {this.state.open_price_today}</h5>
         <h5>{this.state.name} High Price Today: {this.state.high_price_today}</h5>

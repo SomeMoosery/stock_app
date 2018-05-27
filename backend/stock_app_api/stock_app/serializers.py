@@ -27,6 +27,7 @@ class StockSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'owner',
+            'owner_id',
             'name',
             'count',
             'first_bought_date',
