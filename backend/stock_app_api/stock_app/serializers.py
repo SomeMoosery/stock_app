@@ -18,7 +18,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = models.Profile
 
 class StockSerializer(serializers.ModelSerializer):
-    # owner = serializers.ReadOnlyField(source='profile.user')
+    # NOTE When dealing with setting a ReadOnlyField (this would just say 1 beforehand)
+    # Use the Django shell to try, say, Stock.objects.get(id=1).owner - that gives Profile: <carter>
+    # Then you can do Stock.objects.get(id=1).owner.user and get User: <carter>
+    # So on and so forth until the shell gives the value you went that enter the .x.y.z into the ReadOnlyField params below
+    owner = serializers.ReadOnlyField(source='owner.user.username')
     class Meta:
         fields = (
             'id',
