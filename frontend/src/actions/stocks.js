@@ -1,7 +1,10 @@
-export const addStock = count => {
+export const addStock = text => {
+  console.log(text);
+  console.log("Bio: ");
+  console.log()
   return{
     type: 'ADD_STOCK',
-    count
+    text
   }
 }
 

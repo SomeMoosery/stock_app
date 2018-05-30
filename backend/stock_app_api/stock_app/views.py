@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, permissions
 from . import models
 from . import serializers
 
@@ -21,6 +21,7 @@ class DetailStock(generics.RetrieveUpdateDestroyAPIView):
 
 class ListProfileStock(generics.ListCreateAPIView):
     serializer_class = serializers.StockSerializer
+    permission_classes = [permissions.AllowAny, ]
 
     def get_queryset(self):
         username = self.kwargs['pk']

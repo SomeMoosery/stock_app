@@ -9,14 +9,15 @@ import{
 } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
 import stockApp from './reducers';
 import {stocks} from './actions';
-
 import Profile from './components/Profile';
 import Stock from './components/Stock';
 
-let store = createStore(stockApp);
+let store = createStore(stockApp, applyMiddleware(thunk));
 
 class App extends React.Component {
   constructor(props){

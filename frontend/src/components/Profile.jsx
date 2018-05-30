@@ -10,8 +10,8 @@ import {stocks} from '../actions';
 
 const mapDispatchToProps = dispatch => {
   return{
-    addStock: (text) => {
-      dispatch(stocks.addStock(text));
+    addStock: (id, text) => {
+      dispatch(stocks.addStock(id, text));
     },
     updateStock: (id, count) => {
       dispatch(stocks.addStock(id, count));
@@ -44,8 +44,23 @@ class Profile extends React.Component{
   }
   submitStock = (e) => {
     e.preventDefault();
-    this.props.addStock(this.state.add_stock_text);
-    this.setState({text: ''});
+    const { match : { params } } = this.props;
+    console.log(params.userId);
+    axios.post(`http://127.0.0.1:8000/api/stocks/`,{
+      owner: this.state.user,
+      name: this.state.add_stock_text,
+      count: 4,
+    })
+    .then(function(res){
+      console.log(res);
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+    // console.log(this.state.user);
+    // this.props.addStock(this.state.add_stock_text);
+    // console.log(this.state.add_stock_text);
+    // this.setState({text: ''});
   }
   componentDidMount(){
     const { match : { params } } = this.props;
@@ -61,7 +76,7 @@ class Profile extends React.Component{
         age: profile.age,
         university: profile.university,
       });
-      console.log(this.state.add_stock_text);
+      console.log(this.state.stocks[1].id);
       // console.log(this.state.email);
     })
     .catch(function(err){
