@@ -41,12 +41,20 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'stock_app',
+    'knox',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':[
         'rest_framework.permissions.AllowAny',
-    ]
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAdminUser',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ],
 }
 
 MIDDLEWARE = [

@@ -1,12 +1,11 @@
-const initialState = [
-  {text: "Add a stock"}
-];
+const initialState = [];
 
 export default function notes(state=initialState, action){
   let stockList = state.slice();
 
   switch(action.type){
     case 'ADD_STOCK':
+      // console.log(stockList);
       return [...state, {text: action.text}];
 
     case 'UPDATE_STOCK':
@@ -18,6 +17,12 @@ export default function notes(state=initialState, action){
     case 'DELETE_STOCK':
       stockList.splice(action.id, 1);
       return stockList;
+
+    case 'FETCH_ALL_STOCKS':
+      return [...state, ...action.stocks];
+
+    case 'FETCH_USER_STOCKS':
+      return [...state, ...action.stocks, ...action.user];
 
     default:
       return state;

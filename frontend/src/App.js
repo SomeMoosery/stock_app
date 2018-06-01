@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
+// import axios from 'axios';
 import{
-  BroswerRouter as Router,
+  // BroswerRouter as Router,
   Route,
   Link
 } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import stockApp from './reducers';
-import {stocks} from './actions';
+// import {stocks} from './actions';
 import Profile from './components/Profile';
 import Stock from './components/Stock';
 

@@ -1,6 +1,8 @@
 from rest_framework import serializers
 # from stock_app.models import Profile, Stock
 from . import models
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username') #NOTE: may need to change to not be read_only at some point
@@ -38,3 +40,28 @@ class StockSerializer(serializers.ModelSerializer):
             'first_bought_date',
         )
         model = models.Stock
+
+class CreateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data['username'], None, validated_data['password'])
+        return user
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
+
+class LoginUserSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError('Unable to log in with provided credentials')
