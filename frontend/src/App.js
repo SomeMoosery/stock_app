@@ -20,6 +20,7 @@ import Main from './components/Main';
 import Profile from './components/Profile';
 import Stock from './components/Stock';
 import Login from './components/Login';
+import Register from './components/Register';
 
 let store = createStore(stockApp, applyMiddleware(thunk));
 
@@ -56,6 +57,7 @@ class RootContainerComponent extends Component {
             <Route exact path = '/login' component = {Login}/>
             <Route exact path = '/profiles/:userId' component = {Profile}/>
             <Route exact path = '/stocks/:stockId' component = {Stock}/>
+            <Route exact path = '/register' component = {Register}/>
           </Switch>
         </BrowserRouter>
       </Provider>
