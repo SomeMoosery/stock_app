@@ -41,7 +41,7 @@ class RootContainerComponent extends Component {
       } else if (!this.props.auth.isAuthenticated) {
         return <Redirect to="/login" />;
       } else {
-        console.log(this.props.auth.user.username);
+        // console.log(this.props.auth.user);
         return <ChildComponent {...props} />
       }
     }} />

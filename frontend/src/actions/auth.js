@@ -26,7 +26,6 @@ export const loadUser = () => {
       })
       .then(res => {
         if (res.status === 200) {
-          console.log(res.data);
           dispatch({type: 'USER_LOADED', user: res.data });
           return res.data;
         } else if (res.status >= 400 && res.status < 500) {
@@ -46,6 +45,7 @@ export const login = (username, password) => {
     return fetch("http://127.0.0.1:8000/api/auth/login/", {headers, body, method: "POST"})
       .then(res => {
         console.log(res);
+        console.log(this.props);
         if (res.status < 500) {
           return res.json().then(data => {
             return {status: res.status, data};

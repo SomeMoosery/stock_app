@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {stocks} from '../actions';
+import {stocks, auth} from '../actions';
 
 const mapDispatchToProps = dispatch => {
   return{
@@ -19,12 +19,15 @@ const mapDispatchToProps = dispatch => {
     },
     fetchUserStocks: (userId) => {
       dispatch(stocks.fetchUserStocks());
-    }
+    },
+    loadUser: () => {
+      return dispatch(auth.loadUser());
+    },
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state.stocks);
+  // console.log(state.stocks);
   return{
     stocks: state.stocks,
   }
@@ -51,6 +54,9 @@ class Profile extends React.Component{
   }
 
   componentDidMount(){
+    // console.log(this.props);
+    // this.props.loadUser();
+    console.log(this.props);
     //NOTE: BELOW IS REDUX
     this.props.fetchAllStocks();
 

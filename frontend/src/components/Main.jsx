@@ -19,7 +19,7 @@ class Main extends React.Component{
   }
 
   async componentDidMount(){
-    // this.props.fetchAllStocks();
+    this.props.fetchAllStocks();
     // console.log(this.props.auth);
     try{
       const res = await fetch('http://127.0.0.1:8000/api/profiles/');
@@ -36,21 +36,28 @@ class Main extends React.Component{
     return (
       <div>
         <h1>Test React Stock App</h1>
-        <div style={{textAlign: "right"}}>
-          {this.props.user.username} (<a onClick={this.props.logout}>logout</a>)
+        <div>
+          <p>Hello, {this.props.user.username}</p>
+          <button onClick={this.props.logout}>logout</button>
         </div>
+        <br/>
         {this.state.profiles.map(profile => (
           <div key = {profile.id}>
             <span><Link to={`/profiles/${profile.id}`}>id: {profile.id}</Link></span><span>    |     </span>
             <span>{profile.user}</span>
           </div>
         ))}
-        <br/>
+        {this.props.stocks.map((stock, id) => (
+          <div key = {stock.id}>
+            <p>{stock.name}</p>
+          </div>
+        ))}
       </div>
     );
   }
 }
 const mapStateToProps = state => {
+  console.log(state.auth.user);
   return {
     stocks: state.stocks,
     user: state.auth.user,
@@ -59,6 +66,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchAllStocks: () => {
+      dispatch(stocks.fetchAllStocks());
+    },
     logout: () => dispatch(auth.logout()),
   }
 }

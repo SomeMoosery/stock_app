@@ -1,16 +1,33 @@
 export const fetchAllStocks = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     let headers = {'Content-Type': 'application/json'};
+    let {token} = getState().auth;
+
+    if (token){
+      headers['Authorization'] = `Token ${token}`;
+    }
+
     return fetch('http://127.0.0.1:8000/api/stocks/', {headers, })
-    .then(res => res.json())
-    .then(stocks => {
-      return dispatch({
-        type: 'FETCH_ALL_STOCKS',
-        stocks
-      })
+    .then(res => {
+      if (res.status < 500){
+        return res.json().then(data => {
+          return {status: res.status, data};
+        })
+      }
+      else{
+        console.log("Server Error!");
+        throw res;
+      }
     })
-    .catch(function(err){
-      console.log("Error: " + err);
+    .then(res => {
+      if (res.status === 200){
+        // console.log(res);
+        return dispatch({type: 'FETCH_ALL_STOCKS', stocks: res.data});
+      }
+      else if (res.status === 401 || res.status === 403){
+        dispatch({type: 'AUTHENTICATION_ERROR', data: res.data});
+        throw res.data;
+      }
     })
   }
 }
