@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
 import axios from 'axios';
-import{
-  BroswerRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import{ Link } from 'react-router-dom';
 
 class Stock extends React.Component{
   constructor(props){

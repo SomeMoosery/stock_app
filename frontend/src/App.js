@@ -3,76 +3,77 @@ import logo from './logo.svg';
 import './App.css';
 // import axios from 'axios';
 import{
-  // BroswerRouter as Router,
+  BrowserRouter,
   Route,
-  Link
+  Link,
+  Switch,
+  Redirect,
 } from 'react-router-dom';
 // import { NavLink } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import stockApp from './reducers';
-// import {stocks} from './actions';
+import {auth} from './actions';
+import Main from './components/Main';
 import Profile from './components/Profile';
 import Stock from './components/Stock';
+import Login from './components/Login';
 
 let store = createStore(stockApp, applyMiddleware(thunk));
 
-class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state={};
+class RootContainerComponent extends Component {
+
+  componentDidMount(){
+    this.props.loadUser();
+  }
+  // constructor(props){
+  //   super(props);
+  //   this.state={};
+  // }
+
+  PrivateRoute = ({component: ChildComponent, ...rest}) => {
+    return <Route {...rest} render={props => {
+      if (this.props.auth.isLoading) {
+        return <em>Loading...</em>;
+      } else if (!this.props.auth.isAuthenticated) {
+        return <Redirect to="/login" />;
+      } else {
+        console.log(this.props.auth.user.username);
+        return <ChildComponent {...props} />
+      }
+    }} />
   }
 
   render() {
+    let {PrivateRoute} = this;
     return (
       <Provider store={store}>
-      <div style = {styles.general}>
-        <Link to={"/main"}>Home</Link>
-        <br/>
-        <Route path="/main" component={Main}/>
-        <Route path='/profiles/:userId' component={Profile}/>
-        <Route path='/stocks/:stockId' component={Stock}/>
-      </div>
+        <BrowserRouter>
+          <Switch>
+            <PrivateRoute exact path = '/' component = {Main}/>
+            <Route exact path = '/login' component = {Login}/>
+            <Route exact path = '/profiles/:userId' component = {Profile}/>
+            <Route exact path = '/stocks/:stockId' component = {Stock}/>
+          </Switch>
+        </BrowserRouter>
       </Provider>
     );
   }
 }
 
-class Main extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      profiles: [],
-    };
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
   }
+}
 
-  async componentDidMount(){
-    try{
-      const res = await fetch('http://127.0.0.1:8000/api/profiles/');
-      const profiles = await res.json();
-      this.setState({
-        profiles
-      });
-    } catch(e){
-      console.log(e);
+const mapDispatchToProps = dispatch => {
+  return {
+    loadUser: () => {
+      return dispatch(auth.loadUser());
     }
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Test React Stock App</h1>
-        {this.state.profiles.map(profile => (
-          <div key = {profile.id}>
-            <span><Link to={`/profiles/${profile.id}`}>id: {profile.id}</Link></span><span>    |     </span>
-            <span>{profile.user}</span>
-          </div>
-        ))}
-        <br/>
-      </div>
-    );
   }
 }
 
@@ -82,4 +83,13 @@ styles.general = {
   padding: "20px"
 }
 
-export default App;
+let RootContainer = connect(mapStateToProps, mapDispatchToProps)(RootContainerComponent);
+export default class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <RootContainer />
+      </Provider>
+    )
+  }
+}

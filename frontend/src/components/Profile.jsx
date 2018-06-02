@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import{
-  // BroswerRouter as Router,
-  // Route,
-  Link
-} from 'react-router-dom';
 import {stocks} from '../actions';
 
 const mapDispatchToProps = dispatch => {
@@ -29,6 +24,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
+  console.log(state.stocks);
   return{
     stocks: state.stocks,
   }
@@ -111,7 +107,7 @@ class Profile extends React.Component{
           <input type="submit" value="Save Stock"/>
         </form>
         {this.props.stocks.map((stock, id) => (
-          <div key = {`stock_${stock.id}`}>
+          <div key = {stock.id}>
             {stock.name}
           </div>
         ))}
