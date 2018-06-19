@@ -11,16 +11,13 @@ import {connect} from 'react-redux';
 
 
 class Main extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      profiles: [],
-    };
-  }
+  state = {
+    profiles: [],
+  };
 
   async componentDidMount(){
+    console.log('here');
     this.props.fetchAllStocks();
-    // console.log(this.props.auth);
     try{
       const res = await fetch('http://127.0.0.1:8000/api/profiles/');
       const profiles = await res.json();
@@ -30,6 +27,13 @@ class Main extends React.Component{
     } catch(e){
       console.log(e);
     }
+  }
+
+  resetForm = () => {
+    this.setState({name: ""});
+  }
+  submitStock = (e) => {
+    this.props.addStock(this.state.name).then(this.resetForm);
   }
 
   render() {
@@ -47,6 +51,14 @@ class Main extends React.Component{
             <span>{profile.user}</span>
           </div>
         ))}
+
+
+        <h3>Add Stock for {this.props.user.username}</h3>
+        <form onSubmit={this.submitNote}>
+          <input value={this.state.name} placeholder="Enter note here..." onChange={(e) => this.setState({name: e.target.value})} required />
+          <button onClick={this.resetForm}>Reset</button>
+          <input type="submit" value="Save Note" />
+        </form>
         {this.props.stocks.map((stock, id) => (
           <div key = {stock.id}>
             <p>{stock.name}</p>
@@ -56,8 +68,11 @@ class Main extends React.Component{
     );
   }
 }
+let count = 1;
 const mapStateToProps = state => {
-  console.log(state.auth.user);
+  console.log("pass" + count);
+  count = count + 1;
+  console.log(state);
   return {
     stocks: state.stocks,
     user: state.auth.user,
@@ -66,6 +81,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    addStock: (name) => {
+      return dispatch(stocks.addStock(name));
+    },
     fetchAllStocks: () => {
       dispatch(stocks.fetchAllStocks());
     },

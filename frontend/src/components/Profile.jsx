@@ -43,7 +43,6 @@ class Profile extends React.Component{
       location: '',
       age: null,
       university: '',
-      // stocks: [],
       add_stock_text: '',
     }
   }
@@ -54,15 +53,10 @@ class Profile extends React.Component{
   }
 
   componentDidMount(){
-    // console.log(this.props);
-    // this.props.loadUser();
-    console.log(this.props);
-    //NOTE: BELOW IS REDUX
     this.props.fetchAllStocks();
 
     //NOTE: BELOW IS AXIOS
     const { match : { params } } = this.props;
-    // const emptyStocks = false;
     axios.get(`http://127.0.0.1:8000/api/profiles/${params.userId}`)
     .then(({ data: profile }) => {
       this.setState({

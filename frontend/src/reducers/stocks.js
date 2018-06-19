@@ -5,8 +5,7 @@ export default function notes(state=initialState, action){
 
   switch(action.type){
     case 'ADD_STOCK':
-      // console.log(stockList);
-      return [...state, {text: action.text}];
+      return [...state, {name: action.name}];
 
     case 'UPDATE_STOCK':
       let stockToUpdate = stockList[action.id];
