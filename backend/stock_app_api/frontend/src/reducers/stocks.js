@@ -1,6 +1,4 @@
-const intialState = [
-  {text: "MSFT"}
-];
+const intialState = [];
 
 //Action is 'stock' from the map function in Home.jsx
 export default function stocks(state=intialState, action){
@@ -19,6 +17,9 @@ export default function stocks(state=intialState, action){
     case 'DELETE_STOCK':
       stockList.splice(action.id, 1);
       return stockList;
+
+    case 'FETCH_STOCKS':
+      return [...state, ...action.stocks];
 
     default:
       return state;

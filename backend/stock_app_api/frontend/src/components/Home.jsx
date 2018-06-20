@@ -28,6 +28,11 @@ class Home extends React.Component{
     }
     this.resetForm();
   }
+
+  componentDidMount(){
+    this.props.fetchStocks();
+  }
+
   render(){
     return(
       <div>
@@ -38,7 +43,8 @@ class Home extends React.Component{
           <tbody>
           {this.props.stocks.map((stock, id) => (
             <tr key={`stock_${id}`}>
-              <td>{stock.text}</td>
+              <td>{id}</td>
+              <td>{stock.name}</td>
               <td><button onClick={() => this.selectForEdit(id)}>edit</button></td>
               <td><button onClick={() => this.props.deleteStock(id)}>delete</button></td>
             </tr>
@@ -57,6 +63,7 @@ class Home extends React.Component{
 }
 
 const mapStateToProps = state => {
+  //Just returns an object (containing stocks: state.stocks where state.stocks is Redux state)
   return {
     stocks: state.stocks,
   }
@@ -72,6 +79,9 @@ const mapDispatchToProps = dispatch => {
     },
     deleteStock: (id) => {
       dispatch(stocks.deleteStock(id));
+    },
+    fetchStocks: () => {
+      dispatch(stocks.fetchStocks());
     },
   }
 }
