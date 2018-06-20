@@ -1,15 +1,16 @@
-const initialState = [];
+const intialState = [];
 
-export default function notes(state=initialState, action){
+//Action is 'stock' from the map function in Home.jsx
+export default function stocks(state=intialState, action){
   let stockList = state.slice();
-
   switch(action.type){
+
     case 'ADD_STOCK':
-      return [...state, {name: action.name}];
+      return [...state, {text: action.text}];
 
     case 'UPDATE_STOCK':
       let stockToUpdate = stockList[action.id];
-      stockToUpdate.count = action.count;
+      stockToUpdate.text = action.text;
       stockList.splice(action.id, 1, stockToUpdate);
       return stockList;
 
@@ -17,11 +18,8 @@ export default function notes(state=initialState, action){
       stockList.splice(action.id, 1);
       return stockList;
 
-    case 'FETCH_ALL_STOCKS':
+    case 'FETCH_STOCKS':
       return [...state, ...action.stocks];
-
-    case 'FETCH_USER_STOCKS':
-      return [...state, ...action.stocks, ...action.user];
 
     default:
       return state;

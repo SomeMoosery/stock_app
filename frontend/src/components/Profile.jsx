@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import{
-  BroswerRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
-import {stocks} from '../actions';
+import {stocks, auth} from '../actions';
 
 const mapDispatchToProps = dispatch => {
   return{
@@ -18,11 +13,21 @@ const mapDispatchToProps = dispatch => {
     },
     deleteStock: (id) => {
       dispatch(stocks.deleteStock(id));
-    }
+    },
+    fetchAllStocks: () => {
+      dispatch(stocks.fetchAllStocks());
+    },
+    fetchUserStocks: (userId) => {
+      dispatch(stocks.fetchUserStocks());
+    },
+    loadUser: () => {
+      return dispatch(auth.loadUser());
+    },
   }
 }
 
 const mapStateToProps = state => {
+  // console.log(state.stocks);
   return{
     stocks: state.stocks,
   }
@@ -38,36 +43,22 @@ class Profile extends React.Component{
       location: '',
       age: null,
       university: '',
-      stocks: [],
       add_stock_text: '',
     }
   }
+
   submitStock = (e) => {
     e.preventDefault();
-    const { match : { params } } = this.props;
-    console.log(params.userId);
-    axios.post(`http://127.0.0.1:8000/api/stocks/`,{
-      owner: this.state.user,
-      name: this.state.add_stock_text,
-      count: 4,
-    })
-    .then(function(res){
-      console.log(res);
-    })
-    .catch(function(err){
-      console.log(err);
-    });
-    // console.log(this.state.user);
-    // this.props.addStock(this.state.add_stock_text);
-    // console.log(this.state.add_stock_text);
-    // this.setState({text: ''});
+    this.props.fetchUserStocks(this.state.add_stock_text);
   }
+
   componentDidMount(){
+    this.props.fetchAllStocks();
+
+    //NOTE: BELOW IS AXIOS
     const { match : { params } } = this.props;
-    const emptyStocks = false;
     axios.get(`http://127.0.0.1:8000/api/profiles/${params.userId}`)
     .then(({ data: profile }) => {
-      // console.log(profile);
       this.setState({
         user: profile.user,
         email: profile.email,
@@ -76,20 +67,18 @@ class Profile extends React.Component{
         age: profile.age,
         university: profile.university,
       });
-      console.log(this.state.stocks[1].id);
-      // console.log(this.state.email);
     })
     .catch(function(err){
       console.log("Error! " + err);
     });
     axios.get(`http://127.0.0.1:8000/api/profiles/${params.userId}/stocks/`)
     .then((response) => {
-      this.setState({stocks: response.data});
+      // this.setState({stocks: response.data});
       //TODO: Figure out where to implement this capitalization so that all stocks are capitalized. Probably in form to submit new stock.
-      this.state.stocks.forEach(function(res){
-        res = res.name.toUpperCase();
-        console.log(res);
-      });
+      // this.state.stocks.forEach(function(res){
+      //   res = res.name.toUpperCase();
+      //   // console.log(res);
+      // });
     })
     .catch(function(err){
       console.log("Error!: " + err);
@@ -107,14 +96,7 @@ class Profile extends React.Component{
         <h5>University: {this.state.university}</h5>
         <br/>
         <h3> Owned Stocks for {this.state.user}</h3>
-        {this.state.stocks.map(stock => (
-          <div key = {stock.id}>
-            {this.state.userId}
-            <span><Link to={`/stocks/${stock.id}`}>{stock.name}:</Link> {stock.count} shares.</span>
-            <button onClick={()=>this.selectForEdit(this.state.id)}>Edit</button>
-            <button onClick={()=>this.props.deleteStock(this.state.id)}>Delete</button>
-          </div>
-        ))}
+
         <h3> Add new Stock </h3>
         <form onSubmit={this.submitStock}>
           <input
@@ -124,6 +106,11 @@ class Profile extends React.Component{
             required/>
           <input type="submit" value="Save Stock"/>
         </form>
+        {this.props.stocks.map((stock, id) => (
+          <div key = {stock.id}>
+            {stock.name}
+          </div>
+        ))}
       </div>
     );
   }

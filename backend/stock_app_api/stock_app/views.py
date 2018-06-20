@@ -21,8 +21,12 @@ class DetailStock(generics.RetrieveUpdateDestroyAPIView):
 
 class ListProfileStock(generics.ListCreateAPIView):
     serializer_class = serializers.StockSerializer
-    permission_classes = [permissions.AllowAny, ]
+    permission_classes = [permissions.IsAuthenticated, ]
 
     def get_queryset(self):
         username = self.kwargs['pk']
         return models.Stock.objects.filter(owner=username)
+
+    #NOTE this is new stuff
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
