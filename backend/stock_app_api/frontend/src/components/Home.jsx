@@ -23,7 +23,8 @@ class Home extends React.Component{
     if (this.state.updateStockId === null) {
       this.props.addStock(this.state.text);
     } else {
-      this.props.updateStock(this.state.updateStockId, this.state.text);
+      this.props.deleteStock(this.state.updateStockId);
+      this.props.updateStock(this.state.text, this.state.updateStockId);
     }
     this.resetForm();
   }
