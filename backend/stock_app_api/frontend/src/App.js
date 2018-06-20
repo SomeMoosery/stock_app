@@ -2,16 +2,25 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import './App.css';
+
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import stockApp from './reducers';
+
 import Home from './components/Home';
+
+let store = createStore(stockApp);
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home} />
-        </Switch>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
