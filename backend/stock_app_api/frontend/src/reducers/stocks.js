@@ -6,16 +6,16 @@ export default function stocks(state=intialState, action){
   switch(action.type){
 
     case 'ADD_STOCK':
-      return [...state, {text: action.text}];
+      return [...state, {name: action.stock}];
 
     case 'UPDATE_STOCK':
-      let stockToUpdate = stockList[action.id];
-      stockToUpdate.text = action.text;
-      stockList.splice(action.id, 1, stockToUpdate);
+      let stockToUpdate = stockList[action.index];
+      stockToUpdate.name = action.stock.name;
+      stockList.splice(action.index, 1, stockToUpdate);
       return stockList;
 
     case 'DELETE_STOCK':
-      stockList.splice(action.id, 1);
+      stockList.splice(action.index, 1);
       return stockList;
 
     case 'FETCH_STOCKS':
