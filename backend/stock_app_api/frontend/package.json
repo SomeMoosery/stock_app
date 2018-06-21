@@ -97,5 +97,6 @@
   },
   "devDependencies": {
     "webpack-bundle-tracker": "^0.3.0"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }
