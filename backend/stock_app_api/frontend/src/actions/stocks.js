@@ -1,4 +1,4 @@
-export const addStock = text => {
+export const addStock = name => {
   return (dispatch, getState) => {
     let headers = {"Content-Type": "application/json"};
     let {token} = getState().auth;
@@ -7,8 +7,8 @@ export const addStock = text => {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    let body = JSON.stringify({text, });
-    return fetch("https://localhost:8000/api/stocks/", {headers, method: "POST", body})
+    let body = JSON.stringify({name, });
+    return fetch("http://localhost:8000/api/stocks/", {headers, method: "POST", body})
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -31,7 +31,7 @@ export const addStock = text => {
 }
 
 
-export const updateStock = (index, text) => {
+export const updateStock = (name, index) => {
   return (dispatch, getState) => {
 
     let headers = {"Content-Type": "application/json"};
@@ -41,10 +41,12 @@ export const updateStock = (index, text) => {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    let body = JSON.stringify({text, });
+    let body = JSON.stringify({name, });
+    console.log(getState().stocks);
+    console.log(index);
     let stockId = getState().stocks[index].id;
 
-    return fetch(`https://localhost:8000/api/stocks/${stockId}/`, {headers, method: "PUT", body})
+    return fetch(`http://localhost:8000/api/stocks/${stockId}/`, {headers, method: "PUT", body})
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -78,7 +80,7 @@ export const deleteStock = index => {
 
     let stockId = getState().stocks[index].id;
 
-    return fetch(`https://localhost:8000/api/stocks/${stockId}/`, {headers, method: "DELETE"})
+    return fetch(`http://localhost:8000/api/stocks/${stockId}/`, {headers, method: "DELETE"})
       .then(res => {
         if (res.status === 204) {
           return {status: res.status, data: {}};
