@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 
 import {stocks, auth} from '../actions';
 
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+
 class Home extends React.Component{
   state = {
     name: "",
@@ -23,10 +26,12 @@ class Home extends React.Component{
     if (this.state.updateStockId === null) {
       console.log(this.state.name);
       this.props.addStock(this.state.name);
+      window.location.reload();
     } else {
       this.props.updateStock(this.state.name, this.state.updateStockId);
     }
     this.resetForm();
+    // window.location.reload();
   }
 
   componentDidMount(){
@@ -52,8 +57,8 @@ class Home extends React.Component{
             <tr key={`stock_${id}`}>
               <td>{id}</td>
               <td>{stock.name}</td>
-              <td><button onClick={() => this.selectForEdit(id)}>edit</button></td>
-              <td><button onClick={() => this.props.deleteStock(id)}>delete</button></td>
+              <td><Button onClick={()=>this.selectForEdit(id)} color='default' variant='outlined'>Edit</Button></td>
+              <td><Button onClick={()=>this.props.deleteStock(id)} color='secondary' variant='outlined'>Delete</Button></td>
             </tr>
           ))}
           </tbody>
@@ -61,8 +66,8 @@ class Home extends React.Component{
         <h3>Add new stock</h3>
         <form onSubmit={this.submitStock}>
           <input value={this.state.name} placeholder="Enter stock here" onChange={(e) => this.setState({name: e.target.value})} required />
-          <input type="submit" value="Save Stock" />
-          <button onClick={this.resetForm}>Reset</button>
+          <Button type="submit" color="primary" variant='outlined'>Save Stock</Button>
+          <Button onClick={this.resetForm} color="secondary" variant='outlined'>Reset</Button>
         </form>
       </div>
     )

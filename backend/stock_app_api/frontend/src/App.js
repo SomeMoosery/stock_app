@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import {Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import './App.css';
+// import 'typeface-roboto';
 
 import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
