@@ -25,7 +25,7 @@ SECRET_KEY = '32%d%4r3u7_g#p%x(_7qqoywefe+=d)nyrx8hzsp8^bc2qrr27'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_PROFILE_MODULE="stock_app.Profile"
 

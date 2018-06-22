@@ -26,7 +26,7 @@ class Profile(models.Model):
 
 class Stock(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(Profile, related_name="stocks", on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(User, related_name="stocks", on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100)
     count = models.IntegerField(default=1)
     first_bought_date = models.DateTimeField(default=timezone.now)
@@ -35,7 +35,7 @@ class Stock(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return str(self.owner.user) + "_" + self.name
+        return str(self.owner.username) + "_" + self.name
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
