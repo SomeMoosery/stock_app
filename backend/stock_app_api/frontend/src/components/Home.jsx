@@ -30,7 +30,10 @@ class Home extends React.Component{
   }
 
   componentDidMount(){
-    this.props.fetchAllStocks();
+    // this.props.fetchAllStocks();
+    this.props.fetchUserStocks(this.props.user.id);
+    // window.location.reload();
+    // console.log(this.props.user.id);
   }
 
   render(){
@@ -87,6 +90,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchAllStocks: () => {
       dispatch(stocks.fetchAllStocks());
+    },
+    fetchUserStocks: (id) => {
+      dispatch(stocks.fetchUserStocks());
     },
     logout: () => {
       dispatch(auth.logout());

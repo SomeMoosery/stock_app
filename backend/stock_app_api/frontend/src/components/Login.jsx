@@ -19,6 +19,7 @@ class Login extends Component {
 
   render() {
     if (this.props.isAuthenticated) {
+      window.location.reload();
       return <Redirect to="/" />
     }
     return (
