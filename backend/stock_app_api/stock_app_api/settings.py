@@ -53,12 +53,16 @@ WEBPACK_LOADER = {
 }
 
 REST_FRAMEWORK = {
-   'DEFAULT_AUTHENTICATION_CLASSES': (
+    # 'DEFAULT_PERMISSION_CLASSES':[
+    #     'rest_framework.permissions.AllowAny',
+    #     'rest_framework.permissions.IsAuthenticated',
+    #     'rest_framework.permissions.IsAdminUser',
+    # ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication'
         'knox.auth.TokenAuthentication',
-    ),
-   'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAdminUser'
-   ),
+    ],
 }
 
 MIDDLEWARE = [
@@ -76,8 +80,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL=True
 
 CORS_ORIGIN_WHITELIST = [
-    'localhost:3000/',
-    'localhost:8000/',
+    'localhost:3000/'
 ]
 
 ROOT_URLCONF = 'stock_app_api.urls'

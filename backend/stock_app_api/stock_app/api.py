@@ -1,12 +1,9 @@
 from rest_framework import viewsets, permissions, generics
 from rest_framework.response import Response
-from . import models
-from . import serializers
-
 
 from knox.models import AuthToken
 
-from .serializers import CreateUserSerializer, UserSerializer, LoginUserSerializer, ProfileSerializer, StockSerializer
+from .serializers import CreateUserSerializer, UserSerializer, LoginUserSerializer
 
 class RegistrationAPI(generics.GenericAPIView):
     serializer_class = CreateUserSerializer
@@ -33,46 +30,8 @@ class LoginAPI(generics.GenericAPIView):
         })
 
 class UserAPI(generics.RetrieveAPIView):
-    permission_classes = [permissions.AllowAny, ]
+    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = UserSerializer
 
     def get_object(self):
         return self.request.user
-
-class StockViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.AllowAny, ]
-    serializer_class = StockSerializer
-
-    def get_queryset(self):
-        return models.Stock.objects.all()
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-class ListProfile(generics.ListCreateAPIView):
-    queryset = models.Profile.objects.all()
-    serializer_class = serializers.ProfileSerializer
-
-class DetailProfile(generics.RetrieveUpdateDestroyAPIView):
-    queryset = models.Profile.objects.all()
-    serializer_class = serializers.ProfileSerializer
-
-class ListStock(generics.ListCreateAPIView):
-    queryset = models.Stock.objects.all()
-    serializer_class = serializers.StockSerializer
-
-class DetailStock(generics.RetrieveUpdateDestroyAPIView):
-    queryset = models.Stock.objects.all()
-    serializer_class = serializers.StockSerializer
-
-class ListProfileStock(generics.ListCreateAPIView):
-    serializer_class = serializers.StockSerializer
-    permission_classes = [permissions.IsAuthenticated, ]
-
-    def get_queryset(self):
-        username = self.kwargs['pk']
-        return models.Stock.objects.filter(owner=username)
-
-    #NOTE this is new stuff
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
