@@ -24,11 +24,9 @@ class Home extends React.Component{
       console.log(this.state.name);
       this.props.addStock(this.state.name);
     } else {
-      this.props.deleteStock(this.state.updateStockId);
       this.props.updateStock(this.state.name, this.state.updateStockId);
     }
     this.resetForm();
-    window.location.reload();
   }
 
   componentDidMount(){
