@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import {stocks} from '../actions';
+import {stocks, auth} from '../actions';
 
 class Home extends React.Component{
   state = {
@@ -30,13 +30,17 @@ class Home extends React.Component{
   }
 
   componentDidMount(){
-    this.props.fetchStocks();
+    this.props.fetchAllStocks();
   }
 
   render(){
     return(
       <div>
         <h2>Welcome to Stock App!</h2><br/>
+
+        <div style={{textAlign: "right"}}>
+          {this.props.user.username} (<a onClick={this.props.logout}>logout</a>)
+        </div>
 
         <h3>Stocks</h3>
         <table>
@@ -66,6 +70,7 @@ const mapStateToProps = state => {
   //Just returns an object (containing stocks: state.stocks where state.stocks is Redux state)
   return {
     stocks: state.stocks,
+    user: state.auth.user,
   }
 }
 
@@ -80,8 +85,11 @@ const mapDispatchToProps = dispatch => {
     deleteStock: (id) => {
       dispatch(stocks.deleteStock(id));
     },
-    fetchStocks: () => {
-      dispatch(stocks.fetchStocks());
+    fetchAllStocks: () => {
+      dispatch(stocks.fetchAllStocks());
+    },
+    logout: () => {
+      dispatch(auth.logout());
     },
   }
 }

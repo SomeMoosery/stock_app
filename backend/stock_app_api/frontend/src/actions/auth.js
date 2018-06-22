@@ -1,50 +1,17 @@
-export const addStock = text => {
+export const loadUser = () => {
   return (dispatch, getState) => {
-    let headers = {"Content-Type": "application/json"};
-    let {token} = getState().auth;
+    dispatch({type: "USER_LOADING"});
+
+    const token = getState().auth.token;
+
+    let headers = {
+      "Content-Type": "application/json",
+    };
 
     if (token) {
       headers["Authorization"] = `Token ${token}`;
     }
-
-    let body = JSON.stringify({text, });
-    return fetch("https://localhost:8000/api/stockss/", {headers, method: "POST", body})
-      .then(res => {
-        if (res.status < 500) {
-          return res.json().then(data => {
-            return {status: res.status, data};
-          })
-        } else {
-          console.log("Server Error!");
-          throw res;
-        }
-      })
-      .then(res => {
-        if (res.status === 201) {
-          return dispatch({type: 'ADD_STOCK', stocks: res.data});
-        } else if (res.status === 401 || res.status === 403) {
-          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
-          throw res.data;
-        }
-      })
-  }
-}
-
-
-export const updateStock = (index, text) => {
-  return (dispatch, getState) => {
-
-    let headers = {"Content-Type": "application/json"};
-    let {token} = getState().auth;
-
-    if (token) {
-      headers["Authorization"] = `Token ${token}`;
-    }
-
-    let body = JSON.stringify({text, });
-    let stockId = getState().stocks[index].id;
-
-    return fetch(`https://localhost:8000/api/stocks/${stockId}/`, {headers, method: "PUT", body})
+    return fetch("http://localhost:8000/api/auth/user/", {headers, })
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -57,8 +24,9 @@ export const updateStock = (index, text) => {
       })
       .then(res => {
         if (res.status === 200) {
-          return dispatch({type: 'UPDATE_STOCK', stock: res.data, index});
-        } else if (res.status === 401 || res.status === 403) {
+          dispatch({type: 'USER_LOADED', user: res.data });
+          return res.data;
+        } else if (res.status >= 400 && res.status < 500) {
           dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
           throw res.data;
         }
@@ -66,19 +34,73 @@ export const updateStock = (index, text) => {
   }
 }
 
-export const deleteStock = index => {
+export const login = (username, password) => {
   return (dispatch, getState) => {
-
     let headers = {"Content-Type": "application/json"};
-    let {token} = getState().auth;
+    let body = JSON.stringify({username, password});
 
-    if (token) {
-      headers["Authorization"] = `Token ${token}`;
-    }
+    return fetch("http://localhost:8000/api/auth/login/", {headers, body, method: "POST"})
+      .then(res => {
+        if (res.status < 500) {
+          return res.json().then(data => {
+            return {status: res.status, data};
+          })
+        } else {
+          console.log("Server Error!");
+          throw res;
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          dispatch({type: 'LOGIN_SUCCESSFUL', data: res.data });
+          return res.data;
+        } else if (res.status === 403 || res.status === 401) {
+          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
+          throw res.data;
+        } else {
+          dispatch({type: "LOGIN_FAILED", data: res.data});
+          throw res.data;
+        }
+      })
+  }
+}
 
-    let stockId = getState().stocks[index].id;
+export const register = (username, password) => {
+  return (dispatch, getState) => {
+    let headers = {"Content-Type": "application/json"};
+    let body = JSON.stringify({username, password});
 
-    return fetch(`https://localhost:8000/api/stocks/${stockId}/`, {headers, method: "DELETE"})
+    return fetch("http://localhost:8000/api/auth/register/", {headers, body, method: "POST"})
+      .then(res => {
+        if (res.status < 500) {
+          return res.json().then(data => {
+            return {status: res.status, data};
+          })
+        } else {
+          console.log("Server Error!");
+          throw res;
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          dispatch({type: 'REGISTRATION_SUCCESSFUL', data: res.data });
+          return res.data;
+        } else if (res.status === 403 || res.status === 401) {
+          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
+          throw res.data;
+        } else {
+          dispatch({type: "REGISTRATION_FAILED", data: res.data});
+          throw res.data;
+        }
+      })
+  }
+}
+
+export const logout = () => {
+  return (dispatch, getState) => {
+    let headers = {"Content-Type": "application/json"};
+
+    return fetch("http://localhost:8000/api/auth/logout/", {headers, body: "", method: "POST"})
       .then(res => {
         if (res.status === 204) {
           return {status: res.status, data: {}};
@@ -93,39 +115,9 @@ export const deleteStock = index => {
       })
       .then(res => {
         if (res.status === 204) {
-          return dispatch({type: 'DELETE_STOCK', index});
-        } else if (res.status === 401 || res.status === 403) {
-          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
-          throw res.data;
-        }
-      })
-  }
-}
-
-export const fetchAllStocks = () => {
-  return (dispatch, getState) => {
-    let headers = {"Content-Type": "application/json"};
-    let {token} = getState().auth;
-
-    if (token) {
-      headers["Authorization"] = `Token ${token}`;
-    }
-
-    return fetch("http://localhost:8000/api/stocks/", {headers, })
-      .then(res => {
-        if (res.status < 500) {
-          return res.json().then(data => {
-            return {status: res.status, data};
-          })
-        } else {
-          console.log("Server Error!");
-          throw res;
-        }
-      })
-      .then(res => {
-        if (res.status === 200) {
-          return dispatch({type: 'FETCH_STOCKS', stocks: res.data});
-        } else if (res.status === 401 || res.status === 403) {
+          dispatch({type: 'LOGOUT_SUCCESSFUL'});
+          return res.data;
+        } else if (res.status === 403 || res.status === 401) {
           dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
           throw res.data;
         }
