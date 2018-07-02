@@ -13,6 +13,8 @@ from django.db.models.signals import post_save
 class Profile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(User, on_delete = models.CASCADE)
+    birthday = models.DateTimeField(auto_now_add=True)
+    # bank_account = models.OneToManyField(BankAccount, on_delete = models.CASCADE);
     bio = models.CharField(max_length = 500, blank=True)
     location = models.CharField(max_length=100, blank=True)
     age = models.IntegerField(blank=True, null=True)
@@ -23,6 +25,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+class BankAccount(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, related_name="bank_accounts", on_delete=models.CASCADE, null=True)
 
 class Stock(models.Model):
     created = models.DateTimeField(auto_now_add=True)

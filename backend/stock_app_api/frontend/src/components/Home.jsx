@@ -1,15 +1,51 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import {stocks, auth} from '../actions';
+import { stocks, auth, plaid} from '../actions';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+
+import PlaidLink from 'react-plaid-link';
 
 class Home extends React.Component{
   state = {
     name: "",
     updateStockId: null,
+  }
+
+  // handleOnSucces(token, metadata){
+  //   console.log('Success!');
+  //   // this.props.makeRequest({
+  //   //   parameters: {
+  //   //     token: token,
+  //   //     metadata: metadata,
+  //   //   },
+  //   //   url: '', //this'll be the client website
+  //   //   method: 'POST',
+  //   //   onError: function(){console.log('Error');},
+  //   //   onLoad: function(statusCode, responseBody){console.log('Loaded');},
+  //   // });
+  //   console.log(token);
+  //   console.log(metadata);
+  //   console.log("Bank Name: " + metadata.institution.name);
+  //   console.log("Public Token: " + metadata.public_token);
+  //   console.log(this.props);
+  //   this.props.exchangeToken(metadata.public_token);
+  // }
+
+  handleOnSuccess = (token, metadata) => {
+    console.log('Success!');
+    console.log(token);
+    console.log(metadata);
+    console.log("Bank Name: " + metadata.institution.name);
+    console.log("Public Token: " + metadata.public_token);
+    console.log(this.props);
+    this.props.exchangeToken(metadata.public_token);
+  }
+
+  handleOnExit(){
+    console.log('Exit!');
   }
 
   resetForm = () => {
@@ -45,6 +81,17 @@ class Home extends React.Component{
     return(
       <div>
         <h2>Welcome to Stock App!</h2><br/>
+
+        <PlaidLink
+          clientName = 'LoanApp'
+          env = 'sandbox'
+          product = {['auth', 'transactions']}
+          publicKey = '707d6df9798a9bf35257173c18e86b'
+          onExit = {this.handleOnExit}
+          onSuccess = {this.handleOnSuccess}>
+          Open Plaid Link and connect to the bank
+        </PlaidLink>
+
 
         <div style={{textAlign: "right"}}>
           {this.props.user.username} (<a onClick={this.props.logout}>logout</a>)
@@ -101,6 +148,9 @@ const mapDispatchToProps = dispatch => {
     },
     logout: () => {
       dispatch(auth.logout());
+    },
+    exchangeToken: (public_token) => {
+      dispatch(plaid.exchangeToken(public_token));
     },
   }
 }
