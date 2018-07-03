@@ -41,6 +41,18 @@ class StockSerializer(serializers.ModelSerializer):
         )
         model = models.Stock
 
+class BankSerializer(serializers.ModelSerializer):
+    owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        fields = (
+            'id',
+            'owner',
+            'access_token',
+            'item_id',
+            'bank_name',
+        )
+        model = models.Bank
+
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

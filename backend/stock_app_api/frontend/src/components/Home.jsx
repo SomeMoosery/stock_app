@@ -14,34 +14,13 @@ class Home extends React.Component{
     updateStockId: null,
   }
 
-  // handleOnSucces(token, metadata){
-  //   console.log('Success!');
-  //   // this.props.makeRequest({
-  //   //   parameters: {
-  //   //     token: token,
-  //   //     metadata: metadata,
-  //   //   },
-  //   //   url: '', //this'll be the client website
-  //   //   method: 'POST',
-  //   //   onError: function(){console.log('Error');},
-  //   //   onLoad: function(statusCode, responseBody){console.log('Loaded');},
-  //   // });
-  //   console.log(token);
-  //   console.log(metadata);
-  //   console.log("Bank Name: " + metadata.institution.name);
-  //   console.log("Public Token: " + metadata.public_token);
-  //   console.log(this.props);
-  //   this.props.exchangeToken(metadata.public_token);
-  // }
-
   handleOnSuccess = (token, metadata) => {
     console.log('Success!');
-    console.log(token);
-    console.log(metadata);
     console.log("Bank Name: " + metadata.institution.name);
     console.log("Public Token: " + metadata.public_token);
     console.log(this.props);
     this.props.exchangeToken(metadata.public_token);
+    this.props.addBank(metadata.public_token, metadata.institution.name);
   }
 
   handleOnExit(){
@@ -89,7 +68,7 @@ class Home extends React.Component{
           publicKey = '707d6df9798a9bf35257173c18e86b'
           onExit = {this.handleOnExit}
           onSuccess = {this.handleOnSuccess}>
-          Open Plaid Link and connect to the bank
+          Link a Bank Account
         </PlaidLink>
 
 
@@ -151,6 +130,9 @@ const mapDispatchToProps = dispatch => {
     },
     exchangeToken: (public_token) => {
       dispatch(plaid.exchangeToken(public_token));
+    },
+    addBank: (public_token, bank_name) => {
+      dispatch(plaid.addBank(public_token, bank_name));
     },
   }
 }

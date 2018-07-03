@@ -1,11 +1,21 @@
 const initialState = [];
 
-export default function plaid(state=intialState, action){
+export default function plaid(state=initialState, action){
   switch(action.type){
 
     case 'EXCHANGE_PUBLIC_TOKEN':
-      console.log(action);
       return [...state, action.publicToken];
+
+    case 'ADD_BANK':
+      console.log(action);
+      return [
+        ...state, 
+        {
+          access_token: action.access_token, 
+          item_id: action.item_id,
+           bank_name: action.bank_name
+        }
+      ];
 
     default:
       return state;

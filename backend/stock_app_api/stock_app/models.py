@@ -13,7 +13,7 @@ from django.db.models.signals import post_save
 class Profile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(User, on_delete = models.CASCADE)
-    birthday = models.DateTimeField(auto_now_add=True)
+    birthday = models.DateTimeField(default = timezone.now)
     # bank_account = models.OneToManyField(BankAccount, on_delete = models.CASCADE);
     bio = models.CharField(max_length = 500, blank=True)
     location = models.CharField(max_length=100, blank=True)
@@ -26,9 +26,18 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
-class BankAccount(models.Model):
+class Bank(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, related_name="bank_accounts", on_delete=models.CASCADE, null=True)
+    access_token = models.CharField(max_length=100, default="")
+    item_id = models.CharField(max_length=100, default="")
+    bank_name = models.CharField(max_length=50, default="")
+
+    class Meta:
+        ordering = ('created', )
+
+    def __str__(self):
+        return str(self.owner.username) + "_" + self.bank_name
 
 class Stock(models.Model):
     created = models.DateTimeField(auto_now_add=True)

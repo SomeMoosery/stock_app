@@ -23,4 +23,5 @@ urlpatterns=[
     # path('auth/', drf_views.obtain_auth_token, name='auth'),
     #TODO Add other API functionality
     url(r'^exchange-public-token/$', ExchangePublicToken.as_view()), #Call plaid service to exchange public token for access token to make Item
+    url(r'^banks/$', views.ListBanks.as_view()),
 ]

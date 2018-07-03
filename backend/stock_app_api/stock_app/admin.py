@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Profile, Stock
+from .models import User, Profile, Stock, Bank
 
 admin.site.unregister(User)
 
@@ -13,3 +13,4 @@ class ExtendedUserAdmin(UserAdmin):
 admin.site.register(User, ExtendedUserAdmin)
 admin.site.register(Profile)
 admin.site.register(Stock)
+admin.site.register(Bank)

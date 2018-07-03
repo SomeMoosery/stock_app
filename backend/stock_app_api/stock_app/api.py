@@ -32,15 +32,7 @@ class ExchangePublicToken(APIView):
         print("RESULT: " + str(result))
         return Response({
             "return_data": result
-        });
-
-#
-# class UserStockViewSet(viewsets.ModelViewSet):
-#     serializer_class = StockSerializer
-#     permission_classes = [permissions.IsAuthenticated, ]
-#
-#     def get_queryset(self):
-#         return models.Stock.objects.get(id=self.request.user.id)
+        })
 
 class RegistrationAPI(generics.GenericAPIView):
     serializer_class = CreateUserSerializer
