@@ -31,7 +31,8 @@ export const addBank = (publicToken, bank_name) => {
         let item_id = data.return_data['item_id'];
         let newBody = JSON.stringify({access_token, item_id, bank_name, });
         console.log(newBody);
-        return fetch('http://localhost:8000/api/banks/', {headers, method: 'POST', newBody})
+        console.log(newBody.access_token);
+        return fetch("http://localhost:8000/api/banks/", {headers, method: "POST", body: newBody})
         .then(res => {
           console.log(res);
           if (res.status < 500) {

@@ -29,9 +29,9 @@ class Profile(models.Model):
 class Bank(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, related_name="bank_accounts", on_delete=models.CASCADE, null=True)
-    access_token = models.CharField(max_length=100, default="")
-    item_id = models.CharField(max_length=100, default="")
-    bank_name = models.CharField(max_length=50, default="")
+    access_token = models.CharField(max_length=100)
+    item_id = models.CharField(max_length=100)
+    bank_name = models.CharField(max_length=50)
 
     class Meta:
         ordering = ('created', )
