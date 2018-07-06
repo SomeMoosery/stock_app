@@ -1,17 +1,3 @@
-export const exchangeToken = publicToken => {
-  return (dispatch, getState) => {
-    let headers = {'Content-Type' : 'application/json'};
-
-    let body = JSON.stringify({publicToken, });
-    console.log(publicToken);
-    console.log(body);
-    return fetch('http://localhost:8000/api/exchange-public-token/', {headers, method: 'POST', body})
-      .then(res => {
-        return dispatch({type: 'EXCHANGE_PUBLIC_TOKEN', publicToken: res.publicToken});
-      });
-  }
-}
-
 export const addBank = (publicToken, bank_name) => {
   return (dispatch, getState) => {
     let headers = {'Content-Type' : 'application/json'};
@@ -47,7 +33,7 @@ export const addBank = (publicToken, bank_name) => {
         .then(res => {
           if (res.status === 201) {
             console.log(access_token);
-            return dispatch({type: 'ADD_BANK', access_token: access_token, item_id: item_id, bank_name: bank_name});
+            return dispatch({type: 'ADD_BANK', banks: res.data});
           } else if (res.status === 401 || res.status === 403) {
             dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
             throw res.data;

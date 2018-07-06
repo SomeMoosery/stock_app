@@ -15,11 +15,6 @@ class Home extends React.Component{
   }
 
   handleOnSuccess = (token, metadata) => {
-    console.log('Success!');
-    console.log("Bank Name: " + metadata.institution.name);
-    console.log("Public Token: " + metadata.public_token);
-    console.log(this.props);
-    this.props.exchangeToken(metadata.public_token);
     this.props.addBank(metadata.public_token, metadata.institution.name);
   }
 
@@ -54,6 +49,7 @@ class Home extends React.Component{
     this.props.fetchUserStocks(this.props.user.id);
     // window.location.reload();
     // console.log(this.props.user.id);
+    console.log(this.props);
   }
 
   render(){
@@ -89,6 +85,19 @@ class Home extends React.Component{
           ))}
           </tbody>
         </table>
+
+        {/* <h3>Banks</h3>
+        <table>
+          <tbody>
+          {this.props.banks.map((bank, id) => (
+            <tr key={`bank_${id}`}>
+              <td>{id}</td>
+              <td>{bank.owner}</td>
+            </tr>
+          ))}
+          </tbody>
+        </table> */}
+
         <h3>Add new stock</h3>
         <form onSubmit={this.submitStock}>
           <input value={this.state.name} placeholder="Enter stock here" onChange={(e) => this.setState({name: e.target.value})} required />
@@ -105,6 +114,7 @@ const mapStateToProps = state => {
   return {
     stocks: state.stocks,
     user: state.auth.user,
+    banks: state.banks,
   }
 }
 
@@ -127,9 +137,6 @@ const mapDispatchToProps = dispatch => {
     },
     logout: () => {
       dispatch(auth.logout());
-    },
-    exchangeToken: (public_token) => {
-      dispatch(plaid.exchangeToken(public_token));
     },
     addBank: (public_token, bank_name) => {
       dispatch(plaid.addBank(public_token, bank_name));
