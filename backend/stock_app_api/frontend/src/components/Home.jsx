@@ -47,6 +47,7 @@ class Home extends React.Component{
   componentDidMount(){
     // this.props.fetchAllStocks();
     this.props.fetchUserStocks(this.props.user.id);
+    this.props.fetchUserBanks(this.props.user.id);
     // window.location.reload();
     // console.log(this.props.user.id);
     console.log(this.props);
@@ -140,6 +141,9 @@ const mapDispatchToProps = dispatch => {
     },
     addBank: (public_token, bank_name) => {
       dispatch(plaid.addBank(public_token, bank_name));
+    },
+    fetchUserBanks: (id) => {
+      dispatch(plaid.fetchUserBanks());
     },
   }
 }

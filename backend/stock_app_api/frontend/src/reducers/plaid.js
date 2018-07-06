@@ -17,6 +17,9 @@ export default function plaid(state=initialState, action){
         }
       ];
 
+    case 'FETCH_USER_STOCKS':
+      return [...state, ...action.stocks];
+
     default:
       return state;
   }
