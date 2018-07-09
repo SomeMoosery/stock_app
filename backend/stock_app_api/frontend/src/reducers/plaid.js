@@ -7,7 +7,6 @@ export default function plaid(state=initialState, action){
       return [...state, action.publicToken];
 
     case 'ADD_BANK':
-      console.log(action);
       return [
         ...state, 
         {
@@ -17,8 +16,8 @@ export default function plaid(state=initialState, action){
         }
       ];
 
-    case 'FETCH_USER_STOCKS':
-      return [...state, ...action.stocks];
+    case 'FETCH_USER_BANKS':
+      return [...state, ...action.banks];
 
     default:
       return state;

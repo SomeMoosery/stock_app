@@ -46,11 +46,10 @@ class Home extends React.Component{
 
   componentDidMount(){
     // this.props.fetchAllStocks();
-    this.props.fetchUserStocks(this.props.user.id);
+    // this.props.fetchUserStocks(this.props.user.id);
     this.props.fetchUserBanks(this.props.user.id);
     // window.location.reload();
     // console.log(this.props.user.id);
-    console.log(this.props);
   }
 
   render(){
@@ -69,11 +68,11 @@ class Home extends React.Component{
         </PlaidLink>
 
 
-        <div style={{textAlign: "right"}}>
-          {this.props.user.username} (<a onClick={this.props.logout}>logout</a>)
+        <div style={{textAlign: "left"}}>
+          Logged in as {this.props.user.username} : <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
         </div>
 
-        <h3>Stocks</h3>
+        {/* <h3>Stocks</h3>
         <table>
           <tbody>
           {this.props.stocks.map((stock, id) => (
@@ -85,26 +84,26 @@ class Home extends React.Component{
             </tr>
           ))}
           </tbody>
-        </table>
+        </table> */}
 
-        {/* <h3>Banks</h3>
+        <h3>Banks</h3>
         <table>
           <tbody>
           {this.props.banks.map((bank, id) => (
             <tr key={`bank_${id}`}>
-              <td>{id}</td>
               <td>{bank.owner}</td>
+              <td>{bank.bank_name}</td>
             </tr>
           ))}
           </tbody>
-        </table> */}
+        </table>
 
-        <h3>Add new stock</h3>
+        {/* <h3>Add new stock</h3>
         <form onSubmit={this.submitStock}>
           <input value={this.state.name} placeholder="Enter stock here" onChange={(e) => this.setState({name: e.target.value})} required />
           <Button type="submit" color="primary" variant='outlined'>Save Stock</Button>
           <Button onClick={this.resetForm} color="secondary" variant='outlined'>Reset</Button>
-        </form>
+        </form> */}
       </div>
     )
   }
@@ -115,7 +114,7 @@ const mapStateToProps = state => {
   return {
     stocks: state.stocks,
     user: state.auth.user,
-    banks: state.banks,
+    banks: state.plaid,
   }
 }
 

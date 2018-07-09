@@ -31,6 +31,14 @@ class ListProfileStock(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class ListProfileBank(generics.ListCreateAPIView):
+    serializer_class = serializers.BankSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def get_queryset(self):
+        username = self.kwargs['pk']
+        return models.Bank.objects.filter(owner=username)
+
 
 class ListBanks(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, ]

@@ -14,6 +14,7 @@ urlpatterns=[
     url(r'^profiles/$', views.ListProfile.as_view()),
     url(r'^profiles/(?P<pk>[^/.]+)/$', views.DetailProfile.as_view()),
     url(r'^profiles/(?P<pk>[^/.]+)/stocks/$', views.ListProfileStock.as_view()),
+    url(r'^profiles/(?P<pk>[^/.]+)/banks/$', views.ListProfileBank.as_view()),
     url(r'^stocks/$', views.ListStock.as_view()),
     url(r'^stocks(?P<pk>[^/.]+)/$', views.DetailStock.as_view()),
     # url(r'^stocks/<int:pk>/$', UserStockViewSet.as_view()),
