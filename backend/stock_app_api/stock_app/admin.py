@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Profile, Stock, Bank
+from .models import *
 
 admin.site.unregister(User)
 
@@ -14,3 +14,5 @@ admin.site.register(User, ExtendedUserAdmin)
 admin.site.register(Profile)
 admin.site.register(Stock)
 admin.site.register(Bank)
+admin.site.register(Ask)
+admin.site.register(Offer)

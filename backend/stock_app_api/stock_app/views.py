@@ -39,6 +39,42 @@ class ListProfileBank(generics.ListCreateAPIView):
         username = self.kwargs['pk']
         return models.Bank.objects.filter(owner=username)
 
+class ListProfileAsk(generics.ListCreateAPIView):
+    serializer_class = serializers.AskSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def get_queryset(self):
+        username = self.kwargs['pk']
+        return models.Ask.objects.filter(owner=username)
+
+class ListAsk(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = serializers.AskSerializer
+
+    def get_queryset(self):
+        return models.Ask.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class ListProfileOffer(generics.ListCreateAPIView):
+    serializer_class = serializers.OfferSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def get_queryset(self):
+        username = self.kwargs['pk']
+        return models.Offer.objects.filter(owner=username)
+
+class ListOffer(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = serializers.OfferSerializer
+
+    def get_queryset(self):
+        return models.Offer.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class ListBanks(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, ]

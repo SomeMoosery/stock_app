@@ -25,4 +25,8 @@ urlpatterns=[
     #TODO Add other API functionality
     url(r'^exchange-public-token/$', ExchangePublicToken.as_view()), #Call plaid service to exchange public token for access token to make Item
     url(r'^banks/$', views.ListBanks.as_view()),
+    url(r'^asks/$', views.ListAsk.as_view()),
+    url(r'^profiles/(?P<pk>[^/.]+)/asks/$', views.ListProfileAsk.as_view()),
+    url(r'^offers/$', views.ListOffer.as_view()),
+    url(r'^profiles/(?P<pk>[^/.]+)/offers/$', views.ListProfileOffer.as_view()),
 ]

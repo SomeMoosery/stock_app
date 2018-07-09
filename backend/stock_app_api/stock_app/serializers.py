@@ -53,6 +53,41 @@ class BankSerializer(serializers.ModelSerializer):
         )
         model = models.Bank
 
+class AskSerializer(serializers.ModelSerializer):
+    owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        fields = (
+            'id',
+            'created_date',
+            'owner',
+            'title',
+            'description',
+            'age',
+            'amount',
+            'weeks',
+            'interest',
+            'is_active',
+            'buyer',
+        )
+        model = models.Ask
+
+class OfferSerializer(serializers.ModelSerializer):
+    owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        fields = (
+            'id',
+            'created_date',
+            'owner',
+            'title',
+            'description',
+            'age',
+            'amount',
+            'weeks',
+            'interest',
+            'is_active',
+            'loaner',
+        )
+
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
