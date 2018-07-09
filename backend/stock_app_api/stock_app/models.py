@@ -39,6 +39,30 @@ class Bank(models.Model):
     def __str__(self):
         return str(self.owner.username) + "_" + self.bank_name
 
+class Ask(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, related_name="ask_owner", on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=100, default="")
+    description = models.CharField(max_length=500, default="")
+    age = models.DateTimeField(default=timezone.now)
+    amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    weeks = models.IntegerField(default=0)
+    interest = models.DecimalField(max_digits=4, decimal_places=2, default=0)
+    isActive = models.BooleanField(default=False)
+    buyer = models.ForeignKey(User, related_name="buyer", on_delete=models.CASCADE, null=True)
+
+class Offer(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, related_name="offer_owner", on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=100, default="")
+    description = models.CharField(max_length=500, default="")
+    age = models.DateTimeField(default=timezone.now)
+    amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    weeks = models.IntegerField(default=0)
+    interest = models.DecimalField(max_digits=4, decimal_places=2, default=0)
+    isActive = models.BooleanField(default=False)
+    loaner = models.ForeignKey(User, related_name="loaner", on_delete=models.CASCADE, null=True)
+
 class Stock(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, related_name="stocks", on_delete=models.CASCADE, null=True)

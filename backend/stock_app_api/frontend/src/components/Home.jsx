@@ -55,7 +55,7 @@ class Home extends React.Component{
   render(){
     return(
       <div>
-        <h2>Welcome to Stock App!</h2><br/>
+        <h2>Welcome to Loaning App!</h2><br/>
 
         <PlaidLink
           clientName = 'LoanApp'
@@ -69,7 +69,7 @@ class Home extends React.Component{
 
 
         <div style={{textAlign: "left"}}>
-          Logged in as {this.props.user.username} : <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
+          Logged in as {this.props.user.username} <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
         </div>
 
         {/* <h3>Stocks</h3>
