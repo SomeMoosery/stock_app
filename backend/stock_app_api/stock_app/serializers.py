@@ -58,7 +58,7 @@ class AskSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
             'id',
-            'created_date',
+            'created',
             'owner',
             'title',
             'description',
@@ -76,7 +76,7 @@ class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
             'id',
-            'created_date',
+            'created',
             'owner',
             'title',
             'description',
@@ -87,6 +87,7 @@ class OfferSerializer(serializers.ModelSerializer):
             'is_active',
             'loaner',
         )
+        model = models.Offer
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:

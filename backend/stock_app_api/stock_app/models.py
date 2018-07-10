@@ -48,8 +48,11 @@ class Ask(models.Model):
     amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     weeks = models.IntegerField(default=0)
     interest = models.DecimalField(max_digits=4, decimal_places=2, default=0)
-    isActive = models.BooleanField(default=False)
-    buyer = models.ForeignKey(User, related_name="buyer", on_delete=models.CASCADE, null=True)
+    is_active = models.BooleanField(default=False)
+    buyer = models.ForeignKey(User, related_name="buyer", on_delete=models.CASCADE, blank=True, null=True)
+    
+    def __str__(self):
+        return str(self.owner.username) + "_" + self.title
 
 class Offer(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -60,8 +63,11 @@ class Offer(models.Model):
     amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     weeks = models.IntegerField(default=0)
     interest = models.DecimalField(max_digits=4, decimal_places=2, default=0)
-    isActive = models.BooleanField(default=False)
-    loaner = models.ForeignKey(User, related_name="loaner", on_delete=models.CASCADE, null=True)
+    is_active = models.BooleanField(default=False)
+    loaner = models.ForeignKey(User, related_name="loaner", on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.owner.username) + "_" + self.title
 
 class Stock(models.Model):
     created = models.DateTimeField(auto_now_add=True)

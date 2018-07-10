@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import { stocks, auth, plaid} from '../actions';
+import { stocks, auth, plaid, offer, ask } from '../actions';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -48,6 +48,8 @@ class Home extends React.Component{
     // this.props.fetchAllStocks();
     // this.props.fetchUserStocks(this.props.user.id);
     this.props.fetchUserBanks(this.props.user.id);
+    this.props.fetchOffers();
+    this.props.fetchAsks();
     // window.location.reload();
     // console.log(this.props.user.id);
   }
@@ -104,17 +106,41 @@ class Home extends React.Component{
           <Button type="submit" color="primary" variant='outlined'>Save Stock</Button>
           <Button onClick={this.resetForm} color="secondary" variant='outlined'>Reset</Button>
         </form> */}
+
+        <h3>Offers</h3>
+        <table>
+          <tbody>
+            {this.props.offers.map((offer, id) => (
+              <tr key={`offer_${id}`}>
+                <td>{offer.title}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <h3>Asks</h3>
+        <table>
+          <tbody>
+            {this.props.asks.map((ask, id) => (
+              <tr key={`ask_${id}`}>
+                <td>{ask.title}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   //Just returns an object (containing stocks: state.stocks where state.stocks is Redux state)
   return {
     stocks: state.stocks,
     user: state.auth.user,
     banks: state.plaid,
+    offers: state.offer,
+    asks: state.ask,
   }
 }
 
@@ -144,6 +170,12 @@ const mapDispatchToProps = dispatch => {
     fetchUserBanks: (id) => {
       dispatch(plaid.fetchUserBanks());
     },
+    fetchOffers: () => {
+      dispatch(offer.fetchOffers());
+    },
+    fetchAsks: () => {
+      dispatch(ask.fetchAsks());
+    }
   }
 }
 
