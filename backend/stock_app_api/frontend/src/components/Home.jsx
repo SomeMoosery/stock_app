@@ -4,13 +4,11 @@ import {connect} from 'react-redux';
 import { stocks, auth, plaid, offer, ask } from '../actions';
 
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography'; 
+
+import OfferAskFeed from './OfferAskFeed';
 
 import PlaidLink from 'react-plaid-link';
 import { compose } from 'redux';
@@ -116,40 +114,7 @@ class Home extends React.Component{
 
         <hr/>
 
-        <div className={classes.root}>
-          {value === 0 && <TabContainer>
-            <h3>Offers</h3>
-            <table>
-              <tbody>
-                {this.props.offers.map((offer, id) => (
-                  <tr key={`offer_${id}`}>
-                    <td>{offer.title}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </TabContainer>}
-          {value === 1 && <TabContainer>
-            <div style={{ float: 'right', padding: 8 * 3 }}>
-            <h3>Asks</h3>
-            <table>
-              <tbody>
-                {this.props.asks.map((ask, id) => (
-                  <tr key={`ask_${id}`}>
-                    <td>{ask.title}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            </div>
-          </TabContainer>}
-          <AppBar position="static" style={{position: 'fixed', width: '100%', bottom: 0}}>
-            <Tabs value={value} onChange={this.handleTabChange} centered>
-              <Tab label="Offers" />
-              <Tab label="Asks" />
-            </Tabs>
-          </AppBar>
-        </div>
+        <OfferAskFeed/>
 
         {/* <h3>Stocks</h3>
         <table>
