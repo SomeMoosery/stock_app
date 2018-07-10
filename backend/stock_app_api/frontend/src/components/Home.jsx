@@ -84,21 +84,23 @@ class Home extends React.Component{
 
     return(
       <div>
-        <h2>Welcome to Loaning App!</h2><br/>
-
-        <div style={{textAlign: "left"}}>
-          Logged in as {this.props.user.username} <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
+        <div style = {{width: '100%', float: 'left' }}>
+          <div style = {{float: 'left', paddingLeft: '10px', textAlign: 'center' }}>
+            <h2>Welcome to Loaning App!</h2>
+            <PlaidLink
+            clientName = 'LoanApp'
+            env = 'sandbox'
+            product = {['auth', 'transactions']}
+            publicKey = '707d6df9798a9bf35257173c18e86b'
+            onExit = {this.handleOnExit}
+            onSuccess = {this.handleOnSuccess}>
+            Link a Bank Account
+          </PlaidLink>
+          </div>
+          <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
+            <h2>Logged in as {this.props.user.username}</h2> <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
+          </div>
         </div>
-
-        <PlaidLink
-          clientName = 'LoanApp'
-          env = 'sandbox'
-          product = {['auth', 'transactions']}
-          publicKey = '707d6df9798a9bf35257173c18e86b'
-          onExit = {this.handleOnExit}
-          onSuccess = {this.handleOnSuccess}>
-          Link a Bank Account
-        </PlaidLink>
 
         <h3>Banks</h3>
         <table>
@@ -188,10 +190,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
+  body: {
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+  }
 });
 
 Home.propTypes = {
