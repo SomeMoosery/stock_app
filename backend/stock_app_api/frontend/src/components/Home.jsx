@@ -5,14 +5,37 @@ import { stocks, auth, plaid, offer, ask } from '../actions';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography'; 
 
 import PlaidLink from 'react-plaid-link';
+import { compose } from 'redux';
+
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 class Home extends React.Component{
   state = {
     name: "",
     updateStockId: null,
+    value: 0,
   }
+
+  handleTabChange = (event, value) => {
+    this.setState({ value });
+  };
 
   handleOnSuccess = (token, metadata) => {
     this.props.addBank(metadata.public_token, metadata.institution.name);
@@ -55,9 +78,17 @@ class Home extends React.Component{
   }
 
   render(){
+
+    const { classes } = this.props;
+    const { value } = this.state;
+
     return(
       <div>
         <h2>Welcome to Loaning App!</h2><br/>
+
+        <div style={{textAlign: "left"}}>
+          Logged in as {this.props.user.username} <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
+        </div>
 
         <PlaidLink
           clientName = 'LoanApp'
@@ -69,9 +100,51 @@ class Home extends React.Component{
           Link a Bank Account
         </PlaidLink>
 
+        <h3>Banks</h3>
+        <table>
+          <tbody>
+          {this.props.banks.map((bank, id) => (
+            <tr key={`bank_${id}`}>
+              <td>{bank.owner}</td>
+              <td>{bank.bank_name}</td>
+            </tr>
+          ))}
+          </tbody>
+        </table>
 
-        <div style={{textAlign: "left"}}>
-          Logged in as {this.props.user.username} <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
+        <div className={classes.root} style={{bottom: 0}}>
+          {value === 0 && <TabContainer>
+            <h3>Offers</h3>
+            <table>
+              <tbody>
+                {this.props.offers.map((offer, id) => (
+                  <tr key={`offer_${id}`}>
+                    <td>{offer.title}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </TabContainer>}
+          {value === 1 && <TabContainer>
+            <div style={{ float: 'right', padding: 8 * 3 }}>
+            <h3>Asks</h3>
+            <table>
+              <tbody>
+                {this.props.asks.map((ask, id) => (
+                  <tr key={`ask_${id}`}>
+                    <td>{ask.title}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            </div>
+          </TabContainer>}
+          <AppBar position="static">
+            <Tabs value={value} onChange={this.handleTabChange} centered>
+              <Tab label="Offers" />
+              <Tab label="Asks" />
+            </Tabs>
+          </AppBar>
         </div>
 
         {/* <h3>Stocks</h3>
@@ -88,45 +161,12 @@ class Home extends React.Component{
           </tbody>
         </table> */}
 
-        <h3>Banks</h3>
-        <table>
-          <tbody>
-          {this.props.banks.map((bank, id) => (
-            <tr key={`bank_${id}`}>
-              <td>{bank.owner}</td>
-              <td>{bank.bank_name}</td>
-            </tr>
-          ))}
-          </tbody>
-        </table>
-
         {/* <h3>Add new stock</h3>
         <form onSubmit={this.submitStock}>
           <input value={this.state.name} placeholder="Enter stock here" onChange={(e) => this.setState({name: e.target.value})} required />
           <Button type="submit" color="primary" variant='outlined'>Save Stock</Button>
           <Button onClick={this.resetForm} color="secondary" variant='outlined'>Reset</Button>
         </form> */}
-
-        <h3>Offers</h3>
-        <table>
-          <tbody>
-            {this.props.offers.map((offer, id) => (
-              <tr key={`offer_${id}`}>
-                <td>{offer.title}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <h3>Asks</h3>
-        <table>
-          <tbody>
-            {this.props.asks.map((ask, id) => (
-              <tr key={`ask_${id}`}>
-                <td>{ask.title}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
     )
   }
@@ -179,4 +219,21 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    position: 'fixed',
+    width: '100%',
+    bottom: 0,
+  },
+});
+
+Home.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Home);
