@@ -39,6 +39,8 @@ class Home extends React.Component{
 
   handleOnSuccess = (token, metadata) => {
     this.props.addBank(metadata.public_token, metadata.institution.name);
+    window.alert("Bank account added. Click 'OK' to refresh");
+    window.location.reload();
   }
 
   handleOnExit(){
@@ -112,7 +114,9 @@ class Home extends React.Component{
           </tbody>
         </table>
 
-        <div className={classes.root} style={{bottom: 0}}>
+        <hr/>
+
+        <div className={classes.root}>
           {value === 0 && <TabContainer>
             <h3>Offers</h3>
             <table>
@@ -139,7 +143,7 @@ class Home extends React.Component{
             </table>
             </div>
           </TabContainer>}
-          <AppBar position="static">
+          <AppBar position="static" style={{position: 'fixed', width: '100%', bottom: 0}}>
             <Tabs value={value} onChange={this.handleTabChange} centered>
               <Tab label="Offers" />
               <Tab label="Asks" />
@@ -173,7 +177,6 @@ class Home extends React.Component{
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   //Just returns an object (containing stocks: state.stocks where state.stocks is Redux state)
   return {
     stocks: state.stocks,
@@ -223,9 +226,6 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    position: 'fixed',
-    width: '100%',
-    bottom: 0,
   },
 });
 
