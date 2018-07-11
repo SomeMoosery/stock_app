@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import { stocks, auth, plaid, offer, ask } from '../actions';
 
@@ -73,6 +74,8 @@ class Home extends React.Component{
     this.props.fetchUserBanks(this.props.user.id);
     this.props.fetchOffers();
     this.props.fetchAsks();
+    console.log(this.state);
+    console.log(this.props);
     // window.location.reload();
     // console.log(this.props.user.id);
   }
@@ -98,7 +101,9 @@ class Home extends React.Component{
           </PlaidLink>
           </div>
           <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
-            <h2>Logged in as {this.props.user.username}</h2> <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
+            <h2>Logged in as {this.props.user.username}</h2> 
+            <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
+            <Link to='/profile'>Profile</Link>
           </div>
         </div>
 
