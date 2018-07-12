@@ -52,8 +52,14 @@ export const fetchUserBanks = index => {
     if (token) {
       headers["Authorization"] = `Token ${token}`;
     }
-
-    let userId = getState().auth.user.id;
+    
+    let userId = null;
+    try{
+      userId = getState().auth.user.id
+    }
+    catch(e){
+      userId = window.localStorage.getItem('user_id'); 
+    }
 
     return fetch(`http://localhost:8000/api/profiles/${userId}/banks`, {headers, })
     .then(res => {

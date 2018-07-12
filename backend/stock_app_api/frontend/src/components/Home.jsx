@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'; 
 
 import OfferAskFeed from './OfferAskFeed';
+import UserBanks from './UserBanks';
 
 import PlaidLink from 'react-plaid-link';
 import { compose } from 'redux';
@@ -43,16 +44,6 @@ class Home extends React.Component{
   handleTabChange = (event, value) => {
     this.setState({ value });
   };
-
-  handleOnSuccess = (token, metadata) => {
-    this.props.addBank(metadata.public_token, metadata.institution.name);
-    window.alert("Bank account added. Click 'OK' to refresh");
-    window.location.reload();
-  }
-
-  handleOnExit(){
-    console.log('Exit!');
-  }
 
   resetForm = () => {
     this.setState({name: "", updateStockId: null});
@@ -88,10 +79,11 @@ class Home extends React.Component{
       this.props.fetchUserBanks(this.props.user.id);
       this.setState({hitHome: 1});
     }
+    window.localStorage.setItem('username', this.props.user.username);
+    window.localStorage.setItem('user_id', this.props.user.id);
     // window.location.reload();
     // console.log(this.props.user.id);
   }
-
   render(){
 
     const { classes } = this.props;
@@ -102,35 +94,13 @@ class Home extends React.Component{
         <div style = {{width: '100%', float: 'left' }}>
           <div style = {{float: 'left', paddingLeft: '10px', textAlign: 'center' }}>
             <h2>Welcome to Loaning App!</h2>
-            <PlaidLink
-            clientName = 'LoanApp'
-            env = 'sandbox'
-            product = {['auth', 'transactions']}
-            publicKey = '707d6df9798a9bf35257173c18e86b'
-            onExit = {this.handleOnExit}
-            onSuccess = {this.handleOnSuccess}>
-            Link a Bank Account
-          </PlaidLink>
           </div>
           <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
             <h2>Logged in as {this.props.user.username}</h2> 
             <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
-            <Link to='/profile'>Profile</Link>
+            <Link to='/profile' user={this.props.user}>Profile</Link>
           </div>
         </div>
-
-        <h3>Banks</h3>
-        <table>
-          <tbody>
-          {this.props.banks.map((bank, id) => (
-            <tr key={`bank_${id}`}>
-              <td>{bank.owner}</td>
-              <td>{bank.bank_name}</td>
-            </tr>
-          ))}
-          </tbody>
-        </table>
-
         <hr/>
 
         <OfferAskFeed/>
@@ -174,6 +144,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
+    
+    loadUser: () => {
+      return dispatch(auth.loadUser());
+    },
     addStock: (name) => {
       dispatch(stocks.addStock(name));
     },
