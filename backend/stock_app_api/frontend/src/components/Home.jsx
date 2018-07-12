@@ -67,8 +67,6 @@ class Home extends React.Component{
   }
 
   componentDidMount(){
-    // this.props.fetchAllStocks();
-    // this.props.fetchUserStocks(this.props.user.id);
     if (this.props.offers.length == 0){
       this.props.fetchOffers();
     }
@@ -81,8 +79,6 @@ class Home extends React.Component{
     }
     window.localStorage.setItem('username', this.props.user.username);
     window.localStorage.setItem('user_id', this.props.user.id);
-    // window.location.reload();
-    // console.log(this.props.user.id);
   }
   render(){
 
@@ -131,7 +127,6 @@ class Home extends React.Component{
 }
 
 const mapStateToProps = state => {
-  //Just returns an object (containing stocks: state.stocks where state.stocks is Redux state)
   return {
     auth: state.auth,
     stocks: state.stocks,
@@ -144,40 +139,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    
-    loadUser: () => {
-      return dispatch(auth.loadUser());
-    },
-    addStock: (name) => {
-      dispatch(stocks.addStock(name));
-    },
-    updateStock: (id,name) => {
-      dispatch(stocks.updateStock(id, name));
-    },
-    deleteStock: (id) => {
-      dispatch(stocks.deleteStock(id));
-    },
-    fetchAllStocks: () => {
-      dispatch(stocks.fetchAllStocks());
-    },
-    fetchUserStocks: (id) => {
-      dispatch(stocks.fetchUserStocks());
-    },
     logout: () => {
       dispatch(auth.logout());
     },
-    addBank: (public_token, bank_name) => {
-      dispatch(plaid.addBank(public_token, bank_name));
-    },
-    fetchUserBanks: (id) => {
-      dispatch(plaid.fetchUserBanks());
-    },
-    fetchOffers: () => {
-      dispatch(offer.fetchOffers());
-    },
-    fetchAsks: () => {
-      dispatch(ask.fetchAsks());
-    }
   }
 }
 
