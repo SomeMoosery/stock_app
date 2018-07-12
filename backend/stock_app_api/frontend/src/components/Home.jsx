@@ -142,6 +142,15 @@ const mapDispatchToProps = dispatch => {
     logout: () => {
       dispatch(auth.logout());
     },
+    fetchOffers: () => {
+      dispatch(offer.fetchOffers());
+    },
+    fetchAsks: () => {
+      dispatch(ask.fetchAsks());
+    },
+    fetchUserBanks: (id) => {
+      dispatch(plaid.fetchUserBanks());
+    },
   }
 }
 

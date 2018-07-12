@@ -92,12 +92,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    fetchOffers: () => {
-      dispatch(offer.fetchOffers());
-    },
-    fetchAsks: () => {
-      dispatch(ask.fetchAsks());
-    }
+    
   }
 }
 

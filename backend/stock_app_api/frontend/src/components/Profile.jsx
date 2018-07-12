@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+
 
 import { auth, plaid } from '../actions';
 import UserBanks from './UserBanks';
@@ -46,6 +48,7 @@ class Profile extends React.Component{
     render(){
         return(
             <div>
+                <Link to='/'>Back</Link>
                 <div style = {{textAlign: "center"}}>Hello {username} </div>
                 <PlaidLink
                     clientName = 'LoanApp'
@@ -63,27 +66,15 @@ class Profile extends React.Component{
 }
 
 const mapStateToProps = state => {
-    //Just returns an object (containing stocks: state.stocks where state.stocks is Redux state)
     return {
-    //   stocks: state.stocks,
       user: state.auth.user,
       banks: state.plaid,
-    //   offers: state.offer,
-    //   asks: state.ask,
     }
   }
 
 const mapDispatchToProps = dispatch => {
     return{
-        loadUser: () => {
-            dispatch(auth.loadUser());
-        },
-        fetchUserBanks: (id) => {
-            dispatch(plaid.fetchUserBanks());
-        },
-        addBank: (public_token, bank_name) => {
-            dispatch(plaid.addBank(public_token, bank_name));
-        },
+
     }
 }
 
