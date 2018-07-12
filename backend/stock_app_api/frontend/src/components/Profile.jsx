@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
+import Button from '@material-ui/core/Button';
 
 import { auth, plaid } from '../actions';
 import UserBanks from './UserBanks';
@@ -21,12 +22,6 @@ class Profile extends React.Component{
     state = {};
 
     componentDidMount(){
-        // console.log(this.props);
-        // console.log(this.state);
-        // var username = window.localStorage.getItem('username');
-        // // var userId = window.localStorage.getItem('user_id');
-        // console.log(userId);
-        // this.props.loadUser();
         if (this.props.banks.length == 0){
             this.props.fetchUserBanks(userId);
         }
@@ -48,7 +43,7 @@ class Profile extends React.Component{
     render(){
         return(
             <div>
-                <Link to='/'>Back</Link>
+                <Button color = 'secondary' variant='outlined' ><Link to='/' style={{textDecoration:'none', color:'red'}}>Back</Link></Button>
                 <div style = {{textAlign: "center"}}>Hello {username} </div>
                 <PlaidLink
                     clientName = 'LoanApp'
@@ -74,7 +69,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-
+        fetchUserBanks: (id) => {
+            dispatch(plaid.fetchUserBanks());
+        },
     }
 }
 

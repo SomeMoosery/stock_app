@@ -38,7 +38,6 @@ class Home extends React.Component{
     name: "",
     updateStockId: null,
     value: 0,
-    hitHome: 0,
   }
 
   handleTabChange = (event, value) => {
@@ -75,7 +74,6 @@ class Home extends React.Component{
     }
     if (this.props.banks.length == 0){
       this.props.fetchUserBanks(this.props.user.id);
-      this.setState({hitHome: 1});
     }
     window.localStorage.setItem('username', this.props.user.username);
     window.localStorage.setItem('user_id', this.props.user.id);
@@ -94,7 +92,7 @@ class Home extends React.Component{
           <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
             <h2>Logged in as {this.props.user.username}</h2> 
             <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
-            <Link to='/profile' user={this.props.user}>Profile</Link>
+            <div><Button color = 'default' variant='outlined' ><Link to='/profile' style={{ textDecoration: 'none', color:'black' }} user={this.props.user}>Profile</Link></Button></div>
           </div>
         </div>
         <hr/>
