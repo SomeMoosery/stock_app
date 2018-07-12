@@ -91,8 +91,14 @@ class Home extends React.Component{
           </div>
           <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
             <h2>Logged in as {this.props.user.username}</h2> 
-            <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
-            <div><Button color = 'default' variant='outlined' ><Link to='/profile' style={{ textDecoration: 'none', color:'black' }} user={this.props.user}>Profile</Link></Button></div>
+            <div style = {{width:'100%', float:'left'}}>
+              <div style = {{float: 'left'}}>
+                <Button onClick={this.props.logout} color='secondary' variant='outlined'>logout</Button>
+              </div>
+              <div style={{float:'right'}}>
+                <div><Button color = 'default' variant='outlined' ><Link to='/profile' style={{ textDecoration: 'none', color:'black' }} user={this.props.user}>Profile</Link></Button></div>
+              </div>
+            </div>
           </div>
         </div>
         <hr/>
