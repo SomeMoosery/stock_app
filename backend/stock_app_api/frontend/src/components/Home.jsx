@@ -25,11 +25,19 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const initialState = {};
+
 class Home extends React.Component{
+
+  constructor(props){
+    super(props);
+  }
+
   state = {
     name: "",
     updateStockId: null,
     value: 0,
+    hitHome: 0,
   }
 
   handleTabChange = (event, value) => {
@@ -58,7 +66,6 @@ class Home extends React.Component{
   submitStock = (e) => {
     e.preventDefault();
     if (this.state.updateStockId === null) {
-      console.log(this.state.name);
       this.props.addStock(this.state.name);
       window.location.reload();
     } else {
@@ -71,11 +78,16 @@ class Home extends React.Component{
   componentDidMount(){
     // this.props.fetchAllStocks();
     // this.props.fetchUserStocks(this.props.user.id);
-    this.props.fetchUserBanks(this.props.user.id);
-    this.props.fetchOffers();
-    this.props.fetchAsks();
-    console.log(this.state);
-    console.log(this.props);
+    if (this.props.offers.length == 0){
+      this.props.fetchOffers();
+    }
+    if (this.props.asks.length == 0){
+      this.props.fetchAsks();
+    }
+    if (this.props.banks.length == 0){
+      this.props.fetchUserBanks(this.props.user.id);
+      this.setState({hitHome: 1});
+    }
     // window.location.reload();
     // console.log(this.props.user.id);
   }
@@ -151,6 +163,7 @@ class Home extends React.Component{
 const mapStateToProps = state => {
   //Just returns an object (containing stocks: state.stocks where state.stocks is Redux state)
   return {
+    auth: state.auth,
     stocks: state.stocks,
     user: state.auth.user,
     banks: state.plaid,

@@ -8,7 +8,7 @@ import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import stockApp from './reducers';
-import {auth} from './actions';
+import {auth, plaid} from './actions';
 
 import Home from './components/Home';
 import Login from './components/Login';
@@ -19,8 +19,14 @@ let store = createStore(stockApp, applyMiddleware(thunk));
 
 class RootContainerComponent extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
   componentDidMount() {
     this.props.loadUser();
+    let user = this.props.user;
+    // this.props.fetchUserBanks(this.props.user.id);
   }
 
   PrivateRoute = ({component: ChildComponent, ...rest}) => {
@@ -63,8 +69,11 @@ export default class App extends Component {
 }
 
 const mapStateToProps = state => {
+  // console.log(state.auth);
   return {
     auth: state.auth,
+    user: state.auth.user,
+    banks: state.plaid,
   }
 }
 
@@ -72,7 +81,10 @@ const mapDispatchToProps = dispatch => {
   return {
     loadUser: () => {
       return dispatch(auth.loadUser());
-    }
+    },
+    fetchUserBanks: (id) => {
+      dispatch(plaid.fetchUserBanks());
+    },
   }
 }
 
