@@ -45,18 +45,6 @@ class Home extends React.Component{
     this.setState({name: stock.name, updateStockId: id});
   }
 
-  submitStock = (e) => {
-    e.preventDefault();
-    if (this.state.updateStockId === null) {
-      this.props.addStock(this.state.name);
-      window.location.reload();
-    } else {
-      this.props.updateStock(this.state.name, this.state.updateStockId);
-    }
-    this.resetForm();
-    // window.location.reload();
-  }
-
   componentDidMount(){
     if (this.props.offers.length === 0){
       this.props.fetchOffers();
@@ -96,20 +84,6 @@ class Home extends React.Component{
         <hr/>
 
         <OfferAskFeed/>
-
-        {/* <h3>Stocks</h3>
-        <table>
-          <tbody>
-          {this.props.stocks.map((stock, id) => (
-            <tr key={`stock_${id}`}>
-              <td>{id}</td>
-              <td>{stock.name}</td>
-              <td><Button onClick={()=>this.selectForEdit(id)} color='default' variant='outlined'>Edit</Button></td>
-              <td><Button onClick={()=>this.props.deleteStock(id)} color='secondary' variant='outlined'>Delete</Button></td>
-            </tr>
-          ))}
-          </tbody>
-        </table> */}
       </div>
     )
   }
