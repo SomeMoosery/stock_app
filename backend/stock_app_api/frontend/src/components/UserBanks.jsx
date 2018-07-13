@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import PlaidLink from 'react-plaid-link';
-
-
-import { auth, plaid } from '../actions';
-
-
 class UserBanks extends React.Component{
-
-    constructor(props){
-        super(props);
-    }
 
     render(){
         return(

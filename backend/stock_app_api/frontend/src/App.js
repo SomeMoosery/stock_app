@@ -15,23 +15,11 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
 
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-
-const persistConfig = {
-  key: 'root',
-  storage,
-}
-
 //TODO maybe come back to this ^^^^^
 
 let store = createStore(stockApp, applyMiddleware(thunk));
 
 class RootContainerComponent extends Component {
-
-  constructor(props){
-    super(props);
-  }
 
   componentDidMount() {
     this.props.loadUser();

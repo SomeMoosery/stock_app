@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import { stocks, auth, plaid, offer, ask } from '../actions';
+import { auth, plaid, offer, ask } from '../actions';
 
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
@@ -10,9 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'; 
 
 import OfferAskFeed from './OfferAskFeed';
-import UserBanks from './UserBanks';
 
-import PlaidLink from 'react-plaid-link';
 import { compose } from 'redux';
 
 function TabContainer(props) {
@@ -26,13 +24,7 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const initialState = {};
-
 class Home extends React.Component{
-
-  constructor(props){
-    super(props);
-  }
 
   state = {
     name: "",
@@ -66,13 +58,13 @@ class Home extends React.Component{
   }
 
   componentDidMount(){
-    if (this.props.offers.length == 0){
+    if (this.props.offers.length === 0){
       this.props.fetchOffers();
     }
-    if (this.props.asks.length == 0){
+    if (this.props.asks.length === 0){
       this.props.fetchAsks();
     }
-    if (this.props.banks.length == 0){
+    if (this.props.banks.length === 0){
       this.props.fetchUserBanks(this.props.user.id);
     }
     window.localStorage.setItem('username', this.props.user.username);
@@ -118,13 +110,6 @@ class Home extends React.Component{
           ))}
           </tbody>
         </table> */}
-
-        {/* <h3>Add new stock</h3>
-        <form onSubmit={this.submitStock}>
-          <input value={this.state.name} placeholder="Enter stock here" onChange={(e) => this.setState({name: e.target.value})} required />
-          <Button type="submit" color="primary" variant='outlined'>Save Stock</Button>
-          <Button onClick={this.resetForm} color="secondary" variant='outlined'>Reset</Button>
-        </form> */}
       </div>
     )
   }
