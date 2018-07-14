@@ -40,8 +40,9 @@ class Profile extends React.Component{
 
     handleOnSuccess = (token, metadata) => {
         this.props.addBank(metadata.public_token, metadata.institution.name);
-        alert('Bank added!');
-        setTimeout(function(){window.location.reload();},3000);
+        this.setState({loading: true});
+        setTimeout(() => this.setState({loading: false}), 2000);
+        setTimeout(function(){window.location.reload();},2000);
     }
     
     handleOnExit(){
@@ -52,8 +53,9 @@ class Profile extends React.Component{
         e.preventDefault();
         if (this.state.updateOfferId === null) {
             this.props.addOffer(this.state.offerTitle);
-            alert('Offer added!');
-            setTimeout(function(){window.location.reload();},3000);        
+            this.setState({loading: true});
+            setTimeout(() => this.setState({loading: false}), 2000);
+            setTimeout(function(){window.location.reload();},2000);        
         }
         else{
             this.props.updateOffer(this.state.offerTitle, this.state.updateOfferId);
@@ -69,8 +71,9 @@ class Profile extends React.Component{
         e.preventDefault();
         if (this.state.updateAskId === null) {
             this.props.addAsk(this.state.askTitle);
-            alert('Ask added!');
-            setTimeout(function(){window.location.reload();},3000);        
+            this.setState({loading: true});
+            setTimeout(() => this.setState({loading: false}), 2000);
+            setTimeout(function(){window.location.reload();},2000);        
         }
         else{
             this.props.updateAsk(this.state.askTitle, this.state.updateAskId);
