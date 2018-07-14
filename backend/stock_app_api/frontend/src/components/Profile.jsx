@@ -173,6 +173,9 @@ const mapDispatchToProps = dispatch => {
         fetchUserBanks: (id) => {
             dispatch(plaid.fetchUserBanks());
         },
+        addBank: (token, bank_name) => {
+            dispatch(plaid.addBank(token, bank_name));
+        },
         fetchUserOffers: (id) => {
             dispatch(offer.fetchUserOffers());
         },
