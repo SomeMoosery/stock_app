@@ -16,6 +16,9 @@ export default function offer(state=initialState, action){
       offerList.splice(action.index, 1, offerToUpdate);
       return offerList;
 
+    case 'FETCH_USER_OFFERS':
+      return [...state, ...action.offers];
+
     default:
       return state;
   }

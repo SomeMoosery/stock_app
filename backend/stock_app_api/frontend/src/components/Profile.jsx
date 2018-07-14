@@ -26,16 +26,8 @@ class Profile extends React.Component{
         if (this.props.banks.length === 0){
             this.props.fetchUserBanks(userId);
         }
-        if (this.props.offers.length === 0){
-            this.props.fetchOffers();
-        }
-        if (this.props.offers.length === 0){
-            this.props.fetchAsks();
-        }
-    }
-
-    componentWillMount(){
-
+        this.props.fetchUserOffers();
+        this.props.fetchUserAsks();
     }
 
     handleOnSuccess = (token, metadata) => {
@@ -59,6 +51,10 @@ class Profile extends React.Component{
         }
         this.resetOfferForm();
     }
+
+    resetOfferForm = () => {
+        this.setState({offerTitle: "", updateOfferId: null});
+    }
     
     submitAsk = (e) => {
         e.preventDefault();
@@ -71,10 +67,6 @@ class Profile extends React.Component{
             this.props.updateAsk(this.state.askTitle, this.state.updateAskId);
         }
         this.resetAskForm();
-    }
-
-    resetOfferForm = () => {
-        this.setState({offerTitle: "", updateOfferId: null});
     }
 
     resetAskForm = () => {
@@ -105,11 +97,31 @@ class Profile extends React.Component{
                             <Button type="submit" color="primary" variant='outlined'>Post an Offer</Button>
                             <Button onClick={this.resetOfferForm} color="secondary" variant='outlined'>Reset</Button>
                         </form>
+                        <h3>{username}'s Offers:</h3>
+                        <table>
+                            <tbody>
+                            {this.props.offers.map((offer, id) => (
+                                <tr key={`offer_${id}`}>
+                                    <td>{offer.title}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
                         <form onSubmit={this.submitAsk}>
                             <input value={this.state.askName} placeholder="Enter ask here" onChange={(e) => this.setState({askTitle: e.target.value})} required />
                             <Button type="submit" color="primary" variant='outlined'>Post an Ask</Button>
                             <Button onClick={this.resetAskForm} color="secondary" variant='outlined'>Reset</Button>
                         </form>
+                        <h3>{username}'s Asks:</h3>
+                        <table>
+                            <tbody>
+                            {this.props.asks.map((ask, id) => (
+                                <tr key={`ask_${id}`}>
+                                    <td>{ask.title}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -131,8 +143,8 @@ const mapDispatchToProps = dispatch => {
         fetchUserBanks: (id) => {
             dispatch(plaid.fetchUserBanks());
         },
-        fetchOffers: () => {
-            dispatch(offer.fetchOffers());
+        fetchUserOffers: (id) => {
+            dispatch(offer.fetchUserOffers());
         },
         addOffer: (offerTitle) => {
             dispatch(offer.addOffer(offerTitle));
@@ -140,8 +152,8 @@ const mapDispatchToProps = dispatch => {
         updateOffer: (id, offerTitle) => {
             dispatch(offer.updateOffer(id, offerTitle));
         },
-        fetchAsks: () => {
-            dispatch(ask.fetchAsks());
+        fetchUserAsks: () => {
+            dispatch(ask.fetchUserAsks());
         },
         addAsk: (askTitle) => {
             dispatch(ask.addAsk(askTitle));

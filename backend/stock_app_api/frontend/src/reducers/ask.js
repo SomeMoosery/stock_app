@@ -16,6 +16,9 @@ export default function ask(state=initialState, action){
       askList.splice(action.index, 1, askToUpdate);
       return askList;
 
+    case 'FETCH_USER_ASKS':
+      return [...state, ...action.asks];
+
     default:
       return state;
   }
