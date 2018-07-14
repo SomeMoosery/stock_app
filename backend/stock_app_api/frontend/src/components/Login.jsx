@@ -10,6 +10,7 @@ class Login extends Component {
   state = {
     username: "",
     password: "",
+    loading: true,
   }
 
   onSubmit = e => {
@@ -17,11 +18,35 @@ class Login extends Component {
     this.props.login(this.state.username, this.state.password);
   }
 
+  componentDidMount(){
+    setTimeout(() => this.setState({loading: false}), 2000);
+  }
+
   render() {
     if (this.props.isAuthenticated) {
       window.location.reload();
       return <Redirect to="/" />
     }
+    const { loading } = this.state;
+
+        if (loading){
+            return (
+                <div style={{textAlign:'center'}}>
+                    <div class="sk-cube-grid">
+                        <div class="sk-cube sk-cube1"></div>
+                        <div class="sk-cube sk-cube2"></div>
+                        <div class="sk-cube sk-cube3"></div>
+                        <div class="sk-cube sk-cube4"></div>
+                        <div class="sk-cube sk-cube5"></div>
+                        <div class="sk-cube sk-cube6"></div>
+                        <div class="sk-cube sk-cube7"></div>
+                        <div class="sk-cube sk-cube8"></div>
+                        <div class="sk-cube sk-cube9"></div>
+                    </div>
+                    <p>Welcome</p>
+                </div>
+            )
+        }
     return (
       <form onSubmit={this.onSubmit}>
         <fieldset>
