@@ -47,7 +47,7 @@ export const updateOffer = (offerTitle, index) => {
     let body = JSON.stringify({offerTitle, });
     let offerId = getState().offers[index].id;
 
-    return fetch(`http://localhost:8000/api/stocks/${offerId}/`, {headers, method: "PUT", body})
+    return fetch(`http://localhost:8000/api/offers/${offerId}/`, {headers, method: "PUT", body})
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {

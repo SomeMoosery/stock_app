@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 
-import { plaid, offer } from '../actions';
+import { plaid, offer, ask } from '../actions';
 import UserBanks from './UserBanks';
 
 import PlaidLink from 'react-plaid-link';
@@ -29,10 +29,13 @@ class Profile extends React.Component{
         if (this.props.offers.length === 0){
             this.props.fetchOffers();
         }
+        if (this.props.offers.length === 0){
+            this.props.fetchAsks();
+        }
     }
 
     componentWillMount(){
-        console.log(this.props);
+
     }
 
     handleOnSuccess = (token, metadata) => {
@@ -60,8 +63,9 @@ class Profile extends React.Component{
     submitAsk = (e) => {
         e.preventDefault();
         if (this.state.updateAskId === null) {
-            this.props.addStock(this.state.askName);
-            window.location.reload();
+            this.props.addAsk(this.state.askTitle);
+            alert('Ask added!');
+            setTimeout(function(){window.location.reload();},3000);        
         }
         else{
             this.props.updateAsk(this.state.askTitle, this.state.updateAskId);
@@ -118,6 +122,7 @@ const mapStateToProps = state => {
       user: state.auth.user,
       banks: state.plaid,
       offers: state.offer,
+      asks: state.ask,
     }
   }
 
@@ -134,6 +139,15 @@ const mapDispatchToProps = dispatch => {
         },
         updateOffer: (id, offerTitle) => {
             dispatch(offer.updateOffer(id, offerTitle));
+        },
+        fetchAsks: () => {
+            dispatch(ask.fetchAsks());
+        },
+        addAsk: (askTitle) => {
+            dispatch(ask.addAsk(askTitle));
+        },
+        updateAsk: (id, askTitle) => {
+            dispatch(ask.updateAsk(id, askTitle));
         },
     }
 }
