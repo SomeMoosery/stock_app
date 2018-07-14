@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import {Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import './App.css';
-// import 'typeface-roboto';
 
 import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -15,16 +14,12 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
 
-//TODO maybe come back to this ^^^^^
-
 let store = createStore(stockApp, applyMiddleware(thunk));
 
 class RootContainerComponent extends Component {
 
   componentDidMount() {
     this.props.loadUser();
-    let user = this.props.user;
-    // this.props.fetchUserBanks(this.props.user.id);
   }
 
   PrivateRoute = ({component: ChildComponent, ...rest}) => {
@@ -67,7 +62,6 @@ export default class App extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log(state.auth);
   return {
     auth: state.auth,
     user: state.auth.user,

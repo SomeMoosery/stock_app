@@ -46,9 +46,11 @@ class Home extends React.Component{
   }
 
   componentDidMount(){
+    this.props.offers.length = 0;
     if (this.props.offers.length === 0){
       this.props.fetchOffers();
     }
+    this.props.asks.length = 0;
     if (this.props.asks.length === 0){
       this.props.fetchAsks();
     }

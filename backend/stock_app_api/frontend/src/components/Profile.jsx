@@ -26,8 +26,14 @@ class Profile extends React.Component{
         if (this.props.banks.length === 0){
             this.props.fetchUserBanks(userId);
         }
-        this.props.fetchUserOffers();
-        this.props.fetchUserAsks();
+        this.props.offers.length = 0;
+        if (this.props.offers.length === 0){
+            this.props.fetchUserOffers();
+        }
+        this.props.asks.length = 0;
+        if (this.props.asks.length === 0){
+            this.props.fetchUserAsks();
+        }
     }
 
     handleOnSuccess = (token, metadata) => {
