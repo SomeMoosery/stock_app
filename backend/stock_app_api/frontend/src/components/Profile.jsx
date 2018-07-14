@@ -40,6 +40,7 @@ class Profile extends React.Component{
 
     handleOnSuccess = (token, metadata) => {
         this.props.addBank(metadata.public_token, metadata.institution.name);
+        alert('Bank added!');
         setTimeout(function(){window.location.reload();},3000);
     }
     
