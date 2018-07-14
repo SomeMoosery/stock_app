@@ -110,7 +110,11 @@ class Profile extends React.Component{
         
         return(
             <div>
-                <Button color = 'secondary' variant='outlined' ><Link to='/' style={{textDecoration:'none', color:'red'}}>Back</Link></Button>
+                <Link to='/' style={{textDecoration:'none', color:'red'}}>
+                    <Button color='secondary' variant='outlined'>
+                        <p>Back</p>
+                    </Button>
+                </Link>
                 <div style = {{width: '100%', float: 'left' }}>
                     <div style = {{float: 'left', textAlign: 'center' }}>
                         <div style = {{textAlign: "center"}}>Hello {username} </div>
