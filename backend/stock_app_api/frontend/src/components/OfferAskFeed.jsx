@@ -41,7 +41,7 @@ class OfferAskFeed extends React.Component{
 
         <div className={classes.root}>
           {value === 0 && <TabContainer>
-            <div class='scale-up-ver-top'>
+            <div className='scale-up-ver-top'>
             <h3>Offers</h3>
             <table>
               <tbody>
@@ -55,7 +55,7 @@ class OfferAskFeed extends React.Component{
             </div>
           </TabContainer>}
           {value === 1 && <TabContainer>
-            <div class='scale-up-ver-top'>
+            <div className='scale-up-ver-top'>
             <h3>Asks</h3>
             <table>
               <tbody>
