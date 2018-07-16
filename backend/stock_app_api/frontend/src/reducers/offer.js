@@ -19,6 +19,10 @@ export default function offer(state=initialState, action){
     case 'FETCH_USER_OFFERS':
       return [...state, ...action.offers];
 
+    case 'FETCH_OFFER_DETAIL':
+      console.log(action.offers);
+      return [...state, ...action.offers];
+
     default:
       return state;
   }

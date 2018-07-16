@@ -139,9 +139,10 @@ class Profile extends React.Component{
                         <table>
                             <tbody>
                             {this.props.offers.map((offer, id) => (
+                                
                                 <tr key={`offer_${id}`}>
                                     <td>
-                                        <Link to='/offer' style={{textDecoration:'none', color:'black'}}>{offer.title}</Link>
+                                        <Link to={'/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black'}}>{offer.title}: {offer.id}</Link>
                                     </td>
                                 </tr>
                             ))}

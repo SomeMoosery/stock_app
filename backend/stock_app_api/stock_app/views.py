@@ -75,6 +75,13 @@ class ListOffer(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class ListOfferDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = serializers.OfferSerializer
+
+    def get_queryset(self):
+        return models.Offer.objects.all()
+
 
 class ListBanks(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, ]

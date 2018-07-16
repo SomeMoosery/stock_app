@@ -34,6 +34,7 @@ urlpatterns=[
     #Offers:
     url(r'^offers/$', views.ListOffer.as_view()),
     url(r'^profiles/(?P<pk>[^/.]+)/offers/$', views.ListProfileOffer.as_view()),
+    url(r'^offers/(?P<pk>[^/.]+)/$', views.ListOfferDetail.as_view()),
 
     #Asks:
     url(r'^asks/$', views.ListAsk.as_view()),

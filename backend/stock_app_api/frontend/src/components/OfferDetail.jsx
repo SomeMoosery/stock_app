@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {Link} from 'react-router-dom';
 
-import {auth, offer} from '../actions';
+import {offer} from '../actions';
 
 import Button from '@material-ui/core/Button';
 
@@ -16,10 +16,11 @@ class OfferDetail extends React.Component{
     }
 
     componentDidMount(){
-        // this.props.offers.length = 0;
-        // if (this.props.offers.length === 0){
-        //     this.props.fetchUserOffers();
-        // }
+        this.props.offers.length = 0;
+        if (this.props.offers.length === 0){
+            this.props.fetchOfferDetail(this.props.match.params.offer);
+        }
+        setTimeout(() => console.log(this.props), 4000);
     }
     
     render(){
@@ -30,18 +31,24 @@ class OfferDetail extends React.Component{
                         <p>Back</p>
                     </Button>
                 </Link>
-                <div>Here</div>
+                <p>Here</p>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-
+    return{
+      offers: state.offer,
+    }
 }
 
 const mapDispatchToProps = dispatch => {
-
+    return{
+        fetchOfferDetail: (id) => {
+            dispatch(offer.fetchOfferDetail(id));
+        },
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferDetail);
