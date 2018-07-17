@@ -19,6 +19,9 @@ export default function ask(state=initialState, action){
     case 'FETCH_USER_ASKS':
       return [...state, ...action.asks];
 
+    case 'FETCH_ASK_DETAIL':
+      return [...state, ...action.asks];
+
     default:
       return state;
   }

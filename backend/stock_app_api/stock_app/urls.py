@@ -39,4 +39,5 @@ urlpatterns=[
     #Asks:
     url(r'^asks/$', views.ListAsk.as_view()),
     url(r'^profiles/(?P<pk>[^/.]+)/asks/$', views.ListProfileAsk.as_view()),
+    url(r'^asks/(?P<pk>[^/.]+)/$', views.ListAskDetail.as_view()),
 ]

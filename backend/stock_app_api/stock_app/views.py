@@ -57,6 +57,13 @@ class ListAsk(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class ListAskDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = serializers.AskSerializer
+
+    def get_queryset(self):
+        return models.Ask.objects.all()
+
 class ListProfileOffer(generics.ListCreateAPIView):
     serializer_class = serializers.OfferSerializer
     permission_classes = [permissions.IsAuthenticated, ]

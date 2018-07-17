@@ -4,20 +4,20 @@ import {connect} from 'react-redux';
 
 import {Link} from 'react-router-dom';
 
-import {offer} from '../actions';
+import {ask} from '../actions';
 
 import Button from '@material-ui/core/Button';
 
-class OfferDetail extends React.Component{
+class AskDetail extends React.Component{
 
     state = { 
-        offerTitle: "",
-        updateOfferId: null,
+        askTitle: "",
+        updateAskId: null,
     }
 
     componentDidMount(){
-        this.props.offers.length = 0;
-        this.props.fetchOfferDetail(this.props.match.params.offer);
+        this.props.asks.length = 0;
+        this.props.fetchAskDetail(this.props.match.params.ask);
     }
     
     render(){
@@ -30,10 +30,10 @@ class OfferDetail extends React.Component{
                 </Link>
                 <table>
                     <tbody>
-                        {this.props.offers.map((offer, id) => (  
-                            <tr key={`offer_${id}`}>
+                        {this.props.asks.map((ask, id) => (  
+                            <tr key={`ask_${id}`}>
                                 <td>
-                                    {offer.title}
+                                    {ask.title}
                                 </td>
                             </tr>
                         ))}
@@ -46,16 +46,16 @@ class OfferDetail extends React.Component{
 
 const mapStateToProps = state => {
     return{
-      offers: state.offer,
+      asks: state.ask,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        fetchOfferDetail: (id) => {
-            dispatch(offer.fetchOfferDetail(id));
+        fetchAskDetail: (id) => {
+            dispatch(ask.fetchAskDetail(id));
         },
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OfferDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(AskDetail);

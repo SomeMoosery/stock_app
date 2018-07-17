@@ -36,8 +36,6 @@ class Profile extends React.Component{
         if (this.props.asks.length === 0){
             this.props.fetchUserAsks();
         }
-        setTimeout(() => console.log(this.props), 4000);
-
     }
 
     handleOnSuccess = (token, metadata) => {
@@ -160,7 +158,7 @@ class Profile extends React.Component{
                             <tbody>
                             {this.props.asks.map((ask, id) => (
                                 <tr key={`ask_${id}`}>
-                                    <td>{ask.title}</td>
+                                    <td><Link to={'/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black'}}>{ask.title}: {ask.id}</Link></td>
                                 </tr>
                             ))}
                             </tbody>

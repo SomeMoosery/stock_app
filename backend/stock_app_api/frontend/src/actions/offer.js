@@ -163,7 +163,6 @@ export const fetchOfferDetail = index => {
     })
     .then(res => {
       if (res.status === 200) {
-        console.log(getState().offer);
         getState().offer.push(res.data);
         return dispatch({type: 'FETCH_OFFER_DETAIL', offers: res.data});
       } else if (res.status === 401 || res.status === 403) {
