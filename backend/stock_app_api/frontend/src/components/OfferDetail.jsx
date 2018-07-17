@@ -13,14 +13,38 @@ class OfferDetail extends React.Component{
     state = { 
         offerTitle: "",
         updateOfferId: null,
+        loading: true,
     }
 
     componentDidMount(){
+        setTimeout(() => this.setState({loading: false}), 2000);
         this.props.offers.length = 0;
         this.props.fetchOfferDetail(this.props.match.params.offer);
     }
     
     render(){
+
+        const { loading } = this.state;
+
+        if (loading){
+            return (
+                <div style={{textAlign:'center'}}>
+                    <div className="sk-cube-grid">
+                        <div className="sk-cube sk-cube1"></div>
+                        <div className="sk-cube sk-cube2"></div>
+                        <div className="sk-cube sk-cube3"></div>
+                        <div className="sk-cube sk-cube4"></div>
+                        <div className="sk-cube sk-cube5"></div>
+                        <div className="sk-cube sk-cube6"></div>
+                        <div className="sk-cube sk-cube7"></div>
+                        <div className="sk-cube sk-cube8"></div>
+                        <div className="sk-cube sk-cube9"></div>
+                    </div>
+                    <p>Loading Offer</p>
+                </div>
+            )
+        }
+
         return(
             <div>
                 <Link to='/profile' style={{textDecoration:'none', color:'red'}}>
