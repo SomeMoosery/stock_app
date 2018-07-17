@@ -17,10 +17,8 @@ class OfferDetail extends React.Component{
 
     componentDidMount(){
         this.props.offers.length = 0;
-        if (this.props.offers.length === 0){
-            this.props.fetchOfferDetail(this.props.match.params.offer);
-        }
-        setTimeout(() => console.log(this.props), 4000);
+        this.props.fetchOfferDetail(this.props.match.params.offer);
+        this.props.offers.length = 0;
     }
     
     render(){
@@ -31,7 +29,17 @@ class OfferDetail extends React.Component{
                         <p>Back</p>
                     </Button>
                 </Link>
-                <p>Here</p>
+                <table>
+                    <tbody>
+                        {this.props.offers.map((offer, id) => (  
+                            <tr key={`offer_${id}`}>
+                                <td>
+                                    {offer.title}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         )
     }

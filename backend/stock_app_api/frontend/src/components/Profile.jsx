@@ -36,6 +36,8 @@ class Profile extends React.Component{
         if (this.props.asks.length === 0){
             this.props.fetchUserAsks();
         }
+        setTimeout(() => console.log(this.props), 4000);
+
     }
 
     handleOnSuccess = (token, metadata) => {
