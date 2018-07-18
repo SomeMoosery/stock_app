@@ -21,6 +21,7 @@ class Profile extends React.Component{
 
     componentDidMount(){
         setTimeout(() => this.setState({loading: false}), 2000);
+        this.props.banks.length = 0;
         if (this.props.banks.length === 0){
             this.props.fetchUserBanks(userId);
         }
