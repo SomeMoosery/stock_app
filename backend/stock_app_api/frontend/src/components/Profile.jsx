@@ -16,7 +16,6 @@ const username = window.localStorage.getItem('username');
 class Profile extends React.Component{
 
     state = {
-        askTitle: "",
         loading: true,
     };
 
@@ -44,24 +43,6 @@ class Profile extends React.Component{
     
     handleOnExit(){
         console.log('Exit!');
-    }
-    
-    submitAsk = (e) => {
-        e.preventDefault();
-        if (this.state.updateAskId === null) {
-            this.props.addAsk(this.state.askTitle);
-            this.setState({loading: true});
-            setTimeout(() => this.setState({loading: false}), 2000);
-            setTimeout(function(){window.location.reload();},2000);        
-        }
-        else{
-            this.props.updateAsk(this.state.askTitle, this.state.updateAskId);
-        }
-        this.resetAskForm();
-    }
-
-    resetAskForm = () => {
-        this.setState({askTitle: "", updateAskId: null});
     }
 
     render(){
@@ -171,12 +152,6 @@ const mapDispatchToProps = dispatch => {
         },
         fetchUserAsks: () => {
             dispatch(ask.fetchUserAsks());
-        },
-        addAsk: (askTitle) => {
-            dispatch(ask.addAsk(askTitle));
-        },
-        updateAsk: (id, askTitle) => {
-            dispatch(ask.updateAsk(id, askTitle));
         },
     }
 }

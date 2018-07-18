@@ -56,7 +56,11 @@ class AskDetail extends React.Component{
                         {this.props.asks.map((ask, id) => (  
                             <tr key={`ask_${id}`}>
                                 <td>
-                                    {ask.title}
+                                    {ask.title}<br/>
+                                    {ask.description}<br/>
+                                    {ask.amount}<br/>
+                                    {ask.weeks}<br/>
+                                    {ask.interest}<br/>
                                 </td>
                             </tr>
                         ))}
