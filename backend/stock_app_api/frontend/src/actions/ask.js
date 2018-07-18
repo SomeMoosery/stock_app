@@ -1,5 +1,4 @@
-export const addAsk = askTitle => {
-  console.log(askTitle);
+export const addAsk = (askTitle, askDescription, askAmount, askNumWeeks, askInterest) => {
   return (dispatch, getState) => {
     let headers = {"Content-Type": "application/json"};
     let {token} = getState().auth;
@@ -8,9 +7,12 @@ export const addAsk = askTitle => {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    let title = askTitle
-    let body = JSON.stringify({title, });
-    console.log(body);
+    let title = askTitle;
+    let description = askDescription;
+    let amount = askAmount;
+    let weeks = askNumWeeks;
+    let interest = askInterest;
+    let body = JSON.stringify({title, description, amount, weeks, interest});
 
     return fetch("http://localhost:8000/api/asks/", {headers, method: "POST", body})
       .then(res => {

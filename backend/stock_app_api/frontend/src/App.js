@@ -16,6 +16,7 @@ import Profile from './components/Profile';
 import OfferDetail from './components/OfferDetail';
 import AskDetail from './components/AskDetail';
 import AddOffer from './components/AddOffer';
+import AddAsk from './components/AddAsk';
 
 let store = createStore(stockApp, applyMiddleware(thunk));
 
@@ -70,6 +71,7 @@ class RootContainerComponent extends Component {
           <Route exact path="/offers/:offer" component={OfferDetail}/>
           <Route exact path="/asks/:ask" component={AskDetail}/>
           <Route exact path="/add-offer" component={AddOffer}/>
+          <Route exact path="/add-ask" component={AddAsk}/>
         </Switch>
       </BrowserRouter>
     );

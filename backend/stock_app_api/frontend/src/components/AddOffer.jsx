@@ -35,7 +35,6 @@ class AddOffer extends React.Component{
     }
 
     render(){
-        console.log(this.state.submitted);
         if (this.state.submitted){
             return <Redirect to='/profile'/>
         }

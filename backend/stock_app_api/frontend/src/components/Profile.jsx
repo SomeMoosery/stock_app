@@ -127,11 +127,11 @@ class Profile extends React.Component{
                             ))}
                             </tbody>
                         </table>
-                        <form onSubmit={this.submitAsk}>
-                            <input value={this.state.askName} placeholder="Enter ask here" onChange={(e) => this.setState({askTitle: e.target.value})} required />
-                            <Button type="submit" color="primary" variant='outlined'>Post an Ask</Button>
-                            <Button onClick={this.resetAskForm} color="secondary" variant='outlined'>Reset</Button>
-                        </form>
+                        <Link to='/add-ask' style={{textDecoration:'none', color:'black'}}>
+                            <Button color='primary' variant='outlined'>
+                                <p>Add an Ask!</p>
+                            </Button>
+                        </Link>
                         <h3>{username}'s Asks:</h3>
                         <table>
                             <tbody>
