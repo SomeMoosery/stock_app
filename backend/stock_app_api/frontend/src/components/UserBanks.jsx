@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 class UserBanks extends React.Component{
 
@@ -11,8 +12,7 @@ class UserBanks extends React.Component{
                 <tbody>
                 {this.props.banks.map((bank, id) => (
                     <tr key={`bank_${id}`}>
-                    <td>{bank.owner}</td>
-                    <td>{bank.bank_name}</td>
+                    <td><Link to={'/banks/' + bank.id} params={{ bankId: id}} style={{textDecoration:'none', color:'black'}}>{bank.bank_name}</Link></td>
                     </tr>
                 ))}
                 </tbody>

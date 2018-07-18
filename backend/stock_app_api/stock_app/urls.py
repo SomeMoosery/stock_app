@@ -30,6 +30,7 @@ urlpatterns=[
     #Banks:
     url(r'^exchange-public-token/$', ExchangePublicToken.as_view()), #Call plaid service to exchange public token for access token to make Item
     url(r'^banks/$', views.ListBanks.as_view()),
+    url(r'^banks/(?P<pk>[^/.]+)/$', views.ListBankDetail.as_view()),
 
     #Offers:
     url(r'^offers/$', views.ListOffer.as_view()),

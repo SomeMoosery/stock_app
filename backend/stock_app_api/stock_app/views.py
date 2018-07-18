@@ -39,6 +39,13 @@ class ListProfileBank(generics.ListCreateAPIView):
         username = self.kwargs['pk']
         return models.Bank.objects.filter(owner=username)
 
+class ListBankDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = serializers.BankSerializer
+
+    def get_queryset(self):
+        return models.Bank.objects.all()
+
 class ListProfileAsk(generics.ListCreateAPIView):
     serializer_class = serializers.AskSerializer
     permission_classes = [permissions.IsAuthenticated, ]

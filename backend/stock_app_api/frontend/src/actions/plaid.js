@@ -78,3 +78,38 @@ export const fetchUserBanks = index => {
     })
   }
 }
+
+export const fetchBankDetail = index => {
+  return (dispatch, getState) => {
+    let headers = {"Content-Type": "application/json"};
+    let {token} = getState().auth;
+
+    if (token) {
+      headers["Authorization"] = `Token ${token}`;
+    }
+
+    let bankId = index
+
+    return fetch(`http://localhost:8000/api/banks/${bankId}/`, {headers, })
+    .then(res => {
+      if (res.status < 500) {
+        return res.json().then(data => {
+          return {status: res.status, data};
+        })
+      } else {
+        console.log("Server Error!");
+        throw res;
+      }
+    })
+    .then(res => {
+      if (res.status === 200) {
+        getState().plaid.push(res.data);
+        console.log(res.data);
+        return dispatch({type: 'FETCH_BANK_DETAIL', banks: res.data});
+      } else if (res.status === 401 || res.status === 403) {
+        dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
+        throw res.data;
+      }
+    })
+  }
+}

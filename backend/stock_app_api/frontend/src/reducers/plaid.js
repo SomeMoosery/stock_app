@@ -19,6 +19,9 @@ export default function plaid(state=initialState, action){
     case 'FETCH_USER_BANKS':
       return [...state, ...action.banks];
 
+    case 'FETCH_BANK_DETAIL':
+      return [...state, ...action.banks];
+
     default:
       return state;
   }
