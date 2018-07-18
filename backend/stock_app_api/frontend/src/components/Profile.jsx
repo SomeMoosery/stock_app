@@ -16,11 +16,7 @@ const username = window.localStorage.getItem('username');
 class Profile extends React.Component{
 
     state = {
-        offerTitle: "",
-        offerDescription: "",
         askTitle: "",
-        updateOfferId: null,
-        updateAskId: null,
         loading: true,
     };
 
@@ -48,28 +44,6 @@ class Profile extends React.Component{
     
     handleOnExit(){
         console.log('Exit!');
-    }
-
-    submitOffer = (e) => {
-        e.preventDefault();
-        if (this.state.updateOfferId === null) {
-            this.props.addOffer(this.state.offerTitle, this.state.offerDescription);
-            this.setState({loading: true});
-            setTimeout(() => this.setState({loading: false}), 2000);
-            setTimeout(function(){window.location.reload();},2000);        
-        }
-        else{
-            this.props.updateOffer(this.state.offerTitle, this.state.updateOfferId);
-        }
-        this.resetOfferForm();
-    }
-
-    resetOfferForm = () => {
-        this.setState({
-            offerTitle: "", 
-            updateOfferId: null,
-            offerDescription: "", 
-        });
     }
     
     submitAsk = (e) => {
@@ -194,12 +168,6 @@ const mapDispatchToProps = dispatch => {
         },
         fetchUserOffers: (id) => {
             dispatch(offer.fetchUserOffers());
-        },
-        addOffer: (offerTitle, offerDescription) => {
-            dispatch(offer.addOffer(offerTitle, offerDescription));
-        },
-        updateOffer: (id, offerTitle) => {
-            dispatch(offer.updateOffer(id, offerTitle));
         },
         fetchUserAsks: () => {
             dispatch(ask.fetchUserAsks());
