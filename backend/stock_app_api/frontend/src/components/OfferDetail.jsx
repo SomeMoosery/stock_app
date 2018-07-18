@@ -57,7 +57,11 @@ class OfferDetail extends React.Component{
                         {this.props.offers.map((offer, id) => (  
                             <tr key={`offer_${id}`}>
                                 <td>
-                                    {offer.title}
+                                    {offer.title}<br/>
+                                    {offer.description}<br/>
+                                    {offer.amount}<br/>
+                                    {offer.weeks}<br/>
+                                    {offer.interest}<br/>
                                 </td>
                             </tr>
                         ))}

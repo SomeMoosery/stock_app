@@ -17,6 +17,7 @@ class Profile extends React.Component{
 
     state = {
         offerTitle: "",
+        offerDescription: "",
         askTitle: "",
         updateOfferId: null,
         updateAskId: null,
@@ -52,7 +53,7 @@ class Profile extends React.Component{
     submitOffer = (e) => {
         e.preventDefault();
         if (this.state.updateOfferId === null) {
-            this.props.addOffer(this.state.offerTitle);
+            this.props.addOffer(this.state.offerTitle, this.state.offerDescription);
             this.setState({loading: true});
             setTimeout(() => this.setState({loading: false}), 2000);
             setTimeout(function(){window.location.reload();},2000);        
@@ -64,7 +65,11 @@ class Profile extends React.Component{
     }
 
     resetOfferForm = () => {
-        this.setState({offerTitle: "", updateOfferId: null});
+        this.setState({
+            offerTitle: "", 
+            updateOfferId: null,
+            offerDescription: "", 
+        });
     }
     
     submitAsk = (e) => {
@@ -130,11 +135,11 @@ class Profile extends React.Component{
                         <UserBanks/>
                     </div>
                     <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
-                        <form onSubmit={this.submitOffer}>
-                            <input value={this.state.offerTitle} placeholder="Enter offer here" onChange={(e) => this.setState({offerTitle: e.target.value})} required />
-                            <Button type="submit" color="primary" variant='outlined'>Post an Offer</Button>
-                            <Button onClick={this.resetOfferForm} color="secondary" variant='outlined'>Reset</Button>
-                        </form>
+                        <Link to='/add-offer' style={{textDecoration:'none', color:'black'}}>
+                            <Button color='primary' variant='outlined'>
+                                <p>Add an Offer!</p>
+                            </Button>
+                        </Link>
                         <h3>{username}'s Offers:</h3>
                         <table>
                             <tbody>
@@ -142,7 +147,7 @@ class Profile extends React.Component{
                                 
                                 <tr key={`offer_${id}`}>
                                     <td>
-                                        <Link to={'/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black'}}>{offer.title}: {offer.id}</Link>
+                                        <Link to={'/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black'}}>{offer.title}</Link>
                                     </td>
                                 </tr>
                             ))}
@@ -158,7 +163,7 @@ class Profile extends React.Component{
                             <tbody>
                             {this.props.asks.map((ask, id) => (
                                 <tr key={`ask_${id}`}>
-                                    <td><Link to={'/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black'}}>{ask.title}: {ask.id}</Link></td>
+                                    <td><Link to={'/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black'}}>{ask.title}</Link></td>
                                 </tr>
                             ))}
                             </tbody>
@@ -190,8 +195,8 @@ const mapDispatchToProps = dispatch => {
         fetchUserOffers: (id) => {
             dispatch(offer.fetchUserOffers());
         },
-        addOffer: (offerTitle) => {
-            dispatch(offer.addOffer(offerTitle));
+        addOffer: (offerTitle, offerDescription) => {
+            dispatch(offer.addOffer(offerTitle, offerDescription));
         },
         updateOffer: (id, offerTitle) => {
             dispatch(offer.updateOffer(id, offerTitle));

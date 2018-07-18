@@ -1,5 +1,4 @@
-export const addOffer = offerTitle => {
-console.log(offerTitle);
+export const addOffer = (offerTitle, offerDescription, offerAmount, offerNumWeeks, offerInterest) => {
 return (dispatch, getState) => {
   let headers = {"Content-Type": "application/json"};
   let {token} = getState().auth;
@@ -9,7 +8,11 @@ return (dispatch, getState) => {
   }
 
   let title = offerTitle
-  let body = JSON.stringify({title, });
+  let description = offerDescription;
+  let amount = offerAmount;
+  let weeks = offerNumWeeks;
+  let interest = offerInterest;
+  let body = JSON.stringify({title, description, amount, weeks, interest});
   console.log(body);
 
   return fetch("http://localhost:8000/api/offers/", {headers, method: "POST", body})
