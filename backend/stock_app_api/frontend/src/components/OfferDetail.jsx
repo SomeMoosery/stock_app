@@ -8,6 +8,9 @@ import {offer} from '../actions';
 
 import Button from '@material-ui/core/Button';
 
+const userId = window.localStorage.getItem('user_id');
+let offerOwnerId = 0;
+
 class OfferDetail extends React.Component{
 
     state = { 
@@ -20,11 +23,20 @@ class OfferDetail extends React.Component{
         setTimeout(() => this.setState({loading: false}), 2000);
         this.props.offers.length = 0;
         this.props.fetchOfferDetail(this.props.match.params.offer);
+        setTimeout(() => offerOwnerId = this.props.offers.map((offer, id) => (offer.id)), 2000);
     }
     
     render(){
 
         const { loading } = this.state;
+        let isUserOffer;
+
+        if (userId === offerOwnerId){
+            isUserOffer = <div>HELLO</div>
+        }
+        else{
+            isUserOffer = <div>FUCK</div>
+        }
 
         if (loading){
             return (
@@ -54,7 +66,7 @@ class OfferDetail extends React.Component{
                 </Link>
                 <table>
                     <tbody>
-                        {this.props.offers.map((offer, id) => (  
+                        {this.props.offers.map((offer, id) => (
                             <tr key={`offer_${id}`}>
                                 <td>
                                     {offer.title}<br/>
@@ -64,7 +76,15 @@ class OfferDetail extends React.Component{
                                     {offer.interest}<br/>
                                 </td>
                             </tr>
+                            // if (userId === offer.id){
+                            //     <div>HELLO</div>
+                            // }
                         ))}
+                        {(() => {
+                            if (this.props.offers.map((offer,id) => offer.id === userId)) {
+                                <div>HELLO</div>
+                            }
+                        })()}
                     </tbody>
                 </table>
             </div>
