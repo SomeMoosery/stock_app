@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {Link} from 'react-router-dom';
 
-import {plaid} from '../actions';
+import {plaid, transactions} from '../actions';
 
 import Button from '@material-ui/core/Button';
 
@@ -12,12 +12,51 @@ class BankDetail extends React.Component{
 
     state = { 
         bank_name: "",
+        transaction_list: [],
     }
 
     componentDidMount(){
         setTimeout(() => this.setState({loading: false}), 2000);
         this.props.banks.length = 0;
+        let startDate = this.formatDateOld(Date.now());
+        let endDate = this.formatDateNow(Date.now());
         this.props.fetchBankDetail(this.props.match.params.bank);
+        setTimeout(() => {
+            this.props.fetchTransactions(this.props.banks[0].access_token, startDate, endDate);
+        }, 2000);
+    }
+
+    formatDateNow(date){
+        var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    formatDateOld(date){
+        var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+        if (month === 2){
+            month = ''+ 12;
+        }
+        if (month === 1){
+            month = '' + 11;
+        }
+        else{
+            month = '' + (d.getMonth() - 1);
+        }
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
     }
     
     render(){
@@ -52,9 +91,16 @@ class BankDetail extends React.Component{
                 <table>
                     <tbody>
                         {this.props.banks.map((bank, id) => (  
-                            <tr key={`ask_${id}`}>
+                            <tr key={`bank_${id}`}>
                                 <td>
                                     {bank.bank_name}<br/>
+                                </td>
+                            </tr>
+                        ))}
+                        {this.props.transactions.map((transaction, id) => (  
+                            <tr key={`transaction_${id}`}>
+                                <td>
+                                    {transaction.account_id}<br/>
                                 </td>
                             </tr>
                         ))}
@@ -68,13 +114,17 @@ class BankDetail extends React.Component{
 const mapStateToProps = state => {
     return{
       banks: state.plaid,
+      transactions: state.transactions,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        fetchBankDetail: (id) => {
+        fetchBankDetail: (id)=> {
             dispatch(plaid.fetchBankDetail(id));
+        },
+        fetchTransactions: (accessToken, startDate, endDate) => {
+            dispatch(transactions.fetchTransactions(accessToken, startDate, endDate));
         },
     }
 }

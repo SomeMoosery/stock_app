@@ -76,15 +76,7 @@ class OfferDetail extends React.Component{
                                     {offer.interest}<br/>
                                 </td>
                             </tr>
-                            // if (userId === offer.id){
-                            //     <div>HELLO</div>
-                            // }
                         ))}
-                        {(() => {
-                            if (this.props.offers.map((offer,id) => offer.id === userId)) {
-                                <div>HELLO</div>
-                            }
-                        })()}
                     </tbody>
                 </table>
             </div>

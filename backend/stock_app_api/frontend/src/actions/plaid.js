@@ -79,7 +79,7 @@ export const fetchUserBanks = index => {
   }
 }
 
-export const fetchBankDetail = index => {
+export const fetchBankDetail = (index) => {
   return (dispatch, getState) => {
     let headers = {"Content-Type": "application/json"};
     let {token} = getState().auth;
@@ -104,12 +104,11 @@ export const fetchBankDetail = index => {
     .then(res => {
       if (res.status === 200) {
         getState().plaid.push(res.data);
-        console.log(res.data);
-        return dispatch({type: 'FETCH_BANK_DETAIL', banks: res.data});
+        
       } else if (res.status === 401 || res.status === 403) {
-        dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
-        throw res.data;
-      }
+          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
+          throw res.data;
+        }
     })
   }
 }

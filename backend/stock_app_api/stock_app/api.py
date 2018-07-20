@@ -34,6 +34,29 @@ class ExchangePublicToken(APIView):
             "return_data": result
         })
 
+class GetTransactions(APIView):
+    def post(self, request, *args, **kwargs):
+        print('REQUEST: ' + str(request.data))
+        result = getTransaction(request.data['access_token'], request.data['start_date'], request.data['end_date'])
+        return Response({
+            "return_data": result
+        })
+
+def getTransaction(accessToken, startDate, endDate):
+    publicToken = '707d6df9798a9bf35257173c18e86b'
+    client = Client(client_id='5b343307c323c00011448c73', secret='1960ae345a207270c000ecf9698019', public_key=publicToken, environment='sandbox')
+    transactionResponse = client.Transactions.get(accessToken, start_date=startDate, end_date=endDate)
+    transactions = transactionResponse['transactions']
+    return transactions
+
+    # the transactions in the response are paginated, so make multiple calls while increasing the offset to
+    # retrieve all transactions
+    # while len(transactions) < transactionResponse['total_transactions']:
+    #     print('HERE')
+    #     transactionResponse = client.Transactions.get(accessToken, start_date=startDate, end_date=endDate, offset=len(transactionResponse))
+    #     print('RESPONSE: ' + str(transactionResponse))
+    #     transactions.extend(transactionResponse['transactions'])
+
 class RegistrationAPI(generics.GenericAPIView):
     serializer_class = CreateUserSerializer
 
