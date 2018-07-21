@@ -23,6 +23,7 @@ class BankDetail extends React.Component{
         this.props.fetchBankDetail(this.props.match.params.bank);
         setTimeout(() => {
             this.props.fetchTransactions(this.props.banks[0].access_token, startDate, endDate);
+            setTimeout(() => console.log(this.props), 2000);
         }, 2000);
     }
 
@@ -99,9 +100,7 @@ class BankDetail extends React.Component{
                         ))}
                         {this.props.transactions.map((transaction, id) => (  
                             <tr key={`transaction_${id}`}>
-                                <td>
-                                    {transaction.account_id}<br/>
-                                </td>
+                                <td>Account ID: {transaction.account_id} | ${transaction.amount}</td>
                             </tr>
                         ))}
                     </tbody>
