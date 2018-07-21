@@ -97,7 +97,7 @@ class Profile extends React.Component{
                                             onExit = {this.handleOnExit}
                                             onSuccess = {this.handleOnSuccess}
                                             style= {{width:'100%', textDecoration:'none', backgroundColor:'transparent', border:'none'}}>
-                                            <Button color='primary' variant='outlined' style={{width:'100%'}}>
+                                            <Button color='default' variant='outlined' style={{width:'100%', backgroundColor:'#C5EFF7',}}>
                                                 <p style={{fontSize:'1.5em'}}>Link a Bank Account!</p>
                                             </Button>
                                         </PlaidLink>
@@ -127,7 +127,7 @@ class Profile extends React.Component{
                                         </table>
                                         <div style={{height:'2em'}}></div>
                                         <Link to='/add-offer' style={{textDecoration:'none', color:'black'}}>
-                                            <Button color='primary' variant='outlined' style={{width:'96%'}}>
+                                            <Button color='default' variant='outlined' style={{width:'96%', backgroundColor:'#C5EFF7',}}>
                                                 <p style={{fontSize:'1.5em'}}>Add an Offer!</p>
                                             </Button>
                                         </Link>
@@ -157,7 +157,7 @@ class Profile extends React.Component{
                                         </table>
                                         <div style={{height:'2em'}}></div>
                                         <Link to='/add-ask' style={{textDecoration:'none', color:'black'}}>
-                                            <Button color='primary' variant='outlined' style={{width:'96%'}}>
+                                            <Button color='default' variant='outlined' style={{width:'96%', backgroundColor:'#C5EFF7',}}>
                                                 <p style={{fontSize:'1.5em'}}>Add an Ask!</p>
                                             </Button>
                                         </Link>

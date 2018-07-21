@@ -89,7 +89,7 @@ class Home extends React.Component{
 
     return(
       <div>
-        <div style = {{width: '100%', float: 'left' }}>
+        <div style = {{width: '100%', float: 'left', backgroundColor: '#ecf0f1'}}>
           <div style = {{float: 'left', paddingLeft: '10px', textAlign: 'center' }}>
             <h2>Welcome to Loaning App!</h2>
           </div>
