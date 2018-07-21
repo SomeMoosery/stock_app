@@ -7,6 +7,9 @@ import {Link} from 'react-router-dom';
 import {ask} from '../actions';
 
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 class AskDetail extends React.Component{
 
@@ -56,11 +59,23 @@ class AskDetail extends React.Component{
                         {this.props.asks.map((ask, id) => (  
                             <tr key={`ask_${id}`}>
                                 <td>
-                                    {ask.title}<br/>
-                                    {ask.description}<br/>
-                                    {ask.amount}<br/>
-                                    {ask.weeks}<br/>
-                                    {ask.interest}<br/>
+                                <div style={{width:'60%'}}>
+                                    <Card style = {{minWidth:275}}>
+                                        <CardContent>
+                                            <Typography style={{marginBottom:'16', fontSize:'14'}}>
+                                                {ask.title}
+                                            </Typography>
+                                            <Typography style={{marginBottom:'12'}}>
+                                                {ask.description}
+                                            </Typography>
+                                            <Typography component='p'>
+                                                Loan Amount Needed: {ask.amount}<br/>
+                                                Weeks Until Full Repayment: {ask.weeks}<br/>
+                                                Interest Asked: {ask.interest}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </div>
                                 </td>
                             </tr>
                         ))}

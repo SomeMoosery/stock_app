@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 import { plaid, offer, ask } from '../actions';
 import UserBanks from './UserBanks';
@@ -76,54 +79,97 @@ class Profile extends React.Component{
                         <p>Back</p>
                     </Button>
                 </Link>
-                <div style = {{width: '100%', float: 'left' }}>
-                    <div style = {{float: 'left', textAlign: 'center' }}>
-                        <div style = {{textAlign: "center"}}>Hello {username} </div>
-                        <PlaidLink
-                            clientName = 'LoanApp'
-                            env = 'sandbox'
-                            product = {['auth', 'transactions']}
-                            publicKey = '707d6df9798a9bf35257173c18e86b'
-                            onExit = {this.handleOnExit}
-                            onSuccess = {this.handleOnSuccess}>
-                            Link a Bank Account
-                        </PlaidLink>
-                        <UserBanks/>
-                    </div>
-                    <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
-                        <Link to='/add-offer' style={{textDecoration:'none', color:'black'}}>
-                            <Button color='primary' variant='outlined'>
-                                <p>Add an Offer!</p>
-                            </Button>
-                        </Link>
-                        <h3>{username}'s Offers:</h3>
-                        <table>
+                <div style = {{width: '100%'}}>
+                    <div style = {{float: 'left', textAlign: 'center', width:'100%'}}>
+                        <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>Hello {username.charAt(0).toUpperCase()}{username.substr(1)} </div>
+                        <div style ={{display:'flex', justifyContent:'center', width:'100%'}}>
+                        <table style={{alignSelf:'center'}}>
                             <tbody>
-                            {this.props.offers.map((offer, id) => (
-                                
-                                <tr key={`offer_${id}`}>
-                                    <td>
-                                        <Link to={'/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black'}}>{offer.title}</Link>
+                                <tr style={{verticalAlign:'top', height:'100%'}}>
+                                    <td style={{padding:'3em'}}>
+                                        <UserBanks/>
+                                        <div style={{height:'2em'}}></div>
+                                        <PlaidLink
+                                            clientName = 'LoanApp'
+                                            env = 'sandbox'
+                                            product = {['auth', 'transactions']}
+                                            publicKey = '707d6df9798a9bf35257173c18e86b'
+                                            onExit = {this.handleOnExit}
+                                            onSuccess = {this.handleOnSuccess}
+                                            style= {{width:'100%', textDecoration:'none', backgroundColor:'transparent', border:'none'}}>
+                                            <Button color='primary' variant='outlined' style={{width:'100%'}}>
+                                                <p style={{fontSize:'1.5em'}}>Link a Bank Account!</p>
+                                            </Button>
+                                        </PlaidLink>
+                                    </td>
+                                    <td style={{padding:'3em', height:'100%'}}>
+                                        <h3>{username.charAt(0).toUpperCase()}{username.substr(1)}'s Offers:</h3>
+                                        <table>
+                                            <tbody>
+                                            {this.props.offers.map((offer, id) => (
+                                                <tr key={`offer_${id}`}>
+                                                    <td>
+                                                        <Link to={'/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
+                                                        <div style={{width:'100%'}}>
+                                                            <Card style = {{minWidth:275, width:'100%'}}>
+                                                                <CardContent>
+                                                                    <Typography style={{marginBottom:'16', fontSize:'14', textAlign: 'left'}} variant="headline">
+                                                                        {offer.title}
+                                                                    </Typography>
+                                                                </CardContent>
+                                                            </Card>
+                                                        </div>
+                                                        </Link>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                            </tbody>
+                                        </table>
+                                        <div style={{height:'2em'}}></div>
+                                        <Link to='/add-offer' style={{textDecoration:'none', color:'black'}}>
+                                            <Button color='primary' variant='outlined' style={{width:'96%'}}>
+                                                <p style={{fontSize:'1.5em'}}>Add an Offer!</p>
+                                            </Button>
+                                        </Link>
+                                    </td>
+                                    <td style={{padding:'3em'}}>
+                                        <h3>{username.charAt(0).toUpperCase()}{username.substr(1)}'s Asks:</h3>
+                                        <table style = {{width:'100%'}}>
+                                            <tbody>
+                                            {this.props.asks.map((ask, id) => (
+                                                <tr key={`ask_${id}`}>
+                                                    <td>
+                                                        <Link to={'/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
+                                                        <div style={{width:'100%'}}>
+                                                            <Card style = {{minWidth:275, width:'100%'}}>
+                                                                <CardContent>
+                                                                    <Typography style={{marginBottom:'16', fontSize:'14', textAlign: 'left'}} variant="headline">
+                                                                        {ask.title}
+                                                                    </Typography>
+                                                                </CardContent>
+                                                            </Card>
+                                                        </div>
+                                                        </Link>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                            </tbody>
+                                        </table>
+                                        <div style={{height:'2em'}}></div>
+                                        <Link to='/add-ask' style={{textDecoration:'none', color:'black'}}>
+                                            <Button color='primary' variant='outlined' style={{width:'96%'}}>
+                                                <p style={{fontSize:'1.5em'}}>Add an Ask!</p>
+                                            </Button>
+                                        </Link>
                                     </td>
                                 </tr>
-                            ))}
                             </tbody>
                         </table>
-                        <Link to='/add-ask' style={{textDecoration:'none', color:'black'}}>
-                            <Button color='primary' variant='outlined'>
-                                <p>Add an Ask!</p>
-                            </Button>
-                        </Link>
-                        <h3>{username}'s Asks:</h3>
-                        <table>
-                            <tbody>
-                            {this.props.asks.map((ask, id) => (
-                                <tr key={`ask_${id}`}>
-                                    <td><Link to={'/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black'}}>{ask.title}</Link></td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
+                        </div>
+                    </div>
+                    <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
+                        
+                        
                     </div>
                 </div>
             </div>

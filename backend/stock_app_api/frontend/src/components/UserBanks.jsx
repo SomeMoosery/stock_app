@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
 class UserBanks extends React.Component{
 
     render(){
@@ -12,7 +16,19 @@ class UserBanks extends React.Component{
                 <tbody>
                 {this.props.banks.map((bank, id) => (
                     <tr key={`bank_${id}`}>
-                    <td><Link to={'/banks/' + bank.id} params={{ bankId: id}} style={{textDecoration:'none', color:'black'}}>{bank.bank_name}</Link></td>
+                    <td>
+                        <Link to={'/banks/' + bank.id} params={{ bankId: id}} style={{textDecoration:'none', color:'black'}}>
+                        <div style={{width:'60%'}}>
+                            <Card style = {{minWidth:275}}>
+                                <CardContent>
+                                    <Typography style={{marginBottom:'16', fontSize:'14'}} variant="headline">
+                                        {bank.bank_name}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </div>
+                        </Link>
+                    </td>
                     </tr>
                 ))}
                 </tbody>
