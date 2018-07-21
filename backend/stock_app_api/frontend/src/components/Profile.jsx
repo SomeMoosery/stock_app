@@ -75,7 +75,7 @@ class Profile extends React.Component{
         return(
             <div>
                 <Link to='/' style={{textDecoration:'none', color:'red'}}>
-                    <Button color='secondary' variant='outlined'>
+                    <Button color='secondary'>
                         <p>Back</p>
                     </Button>
                 </Link>

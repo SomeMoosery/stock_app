@@ -50,7 +50,7 @@ class AskDetail extends React.Component{
         return(
             <div>
                 <Link to='/profile' style={{textDecoration:'none', color:'red'}}>
-                    <Button color='secondary' variant='outlined'>
+                    <Button color='secondary'>
                         <p>Back</p>
                     </Button>
                 </Link>

@@ -94,18 +94,17 @@ class Home extends React.Component{
             <h2>Welcome to Loaning App!</h2>
           </div>
           <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
-            <h2>Logged in as {this.props.user.username}</h2> 
             <div style = {{width:'100%', float:'left'}}>
               <div style = {{float: 'left'}}>
                 <Link to='/' style={{textDecoration:'none', color:'red'}}>
-                  <Button onClick={this.props.logout} color='secondary' variant='outlined'>
+                  <Button onClick={this.props.logout} color='secondary' >
                     <p>Logout</p>
                   </Button>
                 </Link>
               </div>
               <div style={{float:'right'}}>
                 <Link to='/profile' style={{textDecoration:'none', color:'red'}}>
-                  <Button color='default' variant='outlined'>
+                  <Button color='default'>
                     <p>Profile</p>
                   </Button>
                 </Link>
@@ -113,7 +112,6 @@ class Home extends React.Component{
             </div>
           </div>
         </div>
-        <hr/>
 
         <OfferAskFeed/>
       </div>

@@ -89,11 +89,12 @@ class BankDetail extends React.Component{
         return(
             <div>
                 <Link to='/profile' style={{textDecoration:'none', color:'red'}}>
-                    <Button color='secondary' variant='outlined'>
+                    <Button color='secondary'>
                         <p>Back</p>
                     </Button>
                 </Link>
-                <table style={{width:'100%'}}>
+                <div className='scale-up-ver-top' style ={{display:'flex', justifyContent:'center', width:'100%'}}>
+                <table style={{alignSelf:'center', width:'60%'}}>
                     <tbody>
                         {this.props.banks.map((bank, id) => (  
                             <tr key={`bank_${id}`} style ={{width:'100%', textAlign:'center'}}>
@@ -107,7 +108,6 @@ class BankDetail extends React.Component{
                             
                             <tr key={`transaction_${id}`}>
                                 <td>
-                                <div style={{width:'60%'}}>
                                     <Card style = {{minWidth:275}}>
                                         <CardContent>
                                             <Typography style={{marginBottom:'16', fontSize:'14'}} color="textSecondary">
@@ -130,12 +130,12 @@ class BankDetail extends React.Component{
                                             </Typography>
                                         </CardContent>
                                     </Card>
-                                </div>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+                </div>
             </div>
         )
     }

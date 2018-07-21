@@ -10,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 
 import { compose } from 'redux';
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -41,13 +44,29 @@ class OfferAskFeed extends React.Component{
 
         <div className={classes.root}>
           {value === 0 && <TabContainer>
-            <div className='scale-up-ver-top'>
-            <h3>Offers</h3>
-            <table>
+            <h3 style={{textAlign:'center'}}>Offers</h3>
+            <div className='scale-up-ver-top' style ={{display:'flex', justifyContent:'center', width:'100%'}}>
+            <table style={{alignSelf:'center'}}>
               <tbody>
                 {this.props.offers.map((offer, id) => (
                   <tr key={`offer_${id}`}>
-                    <td>{offer.title}</td>
+                    <td>
+                      <Card style = {{minWidth:275}}>
+                        <CardContent>
+                            <Typography style={{marginBottom:'16', fontSize:'14'}}>
+                                {offer.title}
+                            </Typography>
+                            <Typography style={{marginBottom:'12'}}>
+                                {offer.description}
+                            </Typography>
+                            <Typography component='p'>
+                                Loan Amount Offered: {offer.amount}<br/>
+                                Weeks Until Full Repayment: {offer.weeks}<br/>
+                                Interest Offered: {offer.interest}
+                            </Typography>
+                        </CardContent>
+                      </Card>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -55,14 +74,28 @@ class OfferAskFeed extends React.Component{
             </div>
           </TabContainer>}
           {value === 1 && <TabContainer>
-            <div className='scale-up-ver-top'>
-            <h3>Asks</h3>
-            <table>
+            <h3 style={{textAlign:'center'}}>Asks</h3>
+            <div className='scale-up-ver-top' style ={{display:'flex', justifyContent:'center', width:'100%'}}>
+            <table style={{alignSelf:'center'}}>
               <tbody>
                 {this.props.asks.map((ask, id) => (
-                  <tr key={`ask_${id}`}>
-                    <td>{ask.title}</td>
-                  </tr>
+                  <tr key={`ask_${id}`}><td>
+                    <Card style = {{minWidth:275}}>
+                      <CardContent>
+                          <Typography style={{marginBottom:'16', fontSize:'14'}}>
+                              {ask.title}
+                          </Typography>
+                          <Typography style={{marginBottom:'12'}}>
+                              {ask.description}
+                          </Typography>
+                          <Typography component='p'>
+                              Loan Amount Needed: {ask.amount}<br/>
+                              Weeks Until Full Repayment: {ask.weeks}<br/>
+                              Interest Asked: {ask.interest}
+                          </Typography>
+                      </CardContent>
+                  </Card>
+                  </td></tr>
                 ))}
               </tbody>
             </table>
