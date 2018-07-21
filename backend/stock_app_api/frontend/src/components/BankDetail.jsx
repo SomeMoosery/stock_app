@@ -6,24 +6,31 @@ import {Link} from 'react-router-dom';
 
 import {plaid, transactions} from '../actions';
 
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 class BankDetail extends React.Component{
 
     state = { 
         bank_name: "",
         transaction_list: [],
+        loading: true,
     }
 
     componentDidMount(){
-        setTimeout(() => this.setState({loading: false}), 2000);
+        setTimeout(() => this.setState({loading: false}), 3000);
         this.props.banks.length = 0;
         let startDate = this.formatDateOld(Date.now());
         let endDate = this.formatDateNow(Date.now());
         this.props.fetchBankDetail(this.props.match.params.bank);
         setTimeout(() => {
             this.props.fetchTransactions(this.props.banks[0].access_token, startDate, endDate);
-            setTimeout(() => console.log(this.props), 2000);
+            setTimeout(() => console.log(this.props), 1000);
         }, 2000);
     }
 
@@ -78,7 +85,7 @@ class BankDetail extends React.Component{
                         <div className="sk-cube sk-cube8"></div>
                         <div className="sk-cube sk-cube9"></div>
                     </div>
-                    <p>Loading Ask</p>
+                    <p>Getting your transactions</p>
                 </div>
             )
         }
@@ -89,18 +96,45 @@ class BankDetail extends React.Component{
                         <p>Back</p>
                     </Button>
                 </Link>
-                <table>
+                <table style={{width:'100%'}}>
                     <tbody>
                         {this.props.banks.map((bank, id) => (  
-                            <tr key={`bank_${id}`}>
-                                <td>
-                                    {bank.bank_name}<br/>
+                            <tr key={`bank_${id}`} style ={{width:'100%', textAlign:'center'}}>
+                                <td style={{fontSize:'2em'}}>
+                                    {window.localStorage.getItem('username').charAt(0).toUpperCase()}{window.localStorage.getItem('username').substr(1)}'s {bank.bank_name} Account
                                 </td>
                             </tr>
                         ))}
+                        <tr><td><div style={{height:'3em'}}></div></td></tr>
                         {this.props.transactions.map((transaction, id) => (  
+                            
                             <tr key={`transaction_${id}`}>
-                                <td>Account ID: {transaction.account_id} | ${transaction.amount}</td>
+                                <td>
+                                <div style={{width:'60%'}}>
+                                    <Card style = {{minWidth:275}}>
+                                        <CardContent>
+                                            <Typography style={{marginBottom:'16', fontSize:'14'}} color="textSecondary">
+                                                Account ID: {transaction.account_id}
+                                            </Typography>
+                                            <Typography variant="headline" component="h2">
+                                               {transaction.name}
+                                            </Typography>
+                                            {transaction.category.map((category, id) => {
+                                                return (
+                                                    <div key={`category_${id}`}>
+                                                        <Typography styles={{marginBottom:'12'}} color="textSecondary">
+                                                            {category}
+                                                        </Typography>
+                                                    </div>
+                                                )
+                                            })}
+                                            <Typography component="p">
+                                                {transaction.date}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
