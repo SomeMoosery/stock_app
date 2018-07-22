@@ -65,11 +65,11 @@ export const login = (username, password) => {
   }
 }
 
-export const register = (username, password) => {
+export const register = (username, password, bio, location, age, university) => {
   return (dispatch, getState) => {
     let headers = {"Content-Type": "application/json"};
-    let body = JSON.stringify({username, password});
-
+    let body = JSON.stringify({username, password, bio, location, age, university});
+    console.log(body);
     return fetch("http://localhost:8000/api/auth/register/", {headers, body, method: "POST"})
       .then(res => {
         if (res.status < 500) {

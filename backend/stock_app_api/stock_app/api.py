@@ -59,15 +59,28 @@ def getTransaction(accessToken, startDate, endDate):
 
 class RegistrationAPI(generics.GenericAPIView):
     serializer_class = CreateUserSerializer
+    # serializer_class = UserSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
+        print('DATA: ' + str(request.data))
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)
         })
+
+    def get_serializer_context(self):
+        return{
+            'username': self.request.data['username'],
+            'password': self.request.data['password'],
+            'bio': self.request.data['bio'],
+            'location': self.request.data['location'],
+            'age': self.request.data['age'],
+            'university': self.request.data['university']
+        }
 
 class LoginAPI(generics.GenericAPIView):
     serializer_class = LoginUserSerializer

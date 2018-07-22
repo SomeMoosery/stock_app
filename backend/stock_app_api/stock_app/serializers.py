@@ -97,6 +97,9 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(validated_data['username'], None, validated_data['password'])
+        user.save()
+        user.profile.bio = self.context['bio']
+        user.save()
         return user
 
 class UserSerializer(serializers.ModelSerializer):

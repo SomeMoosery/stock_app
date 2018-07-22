@@ -10,11 +10,15 @@ class Login extends Component {
   state = {
     username: "",
     password: "",
+    bio: "",
+    location: "",
+    age: null,
+    university: "",
   }
 
   onSubmit = e => {
     e.preventDefault();
-    this.props.register(this.state.username, this.state.password);
+    this.props.register(this.state.username, this.state.password, this.state.bio, this.state.location, this.state.age, this.state.university);
   }
 
   render() {
@@ -45,6 +49,22 @@ class Login extends Component {
               onChange={e => this.setState({password: e.target.value})} />
           </p>
           <p>
+            <label htmlFor="bio" id="bio">Bio</label>
+            <input type="text" id="bio" onChange={e => this.setState({bio: e.target.value})}/>
+          </p>
+          <p>
+            <label htmlFor="location" id="location">Location</label>
+            <input type="text" id="location" onChange={e => this.setState({location: e.target.value})}/>
+          </p>
+          <p>
+            <label htmlFor="age" id="age">Age</label>
+            <input type="text" id="age" onChange={e => this.setState({age: e.target.value})}/>
+          </p>
+          <p>
+            <label htmlFor="university" id="university">University</label>
+            <input type="text" id="university" onChange={e => this.setState({university: e.target.value})}/>
+          </p>
+          <p>
             <button type="submit">Register</button>
           </p>
 
@@ -72,7 +92,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    register: (username, password) => dispatch(auth.register(username, password)),
+    register: (username, password, bio, location, age, university) => {
+      dispatch(auth.register(username, password, bio, location, age, university));
+    },
   };
 }
 
