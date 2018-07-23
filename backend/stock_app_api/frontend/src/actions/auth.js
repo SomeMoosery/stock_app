@@ -69,7 +69,6 @@ export const register = (username, password, bio, location, age, university) => 
   return (dispatch, getState) => {
     let headers = {"Content-Type": "application/json"};
     let body = JSON.stringify({username, password, bio, location, age, university});
-    console.log(body);
     return fetch("http://localhost:8000/api/auth/register/", {headers, body, method: "POST"})
       .then(res => {
         if (res.status < 500) {
@@ -122,5 +121,38 @@ export const logout = () => {
           throw res.data;
         }
       })
+  }
+}
+
+export const fetchUserDetail = (index) => {
+  return (dispatch, getState) => {
+    let headers = {"Content-Type": "application/json"};
+    let {token} = getState().auth;
+
+    if (token) {
+      headers["Authorization"] = `Token ${token}`;
+    }
+
+    let userId = index
+
+    return fetch(`http://localhost:8000/api/profiles/${userId}/`, {headers, })
+    .then(res => {
+      if (res.status < 500) {
+        return res.json().then(data => {
+          return {status: res.status, data};
+        })
+      } else {
+        console.log("Server Error!");
+        throw res;
+      }
+    })
+    .then(res => {
+      if (res.status === 200) {
+        dispatch({type: "FETCH_USER_DETAIL", user: res.data});
+      } else if (res.status === 401 || res.status === 403) {
+          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
+          throw res.data;
+        }
+    })
   }
 }

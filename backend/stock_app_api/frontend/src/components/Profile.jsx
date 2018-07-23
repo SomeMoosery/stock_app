@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import { plaid, offer, ask } from '../actions';
+import { plaid, offer, ask, auth } from '../actions';
 import UserBanks from './UserBanks';
 
 import PlaidLink from 'react-plaid-link';
@@ -36,6 +36,7 @@ class Profile extends React.Component{
         if (this.props.asks.length === 0){
             this.props.fetchUserAsks();
         }
+        setTimeout(()=>this.props.fetchUserDetail(userId), 1200);
     }
 
     handleOnSuccess = (token, metadata) => {
@@ -82,6 +83,7 @@ class Profile extends React.Component{
                 <div style = {{width: '100%'}}>
                     <div style = {{float: 'left', textAlign: 'center', width:'100%'}}>
                         <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>Hello {username.charAt(0).toUpperCase()}{username.substr(1)} </div>
+                        <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>{this.props.user.university}</div>
                         <div style ={{display:'flex', justifyContent:'center', width:'100%'}}>
                         <table style={{alignSelf:'center'}}>
                             <tbody>
@@ -200,6 +202,9 @@ const mapDispatchToProps = dispatch => {
         fetchUserAsks: () => {
             dispatch(ask.fetchUserAsks());
         },
+        fetchUserDetail: (id) => {
+            dispatch(auth.fetchUserDetail(id));
+        }
     }
 }
 
