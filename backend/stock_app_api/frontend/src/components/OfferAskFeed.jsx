@@ -108,6 +108,7 @@ class OfferAskFeed extends React.Component{
                               Loan Amount Needed: {ask.amount}<br/>
                               Weeks Until Full Repayment: {ask.weeks}<br/>
                               Interest Asked: {ask.interest}
+                              Asked by: {this.searchUser(ask.owner)}
                           </Typography>
                       </CardContent>
                   </Card>
