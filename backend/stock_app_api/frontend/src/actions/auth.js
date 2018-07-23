@@ -146,7 +146,7 @@ export const fetchUsers = () => {
       })
       .then(res => {
         if (res.status === 200) {
-          return dispatch({type: 'FETCH_USERS', user: res.data});
+          return dispatch({type: 'FETCH_USERS', users: res.data});
         } else if (res.status === 401 || res.status === 403) {
           dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
           throw res.data;

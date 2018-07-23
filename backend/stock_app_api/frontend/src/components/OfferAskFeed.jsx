@@ -39,18 +39,37 @@ class OfferAskFeed extends React.Component{
 
   componentDidMount(){
     this.props.fetchUsers();
-    setTimeout(()=>console.log(this.props),2000);
+  }
+
+  componentWillMount(){
+    this.props.fetchUsers();
   }
 
   searchUser(id){
-    for (var i = 0; i < this.props.user.length; i++){
-      if (id === this.props.user[i].id){
-        return this.props.user[i].user;
+    setTimeout(()=>{
+      for (var i = 0; i < this.props.users.length; i++){
+        if (id === this.props.users[i].id){
+          return this.props.users[i].user;
+        }
       }
-    }
+    },1000);
+  }
+
+  searchUserGetRating(id){
+    setTimeout(()=>{
+      for (var i = 0; i < this.props.users.length; i++){
+        if (id === this.props.users[i].id){
+          return this.props.users[i].rating;
+        }
+      }
+    },1000);
   }
 
   render(){
+
+    /**
+     * FOR SOME REASON, THE FACT WE GET MORE THAN ONE VALUE WHEN GONIG FROM HOME TO PROFILE IS FUCKING EVERYTHING UP :(
+     */
 
     const { classes } = this.props;
     const { value } = this.state;
@@ -74,11 +93,12 @@ class OfferAskFeed extends React.Component{
                             <Typography style={{marginBottom:'12'}}>
                                 {offer.description}
                             </Typography>
-                            <Typography component='p'>
+                            <Typography>
                                 Loan Amount Offered: {offer.amount}<br/>
                                 Weeks Until Full Repayment: {offer.weeks}<br/>
                                 Interest Offered: {offer.interest}<br/>
-                                Offered by: {this.searchUser(offer.owner)}
+                                Offered by: {this.searchUser(offer.owner)}<br/>
+                                {this.searchUser(offer.owner)}'s rating: {this.searchUserGetRating(offer.owner)}
                             </Typography>
                         </CardContent>
                       </Card>
@@ -104,11 +124,11 @@ class OfferAskFeed extends React.Component{
                           <Typography style={{marginBottom:'12'}}>
                               {ask.description}
                           </Typography>
-                          <Typography component='p'>
+                          <Typography>
                               Loan Amount Needed: {ask.amount}<br/>
                               Weeks Until Full Repayment: {ask.weeks}<br/>
-                              Interest Asked: {ask.interest}
-                              Asked by: {this.searchUser(ask.owner)}
+                              Interest Asked: {ask.interest}<br/>
+                              <p>Asked by: {this.searchUser(ask.owner)}</p>
                           </Typography>
                       </CardContent>
                   </Card>
@@ -134,6 +154,7 @@ const mapStateToProps = state => {
   return {
     stocks: state.stocks,
     user: state.auth.user,
+    users: state.auth.users,
     banks: state.plaid,
     offers: state.offer,
     asks: state.ask,

@@ -30,7 +30,7 @@ export default function auth(state=initialState, action) {
         isAuthenticated: false, isLoading: false};
 
     case 'FETCH_USERS':
-        return {...state, user: action.user}
+        return {...state, users: action.users}
 
     case 'FETCH_USER_DETAIL':
         return {...state, user: action.user}
