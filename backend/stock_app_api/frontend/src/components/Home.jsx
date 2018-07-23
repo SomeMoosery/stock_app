@@ -59,6 +59,7 @@ class Home extends React.Component{
     if (this.props.banks.length === 0){
       this.props.fetchUserBanks(this.props.user.id);
     }
+    this.props.fetchUsers();
     window.localStorage.setItem('username', this.props.user.username);
     window.localStorage.setItem('user_id', this.props.user.id);
   }
@@ -124,6 +125,7 @@ const mapStateToProps = state => {
     auth: state.auth,
     stocks: state.stocks,
     user: state.auth.user,
+    users: state.auth.users,
     banks: state.plaid,
     offers: state.offer,
     asks: state.ask,
@@ -143,6 +145,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchUserBanks: (id) => {
       dispatch(plaid.fetchUserBanks());
+    },
+    fetchUsers: () => {
+      dispatch(auth.fetchUsers());
     },
   }
 }

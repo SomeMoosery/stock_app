@@ -37,39 +37,23 @@ class OfferAskFeed extends React.Component{
     this.setState({ value });
   };
 
-  componentDidMount(){
-    this.props.fetchUsers();
-  }
-
-  componentWillMount(){
-    this.props.fetchUsers();
-  }
-
   searchUser(id){
-    setTimeout(()=>{
-      for (var i = 0; i < this.props.users.length; i++){
-        if (id === this.props.users[i].id){
-          return this.props.users[i].user;
-        }
+    for (var i = 0; i < this.props.users.length; i++){
+      if (id === this.props.users[i].id){
+        return this.props.users[i].user;
       }
-    },1000);
+    }
   }
 
   searchUserGetRating(id){
-    setTimeout(()=>{
-      for (var i = 0; i < this.props.users.length; i++){
-        if (id === this.props.users[i].id){
-          return this.props.users[i].rating;
-        }
+    for (var i = 0; i < this.props.users.length; i++){
+      if (id === this.props.users[i].id){
+        return this.props.users[i].rating;
       }
-    },1000);
+    }
   }
 
   render(){
-
-    /**
-     * FOR SOME REASON, THE FACT WE GET MORE THAN ONE VALUE WHEN GONIG FROM HOME TO PROFILE IS FUCKING EVERYTHING UP :(
-     */
 
     const { classes } = this.props;
     const { value } = this.state;
@@ -150,7 +134,6 @@ class OfferAskFeed extends React.Component{
 }
 
 const mapStateToProps = state => {
-  //Just returns an object (containing stocks: state.stocks where state.stocks is Redux state)
   return {
     stocks: state.stocks,
     user: state.auth.user,
