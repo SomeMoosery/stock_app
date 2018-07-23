@@ -48,6 +48,7 @@ class OfferAskFeed extends React.Component{
   searchUserGetRating(id){
     for (var i = 0; i < this.props.users.length; i++){
       if (id === this.props.users[i].id){
+        console.log(this.props.users[i]);
         return this.props.users[i].rating;
       }
     }
@@ -81,8 +82,7 @@ class OfferAskFeed extends React.Component{
                                 Loan Amount Offered: {offer.amount}<br/>
                                 Weeks Until Full Repayment: {offer.weeks}<br/>
                                 Interest Offered: {offer.interest}<br/>
-                                Offered by: {this.searchUser(offer.owner)}<br/>
-                                {this.searchUser(offer.owner)}'s rating: {this.searchUserGetRating(offer.owner)}
+                                Offered by: {this.searchUser(offer.owner)} ({this.searchUserGetRating(offer.owner)}/10)<br/>
                             </Typography>
                         </CardContent>
                       </Card>

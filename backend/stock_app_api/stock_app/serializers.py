@@ -21,6 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'location',
             'age',
             'university',
+            'rating',
         )
         model = models.Profile
 
