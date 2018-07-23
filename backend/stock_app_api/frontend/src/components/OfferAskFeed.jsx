@@ -13,6 +13,8 @@ import { compose } from 'redux';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
+import { auth } from '../actions';
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -34,6 +36,19 @@ class OfferAskFeed extends React.Component{
   handleTabChange = (event, value) => {
     this.setState({ value });
   };
+
+  componentDidMount(){
+    this.props.fetchUsers();
+    setTimeout(()=>console.log(this.props),2000);
+  }
+
+  searchUser(id){
+    for (var i = 0; i < this.props.user.length; i++){
+      if (id === this.props.user[i].id){
+        return this.props.user[i].user;
+      }
+    }
+  }
 
   render(){
 
@@ -62,7 +77,8 @@ class OfferAskFeed extends React.Component{
                             <Typography component='p'>
                                 Loan Amount Offered: {offer.amount}<br/>
                                 Weeks Until Full Repayment: {offer.weeks}<br/>
-                                Interest Offered: {offer.interest}
+                                Interest Offered: {offer.interest}<br/>
+                                Offered by: {this.searchUser(offer.owner)}
                             </Typography>
                         </CardContent>
                       </Card>
@@ -125,7 +141,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    
+    fetchUsers: () => {
+      dispatch(auth.fetchUsers());
+    }
   }
 }
 

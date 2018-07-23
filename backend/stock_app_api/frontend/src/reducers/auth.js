@@ -29,6 +29,9 @@ export default function auth(state=initialState, action) {
       return {...state, errors: action.data, token: null, user: null,
         isAuthenticated: false, isLoading: false};
 
+    case 'FETCH_USERS':
+        return {...state, user: action.user}
+
     case 'FETCH_USER_DETAIL':
         return {...state, user: action.user}
 
