@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {Link} from 'react-router-dom';
 
-import {ask} from '../actions';
+import {ask, auth} from '../actions';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -23,6 +23,10 @@ class AskDetail extends React.Component{
         setTimeout(() => this.setState({loading: false}), 2000);
         this.props.asks.length = 0;
         this.props.fetchAskDetail(this.props.match.params.ask);
+
+        setTimeout(() => {
+            this.props.fetchUserDetail(this.props.asks[0].owner);
+        }, 1500);
     }
     
     render(){
@@ -49,38 +53,31 @@ class AskDetail extends React.Component{
         }
         return(
             <div>
-                <Link to='/profile' style={{textDecoration:'none', color:'red'}}>
+                <Link to='/' style={{textDecoration:'none', color:'red'}}>
                     <Button color='secondary'>
                         <p>Back</p>
                     </Button>
                 </Link>
                 <table>
                     <tbody>
-                        {this.props.asks.map((ask, id) => (  
+                        {this.props.asks.map((ask, id) => (
                             <tr key={`ask_${id}`}>
                                 <td>
-                                <div style={{width:'60%'}}>
-                                    <Card style = {{minWidth:275}}>
-                                        <CardContent>
-                                            <Typography style={{marginBottom:'16', fontSize:'14'}}>
-                                                {ask.title}
-                                            </Typography>
-                                            <Typography style={{marginBottom:'12'}}>
-                                                {ask.description}
-                                            </Typography>
-                                            <Typography component='p'>
-                                                Loan Amount Needed: {ask.amount}<br/>
-                                                Weeks Until Full Repayment: {ask.weeks}<br/>
-                                                Interest Asked: {ask.interest}
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
-                                </div>
+                                    <p style={{marginBottom:'0.5em', fontSize: '2em'}}>{ask.title}</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>{ask.description}</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${ask.amount}</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>For {ask.weeks} weeks</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>With {ask.interest}% interest</p>
+                                    <p style={{fontSize:'1.5em'}}>Offered by {this.props.user.user} ({this.props.user.rating})</p>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+                <div style={{height:'6em'}}></div>
+                <div style={{margin:'auto', width:'50%', padding: '10px'}}>
+                    <Button color='primary' style={{width:'100%'}} variant='outlined'><p>Give Loan</p></Button>
+                </div>
             </div>
         )
     }
@@ -89,6 +86,7 @@ class AskDetail extends React.Component{
 const mapStateToProps = state => {
     return{
       asks: state.ask,
+      user: state.auth.user,
     }
 }
 
@@ -96,6 +94,9 @@ const mapDispatchToProps = dispatch => {
     return{
         fetchAskDetail: (id) => {
             dispatch(ask.fetchAskDetail(id));
+        },
+        fetchUserDetail: (id) => {
+            dispatch(auth.fetchUserDetail(id));
         },
     }
 }
