@@ -33,6 +33,7 @@ export default function auth(state=initialState, action) {
         return {...state, users: action.users}
 
     case 'FETCH_USER_DETAIL':
+        console.log(action.user);
         return {...state, user: action.user}
 
     default:

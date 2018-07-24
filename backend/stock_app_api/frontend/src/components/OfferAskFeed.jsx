@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import PropTypes from 'prop-types';
@@ -69,6 +70,7 @@ class OfferAskFeed extends React.Component{
                 {this.props.offers.map((offer, id) => (
                   <tr key={`offer_${id}`}>
                     <td>
+                      <Link to={'/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
                       <Card style = {{minWidth:275}}>
                         <CardContent>
                             <Typography style={{marginBottom:'16', fontSize:'14'}}>
@@ -85,6 +87,7 @@ class OfferAskFeed extends React.Component{
                             </Typography>
                         </CardContent>
                       </Card>
+                      </Link>
                     </td>
                   </tr>
                 ))}
@@ -99,6 +102,7 @@ class OfferAskFeed extends React.Component{
               <tbody>
                 {this.props.asks.map((ask, id) => (
                   <tr key={`ask_${id}`}><td>
+                    <Link to={'/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
                     <Card style = {{minWidth:275}}>
                       <CardContent>
                           <Typography style={{marginBottom:'16', fontSize:'14'}}>
@@ -115,6 +119,7 @@ class OfferAskFeed extends React.Component{
                           </Typography>
                       </CardContent>
                   </Card>
+                  </Link>
                   </td></tr>
                 ))}
               </tbody>

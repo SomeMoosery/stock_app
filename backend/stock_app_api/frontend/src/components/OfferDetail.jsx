@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {Link} from 'react-router-dom';
 
-import {offer} from '../actions';
+import {offer, auth} from '../actions';
 
 import Button from '@material-ui/core/Button';
 
@@ -23,20 +23,16 @@ class OfferDetail extends React.Component{
         setTimeout(() => this.setState({loading: false}), 2000);
         this.props.offers.length = 0;
         this.props.fetchOfferDetail(this.props.match.params.offer);
-        setTimeout(() => offerOwnerId = this.props.offers.map((offer, id) => (offer.id)), 2000);
+
+        setTimeout(() => {
+            this.props.fetchUserDetail(this.props.offers[0].owner);
+        }, 1500);
     }
     
     render(){
 
         const { loading } = this.state;
         let isUserOffer;
-
-        if (userId === offerOwnerId){
-            isUserOffer = <div>HELLO</div>
-        }
-        else{
-            isUserOffer = <div>FUCK</div>
-        }
 
         if (loading){
             return (
@@ -66,17 +62,28 @@ class OfferDetail extends React.Component{
                 </Link>
                 <table>
                     <tbody>
-                        {this.props.offers.map((offer, id) => (
-                            <tr key={`offer_${id}`}>
-                                <td>
-                                    {offer.title}<br/>
-                                    {offer.description}<br/>
-                                    {offer.amount}<br/>
-                                    {offer.weeks}<br/>
-                                    {offer.interest}<br/>
-                                </td>
-                            </tr>
-                        ))}
+                        <tr>
+                            <td>
+                                <table>
+                                    <tbody>
+                                        {this.props.offers.map((offer, id) => (
+                                            <tr key={`offer_${id}`}>
+                                                <td>
+                                                    <p style={{marginBottom:'0.5em', fontSize: '2em'}}>{offer.title}</p>
+                                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>{offer.description}</p>
+                                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${offer.amount}</p>
+                                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>For {offer.weeks} weeks</p>
+                                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>With {offer.interest}% interest</p>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                {this.props.user.user}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -87,6 +94,7 @@ class OfferDetail extends React.Component{
 const mapStateToProps = state => {
     return{
       offers: state.offer,
+      user: state.auth.user,
     }
 }
 
@@ -94,6 +102,9 @@ const mapDispatchToProps = dispatch => {
     return{
         fetchOfferDetail: (id) => {
             dispatch(offer.fetchOfferDetail(id));
+        },
+        fetchUserDetail: (id) => {
+            dispatch(auth.fetchUserDetail(id));
         },
     }
 }
