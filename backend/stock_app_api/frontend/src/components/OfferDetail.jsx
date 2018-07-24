@@ -62,30 +62,24 @@ class OfferDetail extends React.Component{
                 </Link>
                 <table>
                     <tbody>
-                        <tr>
-                            <td>
-                                <table>
-                                    <tbody>
-                                        {this.props.offers.map((offer, id) => (
-                                            <tr key={`offer_${id}`}>
-                                                <td>
-                                                    <p style={{marginBottom:'0.5em', fontSize: '2em'}}>{offer.title}</p>
-                                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>{offer.description}</p>
-                                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${offer.amount}</p>
-                                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>For {offer.weeks} weeks</p>
-                                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>With {offer.interest}% interest</p>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </td>
-                            <td>
-                                {this.props.user.user}
-                            </td>
-                        </tr>
+                        {this.props.offers.map((offer, id) => (
+                            <tr key={`offer_${id}`}>
+                                <td>
+                                    <p style={{marginBottom:'0.5em', fontSize: '2em'}}>{offer.title}</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>{offer.description}</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${offer.amount}</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>For {offer.weeks} weeks</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>With {offer.interest}% interest</p>
+                                    <p style={{fontSize:'1.5em'}}>Offered by {this.props.user.user} ({this.props.user.rating})</p>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
+                <div style={{height:'6em'}}></div>
+                <div style={{margin:'auto', width:'50%', padding: '10px'}}>
+                    <Button color='primary' style={{width:'100%'}} variant='outlined'><p>Take Offer</p></Button>
+                </div>
             </div>
         )
     }
