@@ -7,6 +7,15 @@ import {Link} from 'react-router-dom';
 import {offer, auth} from '../actions';
 
 import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import { compose } from 'redux';
+
 
 const userId = window.localStorage.getItem('user_id');
 let offerOwnerId = 0;
@@ -17,7 +26,16 @@ class OfferDetail extends React.Component{
         offerTitle: "",
         updateOfferId: null,
         loading: true,
+        open: false,
     }
+
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };  
 
     componentDidMount(){
         setTimeout(() => this.setState({loading: false}), 2000);
@@ -32,6 +50,7 @@ class OfferDetail extends React.Component{
     render(){
 
         const { loading } = this.state;
+        const { fullScreen } = this.props;
         let isUserOffer;
 
         if (loading){
@@ -78,12 +97,46 @@ class OfferDetail extends React.Component{
                 </table>
                 <div style={{height:'6em'}}></div>
                 <div style={{margin:'auto', width:'50%', padding: '10px'}}>
-                    <Button color='primary' style={{width:'100%'}} variant='outlined'><p>Take Offer</p></Button>
+                    <Button color='primary' style={{width:'100%'}} variant='outlined' onClick={this.handleClickOpen}><p>Take Offer</p></Button>
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        aria-labelledby="responsive-dialog-title"
+                        >
+                        <DialogTitle id="responsive-dialog-title">{"Are you sure you want to take this loan?"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                            <table><tbody>
+                            {this.props.offers.map((offer, id) => (
+                                <tr key={`offer_${id}`}>
+                                    <td>
+                                        By clicking 'Agree,' you will be accepting to take {this.props.user.user}'s offer 
+                                        for ${offer.amount} for {offer.weeks} weeks, with {offer.interest}% interest - and 
+                                        hereby agree to Unloan's terms and conditions.
+                                    </td>
+                                </tr>
+                            ))}</tbody></table>.
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="secondary">
+                            Cancel
+                            </Button>
+                            <Button onClick={this.handleClose} color="primary" autoFocus>
+                            Agree
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             </div>
         )
     }
 }
+
+OfferDetail.propTypes = {
+    fullScreen: PropTypes.bool.isRequired,
+  };
 
 const mapStateToProps = state => {
     return{
@@ -103,4 +156,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OfferDetail);
+export default compose(
+    withMobileDialog(),
+    connect(mapStateToProps, mapDispatchToProps)
+  )(OfferDetail);

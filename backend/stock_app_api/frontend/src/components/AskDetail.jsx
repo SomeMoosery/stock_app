@@ -7,9 +7,14 @@ import {Link} from 'react-router-dom';
 import {ask, auth} from '../actions';
 
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import { compose } from 'redux';
 
 class AskDetail extends React.Component{
 
@@ -17,7 +22,16 @@ class AskDetail extends React.Component{
         askTitle: "",
         updateAskId: null,
         loading: true,
+        open: false,
     }
+
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    }; 
 
     componentDidMount(){
         setTimeout(() => this.setState({loading: false}), 2000);
@@ -32,6 +46,7 @@ class AskDetail extends React.Component{
     render(){
 
         const { loading } = this.state;
+        const { fullScreen } = this.props;
 
         if (loading){
             return (
@@ -76,7 +91,37 @@ class AskDetail extends React.Component{
                 </table>
                 <div style={{height:'6em'}}></div>
                 <div style={{margin:'auto', width:'50%', padding: '10px'}}>
-                    <Button color='primary' style={{width:'100%'}} variant='outlined'><p>Give Loan</p></Button>
+                    <Button color='primary' style={{width:'100%'}} variant='outlined' onClick={this.handleClickOpen}><p>Give Loan</p></Button>
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        aria-labelledby="responsive-dialog-title"
+                        >
+                        <DialogTitle id="responsive-dialog-title">{"Are you sure you want to give this loan?"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                            <table><tbody>
+                            {this.props.asks.map((ask, id) => (
+                                <tr key={`ask_${id}`}>
+                                    <td>
+                                        By clicking 'Agree,' you will be accepting to give {this.props.user.user} a loan for 
+                                        for ${ask.amount} for {ask.weeks} weeks, with {ask.interest}% interest - and 
+                                        hereby agree to Unloan's terms and conditions.
+                                    </td>
+                                </tr>
+                            ))}</tbody></table>.
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="secondary">
+                            Cancel
+                            </Button>
+                            <Button onClick={this.handleClose} color="primary" autoFocus>
+                            Agree
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             </div>
         )

@@ -105,7 +105,7 @@ class Profile extends React.Component{
                                         </PlaidLink>
                                     </td>
                                     <td style={{padding:'3em', height:'100%'}}>
-                                        <h3>{username.charAt(0).toUpperCase()}{username.substr(1)}'s Offers:</h3>
+                                        <h3>Your Offers:</h3>
                                         <table>
                                             <tbody>
                                             {this.props.offers.map((offer, id) => (
@@ -135,7 +135,7 @@ class Profile extends React.Component{
                                         </Link>
                                     </td>
                                     <td style={{padding:'3em'}}>
-                                        <h3>{username.charAt(0).toUpperCase()}{username.substr(1)}'s Asks:</h3>
+                                        <h3>Your Asks:</h3>
                                         <table style = {{width:'100%'}}>
                                             <tbody>
                                             {this.props.asks.map((ask, id) => (

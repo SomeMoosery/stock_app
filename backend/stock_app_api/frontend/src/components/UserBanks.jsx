@@ -11,7 +11,7 @@ class UserBanks extends React.Component{
     render(){
         return(
             <div>
-                <h3>Banks</h3>
+                <h3>Your Banks:</h3>
                 <table>
                 <tbody>
                 {this.props.banks.map((bank, id) => (
