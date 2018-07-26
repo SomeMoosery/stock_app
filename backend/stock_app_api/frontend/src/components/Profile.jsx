@@ -11,6 +11,7 @@ import { plaid, offer, ask, auth } from '../actions';
 import UserBanks from './UserBanks';
 
 import PlaidLink from 'react-plaid-link';
+import AppBar from './AppBar';
 
 const userId = window.localStorage.getItem('user_id');
 const username = window.localStorage.getItem('username');
@@ -75,6 +76,7 @@ class Profile extends React.Component{
         
         return(
             <div>
+                <AppBar/>
                 <Link to='/' style={{textDecoration:'none', color:'red'}}>
                     <Button color='secondary'>
                         <p>Back</p>
