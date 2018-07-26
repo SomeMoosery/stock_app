@@ -18,6 +18,7 @@ import AskDetail from './components/AskDetail';
 import AddOffer from './components/AddOffer';
 import AddAsk from './components/AddAsk';
 import BankDetail from './components/BankDetail';
+import AppBar from './components/AppBar';
 
 let store = createStore(stockApp, applyMiddleware(thunk));
 
@@ -54,7 +55,12 @@ class RootContainerComponent extends Component {
       } else if (!this.props.auth.isAuthenticated) {
         return <Redirect to="/login" />;
       } else {
-        return <ChildComponent {...props} />
+        return (
+          <div>
+          <AppBar/>
+          <ChildComponent {...props} />
+          </div>
+        )
       }
     }} />
   }
