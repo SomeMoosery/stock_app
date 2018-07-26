@@ -90,10 +90,8 @@ class Home extends React.Component{
 
     return(
       <div>
+        <OfferAskFeed/>
         <div style = {{width: '100%', float: 'left', backgroundColor: '#ecf0f1'}}>
-          <div style = {{float: 'left', paddingLeft: '10px', textAlign: 'center' }}>
-            <h2>Welcome to Loaning App!</h2>
-          </div>
           <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
             <div style = {{width:'100%', float:'left'}}>
               <div style = {{float: 'left'}}>
@@ -102,17 +100,12 @@ class Home extends React.Component{
                 </Link>
               </div>
               <div style={{float:'right'}}>
-                <Link to='/profile' style={{textDecoration:'none', color:'red'}}>
-                  <Button color='default'>
-                    <p>Profile</p>
-                  </Button>
-                </Link>
+                
               </div>
             </div>
           </div>
         </div>
 
-        <OfferAskFeed/>
       </div>
     )
   }

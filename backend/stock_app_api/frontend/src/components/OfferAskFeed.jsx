@@ -65,7 +65,7 @@ class OfferAskFeed extends React.Component{
           {value === 0 && <TabContainer>
             <h3 style={{textAlign:'center'}}>Offers</h3>
             <div className='scale-up-ver-top' style ={{display:'flex', justifyContent:'center', width:'100%'}}>
-            <table style={{alignSelf:'center'}}>
+            <table style={{alignSelf:'center', width:'60%'}}>
               <tbody>
                 {this.props.offers.map((offer, id) => (
                   <tr key={`offer_${id}`}>
@@ -98,10 +98,10 @@ class OfferAskFeed extends React.Component{
           {value === 1 && <TabContainer>
             <h3 style={{textAlign:'center'}}>Asks</h3>
             <div className='scale-up-ver-top' style ={{display:'flex', justifyContent:'center', width:'100%'}}>
-            <table style={{alignSelf:'center'}}>
+            <table style={{alignSelf:'center', width: '60%'}}>
               <tbody>
                 {this.props.asks.map((ask, id) => (
-                  <tr key={`ask_${id}`}><td>
+                  <tr key={`ask_${id}`}><td style={{width:'60%'}}>
                     <Link to={'/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
                     <Card style = {{minWidth:275}}>
                       <CardContent>
@@ -115,7 +115,7 @@ class OfferAskFeed extends React.Component{
                               Loan Amount Needed: {ask.amount}<br/>
                               Weeks Until Full Repayment: {ask.weeks}<br/>
                               Interest Asked: {ask.interest}<br/>
-                              <p>Asked by: {this.searchUser(ask.owner)}</p>
+                              Asked by: {this.searchUser(ask.owner)}
                           </Typography>
                       </CardContent>
                   </Card>

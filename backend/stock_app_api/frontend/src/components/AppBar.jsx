@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import {Link} from 'react-router-dom';
 import { compose } from 'redux';
 import {connect} from 'react-redux';
 import { auth } from '../actions';
@@ -44,6 +45,11 @@ class ButtonAppBar extends React.Component {
               <Typography variant="title" color="inherit" className={classes.flex}>
                 Loaning App
               </Typography>
+              <Link to='/profile' style={{textDecoration:'none', color:'inherit'}}>
+                  <Button color='inherit'>
+                    <p>Profile</p>
+                  </Button>
+                </Link>
               <Button onClick={this.props.logout} color='inherit' >
                 <p>Logout</p>
               </Button>
