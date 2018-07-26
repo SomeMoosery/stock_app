@@ -8,6 +8,10 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import { compose } from 'redux';
+import {connect} from 'react-redux';
+import { auth } from '../actions';
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -21,27 +25,54 @@ const styles = {
   },
 };
 
-function ButtonAppBar(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="title" color="inherit" className={classes.flex}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+class ButtonAppBar extends React.Component {
+
+  componentDidMount(){
+      console.log(this.props);
+  }
+
+  render(){
+    const { classes } = this.props;
+
+    return (
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="title" color="inherit" className={classes.flex}>
+                Loaning App
+              </Typography>
+              <Button onClick={this.props.logout} color='inherit' >
+                <p>Logout</p>
+              </Button>
+            </Toolbar>
+          </AppBar>
+        </div>
+      );
+  }
 }
+
+const mapStateToProps = state => {
+    return {
+      auth: state.auth,
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return{
+      logout: () => {
+        dispatch(auth.logout());
+      },
+    }
+  }
 
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ButtonAppBar);
+export default compose(
+    withStyles(styles),
+    connect(mapStateToProps, mapDispatchToProps)
+  )(ButtonAppBar);

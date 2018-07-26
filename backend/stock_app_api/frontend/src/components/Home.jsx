@@ -98,9 +98,7 @@ class Home extends React.Component{
             <div style = {{width:'100%', float:'left'}}>
               <div style = {{float: 'left'}}>
                 <Link to='/' style={{textDecoration:'none', color:'red'}}>
-                  <Button onClick={this.props.logout} color='secondary' >
-                    <p>Logout</p>
-                  </Button>
+                  
                 </Link>
               </div>
               <div style={{float:'right'}}>
