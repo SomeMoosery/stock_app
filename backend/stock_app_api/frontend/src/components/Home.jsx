@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'; 
 
 import OfferAskFeed from './OfferAskFeed';
+import AppBar from './AppBar';
 
 import { compose } from 'redux';
 
@@ -90,22 +91,8 @@ class Home extends React.Component{
 
     return(
       <div>
+        <AppBar/>
         <OfferAskFeed/>
-        <div style = {{width: '100%', float: 'left', backgroundColor: '#ecf0f1'}}>
-          <div style={{float: "right", paddingRight: '10px', textAlign: 'center'}}>
-            <div style = {{width:'100%', float:'left'}}>
-              <div style = {{float: 'left'}}>
-                <Link to='/' style={{textDecoration:'none', color:'red'}}>
-                  
-                </Link>
-              </div>
-              <div style={{float:'right'}}>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     )
   }

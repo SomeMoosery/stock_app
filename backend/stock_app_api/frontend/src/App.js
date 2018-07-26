@@ -57,7 +57,6 @@ class RootContainerComponent extends Component {
       } else {
         return (
           <div>
-          <AppBar/>
           <ChildComponent {...props} />
           </div>
         )
