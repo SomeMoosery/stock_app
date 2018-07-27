@@ -78,11 +78,7 @@ class Profile extends React.Component{
         return(
             <div>
                 <AppBar/>
-                <Link to='/' style={{textDecoration:'none', color:'red'}}>
-                    <Button color='secondary'>
-                        <p>Back</p>
-                    </Button>
-                </Link>
+                <div style={{height:'6em'}}></div>
                 <div style = {{width: '100%'}}>
                     <div style = {{float: 'left', textAlign: 'center', width:'100%'}}>
                         <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>Hello {username.charAt(0).toUpperCase()}{username.substr(1)} </div>
