@@ -19,6 +19,7 @@ import AddOffer from './components/AddOffer';
 import AddAsk from './components/AddAsk';
 import BankDetail from './components/BankDetail';
 import AppBar from './components/AppBar';
+import About from './components/About';
 
 let store = createStore(stockApp, applyMiddleware(thunk));
 
@@ -79,6 +80,7 @@ class RootContainerComponent extends Component {
           <Route exact path="/add-offer" component={AddOffer}/>
           <Route exact path="/add-ask" component={AddAsk}/>
           <Route exact path="/banks/:bank" component={BankDetail}/>
+          <Route exact path="/about" component={About}/>
         </Switch>
       </BrowserRouter>
     );
