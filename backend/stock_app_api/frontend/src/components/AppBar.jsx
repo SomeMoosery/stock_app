@@ -39,7 +39,11 @@ class ButtonAppBar extends React.Component {
                 <MenuIcon />
               </IconButton>
               <Typography variant="title" color="inherit" className={classes.flex}>
-                Loaning App
+              <Link to='/' style={{textDecoration:'none', color:'inherit'}}>
+                <Button color='inherit'>
+                  <p>Loaning App</p>
+                </Button>
+              </Link>
               </Typography>
               <Link to='/about' style={{textDecoration:'none', color:'inherit'}}>
                   <Button color='inherit'>
