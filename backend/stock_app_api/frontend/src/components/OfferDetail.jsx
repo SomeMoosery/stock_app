@@ -74,11 +74,6 @@ class OfferDetail extends React.Component{
 
         return(
             <div>
-                <Link to='/' style={{textDecoration:'none', color:'red'}}>
-                    <Button color='secondary'>
-                        <p>Back</p>
-                    </Button>
-                </Link>
                 <table>
                     <tbody>
                         {this.props.offers.map((offer, id) => (

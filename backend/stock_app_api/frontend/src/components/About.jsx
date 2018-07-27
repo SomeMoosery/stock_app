@@ -43,11 +43,7 @@ class About extends React.Component{
                 <AppBar/>
                 
                 <div style = {{width: '100%'}}>
-                    <Link to='/' style={{textDecoration:'none', color:'red', marginTop:'3em'}}>
-                        <Button color='secondary'>
-                            <p>Back</p>
-                        </Button>
-                    </Link>
+                    <div style={{height:'5em'}}></div>
                     <div style={{margin:'0 auto', width:'50%', marginTop:'3em'}}>
                     <Card style = {{minWidth:275}}>
                       <CardContent>

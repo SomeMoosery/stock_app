@@ -68,11 +68,6 @@ class AskDetail extends React.Component{
         }
         return(
             <div>
-                <Link to='/' style={{textDecoration:'none', color:'red'}}>
-                    <Button color='secondary'>
-                        <p>Back</p>
-                    </Button>
-                </Link>
                 <table>
                     <tbody>
                         {this.props.asks.map((ask, id) => (
