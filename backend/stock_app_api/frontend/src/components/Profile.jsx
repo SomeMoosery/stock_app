@@ -81,8 +81,8 @@ class Profile extends React.Component{
                 <div style={{height:'6em'}}></div>
                 <div style = {{width: '100%'}}>
                     <div style = {{float: 'left', textAlign: 'center', width:'100%'}}>
-                        <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>Hello {username.charAt(0).toUpperCase()}{username.substr(1)} </div>
-                        <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>{this.props.user.university}</div>
+                        <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>{this.props.user.user.charAt(0).toUpperCase()}{this.props.user.user.substr(1)}'s Loaning Home Base</div>
+                        {/* <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>{this.props.user.university}</div> */}
                         <div style ={{display:'flex', justifyContent:'center', width:'100%'}}>
                         <table style={{alignSelf:'center'}}>
                             <tbody>
