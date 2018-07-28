@@ -45,6 +45,11 @@ class ButtonAppBar extends React.Component {
                 </Button>
               </Link>
               </Typography>
+              <Link to='/pricing' style={{textDecoration:'none', color:'inherit'}}>
+                  <Button color='inherit'>
+                    <p>Pricing</p>
+                  </Button>
+                </Link>
               <Link to='/about' style={{textDecoration:'none', color:'inherit'}}>
                   <Button color='inherit'>
                     <p>About</p>
