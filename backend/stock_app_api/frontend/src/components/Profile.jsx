@@ -111,7 +111,7 @@ class Profile extends React.Component{
                                                 <tr key={`offer_${id}`}>
                                                     <td>
                                                         <Link to={'/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
-                                                        <div style={{width:'100%'}}>
+                                                        <div style={{width:'100%', marginBottom:'0.3em'}}>
                                                             <Card style = {{minWidth:275, width:'100%'}}>
                                                                 <CardContent>
                                                                     <Typography style={{marginBottom:'16', fontSize:'14', textAlign: 'left'}} variant="headline">
@@ -141,7 +141,7 @@ class Profile extends React.Component{
                                                 <tr key={`ask_${id}`}>
                                                     <td>
                                                         <Link to={'/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
-                                                        <div style={{width:'100%'}}>
+                                                        <div style={{width:'100%', marginBottom:'0.3em'}}>
                                                             <Card style = {{minWidth:275, width:'100%'}}>
                                                                 <CardContent>
                                                                     <Typography style={{marginBottom:'16', fontSize:'14', textAlign: 'left'}} variant="headline">
