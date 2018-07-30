@@ -62,6 +62,7 @@ class OfferAskFeed extends React.Component{
     return(
 
         <div className={classes.root}>
+          <div style={{height:'3em'}}></div>
           {value === 0 && <TabContainer>
             <h3 style={{textAlign:'center'}}>Offers</h3>
             <div className='scale-up-ver-top' style ={{display:'flex', justifyContent:'center', width:'100%'}}>
@@ -132,6 +133,7 @@ class OfferAskFeed extends React.Component{
               <Tab label="Asks" />
             </Tabs>
           </AppBar>
+          <div style={{height:'3em'}}></div>
         </div>
     )
   }
