@@ -1,9 +1,28 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
+import Button from '@material-ui/core/Button';
 import {Link, Redirect} from "react-router-dom";
 
 import {auth} from '../actions';
+import { withStyles } from '@material-ui/core/styles';
+import { compose } from 'redux';
+import TextField from '@material-ui/core/TextField';
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  menu: {
+    width: 200,
+  },
+});
 
 class Login extends Component {
 
@@ -19,6 +38,7 @@ class Login extends Component {
   }
 
   componentDidMount(){
+    document.body.style.backgroundColor='white';
     setTimeout(() => this.setState({loading: false}), 2000);
   }
 
@@ -27,6 +47,7 @@ class Login extends Component {
       window.location.reload();
       return <Redirect to="/" />
     }
+    const { classes } = this.props;
     const { loading } = this.state;
 
         if (loading){
@@ -48,37 +69,37 @@ class Login extends Component {
             )
         }
     return (
-      <form onSubmit={this.onSubmit}>
-        <fieldset>
-          <legend>Login</legend>
-          {this.props.errors.length > 0 && (
-            <ul>
-              {this.props.errors.map(error => (
-                <li key={error.field}>{error.message}</li>
-              ))}
-            </ul>
-          )}
-          <p>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text" id="username"
-              onChange={e => this.setState({username: e.target.value})} />
-          </p>
-          <p>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password" id="password"
-              onChange={e => this.setState({password: e.target.value})} />
-          </p>
-          <p>
-            <button type="submit">Login</button>
-          </p>
+        <div>
+        <img src={require('../assets/Reciprocal.PNG')} style={{display:'block', margin:'auto'}}/>
+        <form onSubmit={this.onSubmit} style={{textAlign:'center', marginLeft:'13em'}}>
+          <TextField
+            required
+            id="username"
+            label="Username"
+            placeholder="Username"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="username"
+            type="text"
+            onChange={e => this.setState({username: e.target.value})}
+          />
+          <TextField
+            required
+            id="password"
+            label="Password"
+            placeholder="Password"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="password"
+            type="password"
+            onChange={e => this.setState({password: e.target.value})}
+          />
+          <Button type="submit">Log In</Button><br/>
+          <div style={{height:'5em'}}></div>
+          <Link to="/register" style={{textDecoration:'none'}}><Button>Don't have an account?</Button></Link>
 
-          <p>
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
-        </fieldset>
       </form>
+      </div>
     )
   }
 }
@@ -104,4 +125,8 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+// export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Login);
