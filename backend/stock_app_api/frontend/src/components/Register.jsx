@@ -1,9 +1,29 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
+import TextField from '@material-ui/core/TextField';
 import {Link, Redirect} from "react-router-dom";
 
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import { compose } from 'redux';
+
 import {auth} from "../actions";
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  menu: {
+    width: 200,
+  },
+});
 
 class Login extends Component {
 
@@ -16,6 +36,10 @@ class Login extends Component {
     university: "",
   }
 
+  componentDidMount(){
+    document.body.style.backgroundColor='white';
+  }
+
   onSubmit = e => {
     e.preventDefault();
     this.props.register(this.state.username, this.state.password, this.state.bio, this.state.location, this.state.age, this.state.university);
@@ -25,54 +49,79 @@ class Login extends Component {
     if (this.props.isAuthenticated) {
       return <Redirect to="/login" />
     }
+    const { classes } = this.props;
     return (
-      <form onSubmit={this.onSubmit}>
-        <fieldset>
-          <legend>Register</legend>
-          {this.props.errors.length > 0 && (
-            <ul>
-              {this.props.errors.map(error => (
-                <li key={error.field}>{error.message}</li>
-              ))}
-            </ul>
-          )}
-          <p>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text" id="username"
-              onChange={e => this.setState({username: e.target.value})} />
-          </p>
-          <p>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password" id="password"
-              onChange={e => this.setState({password: e.target.value})} />
-          </p>
-          <p>
-            <label htmlFor="bio" id="bio">Bio</label>
-            <input type="text" id="bio" onChange={e => this.setState({bio: e.target.value})}/>
-          </p>
-          <p>
-            <label htmlFor="location" id="location">Location</label>
-            <input type="text" id="location" onChange={e => this.setState({location: e.target.value})}/>
-          </p>
-          <p>
-            <label htmlFor="age" id="age">Age</label>
-            <input type="text" id="age" onChange={e => this.setState({age: e.target.value})}/>
-          </p>
-          <p>
-            <label htmlFor="university" id="university">University</label>
-            <input type="text" id="university" onChange={e => this.setState({university: e.target.value})}/>
-          </p>
-          <p>
-            <button type="submit">Register</button>
-          </p>
+      <div>
+        <img src={require('../assets/Reciprocal.PNG')} style={{display:'block', margin:'auto'}}/>
+        <form onSubmit={this.onSubmit} style={{textAlign:'center', marginLeft:'13em'}}>
+          <TextField
+            required
+            id="username"
+            label="Username"
+            placeholder="Username"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="username"
+            type="text"
+            onChange={e => this.setState({username: e.target.value})}
+          /><br/>
+          <TextField
+            required
+            id="password"
+            label="Password"
+            placeholder="Password"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="password"
+            type="password"
+            onChange={e => this.setState({password: e.target.value})}
+          /><br/>
+          <TextField
+            id="bio"
+            label="Bio"
+            placeholder="Give yourself a bio"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="bio"
+            type="text"
+            onChange={e => this.setState({bio: e.target.value})}
+          /><br/>
+          <TextField
+            id="location"
+            label="Location"
+            placeholder="Where are you from?"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="location"
+            type="text"
+            onChange={e => this.setState({location: e.target.value})}
+          /><br/>
+          <TextField
+            id="age"
+            label="Age"
+            placeholder="What's your age?"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="age"
+            type="text"
+            onChange={e => this.setState({age: e.target.value})}
+          /><br/>
+          <TextField
+            style={{marginBottom:'0.8em'}}
+            id="university"
+            label="University"
+            placeholder="Where do/did you go?"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="university"
+            type="text"
+            onChange={e => this.setState({univeristy: e.target.value})}
+          /><br/>
+          <Button type="submit" style={{marginBottom:'0.8em'}}>Register</Button><br/>
+          <Link to="/login" style={{textDecoration:'none'}}><Button>Already have an account?</Button></Link>
 
-          <p>
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
-        </fieldset>
       </form>
+      </div>
     )
   }
 }
@@ -98,4 +147,7 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Login);
