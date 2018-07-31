@@ -23,7 +23,7 @@ class Login extends Component {
 
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/" />
+      return <Redirect to="/login" />
     }
     return (
       <form onSubmit={this.onSubmit}>
