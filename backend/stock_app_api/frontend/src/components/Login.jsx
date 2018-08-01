@@ -50,8 +50,9 @@ class Login extends Component {
     const { classes } = this.props;
     return (
         <div>
+        <div style={{height:'5em'}}></div>
         <img src={require('../assets/Reciprocal.PNG')} style={{display:'block', margin:'auto'}}/>
-        <form onSubmit={this.onSubmit} style={{textAlign:'center', marginLeft:'13em'}}>
+        <form onSubmit={this.onSubmit} style={{textAlign:'center', marginLeft:'4em'}}>
           <TextField
             required
             id="username"
