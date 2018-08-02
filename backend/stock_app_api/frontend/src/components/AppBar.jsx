@@ -34,7 +34,7 @@ class ButtonAppBar extends React.Component {
     return (
         <div className={classes.root}>
           <AppBar>
-            <Toolbar>
+            <Toolbar style={{backgroundColor:'#053786'}}>
               <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                 <MenuIcon />
               </IconButton>
