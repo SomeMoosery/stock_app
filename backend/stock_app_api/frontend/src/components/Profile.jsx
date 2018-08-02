@@ -112,9 +112,9 @@ class Profile extends React.Component{
                                                     <td>
                                                         <Link to={'/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
                                                         <div style={{width:'100%', marginBottom:'0.3em'}}>
-                                                            <Card style = {{minWidth:275, width:'100%'}}>
+                                                            <Card className="profileCard">
                                                                 <CardContent>
-                                                                    <Typography style={{marginBottom:'16', fontSize:'14', textAlign: 'left'}} variant="headline">
+                                                                    <Typography className="profileCardText" style={{marginBottom:'16', fontSize:'14', textAlign: 'left'}} variant="headline">
                                                                         {offer.title}
                                                                     </Typography>
                                                                 </CardContent>
