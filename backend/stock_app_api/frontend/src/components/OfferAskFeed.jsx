@@ -161,7 +161,7 @@ const mapDispatchToProps = dispatch => {
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: 'white',
   },
 });
 
