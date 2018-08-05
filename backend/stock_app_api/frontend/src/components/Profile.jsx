@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
@@ -79,7 +80,7 @@ class Profile extends React.Component{
             <div>
                 <AppBar/>
                 <div style={{height:'6em'}}></div>
-                <div style = {{width: '100%'}}>
+                <div style = {{width: '90%', margin:'0 auto'}}>
                     <div style = {{float: 'left', textAlign: 'center', width:'100%'}}>
                         <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>{this.props.user.user.charAt(0).toUpperCase()}{this.props.user.user.substr(1)}'s Loaning Home Base</div>
                         {/* <div style = {{textAlign: "center", width:'100%', fontSize:'2em'}}>{this.props.user.university}</div> */}
@@ -98,9 +99,7 @@ class Profile extends React.Component{
                                             onExit = {this.handleOnExit}
                                             onSuccess = {this.handleOnSuccess}
                                             style= {{width:'100%', textDecoration:'none', backgroundColor:'transparent', border:'none'}}>
-                                            <Button color='default' variant='outlined' style={{width:'100%', backgroundColor:'#C5EFF7',}}>
-                                                <p style={{fontSize:'1.5em'}}>Link a Bank Account!</p>
-                                            </Button>
+                                            <AddCircleOutlineIcon style={{fontSize:50}}/>
                                         </PlaidLink>
                                     </td>
                                     <td style={{padding:'3em', height:'100%'}}>
@@ -112,9 +111,9 @@ class Profile extends React.Component{
                                                     <td>
                                                         <Link to={'/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
                                                         <div style={{width:'100%', marginBottom:'0.3em'}}>
-                                                            <Card className="profileCard">
+                                                            <Card style = {{minWidth:200}} className="profileCard">
                                                                 <CardContent>
-                                                                    <Typography className="profileCardText" style={{marginBottom:'16', fontSize:'14', textAlign: 'left'}} variant="headline">
+                                                                    <Typography style={{textAlign: 'left'}} variant="headline" align='center'>
                                                                         {offer.title}
                                                                     </Typography>
                                                                 </CardContent>
@@ -128,9 +127,7 @@ class Profile extends React.Component{
                                         </table>
                                         <div style={{height:'2em'}}></div>
                                         <Link to='/add-offer' style={{textDecoration:'none', color:'black'}}>
-                                            <Button color='default' variant='outlined' style={{width:'96%', backgroundColor:'#C5EFF7',}}>
-                                                <p style={{fontSize:'1.5em'}}>Add an Offer!</p>
-                                            </Button>
+                                            <AddCircleOutlineIcon style={{fontSize:50}}/>
                                         </Link>
                                     </td>
                                     <td style={{padding:'3em'}}>
@@ -142,9 +139,9 @@ class Profile extends React.Component{
                                                     <td>
                                                         <Link to={'/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>
                                                         <div style={{width:'100%', marginBottom:'0.3em'}}>
-                                                            <Card style = {{minWidth:275, width:'100%'}}>
+                                                            <Card style = {{minWidth:200}}  className="profileCard">
                                                                 <CardContent>
-                                                                    <Typography style={{marginBottom:'16', fontSize:'14', textAlign: 'left'}} variant="headline">
+                                                                    <Typography style={{marginBottom:'16', fontSize:'14', textAlign: 'left'}} variant="headline" align='center'>
                                                                         {ask.title}
                                                                     </Typography>
                                                                 </CardContent>
@@ -158,9 +155,7 @@ class Profile extends React.Component{
                                         </table>
                                         <div style={{height:'2em'}}></div>
                                         <Link to='/add-ask' style={{textDecoration:'none', color:'black'}}>
-                                            <Button color='default' variant='outlined' style={{width:'96%', backgroundColor:'#C5EFF7',}}>
-                                                <p style={{fontSize:'1.5em'}}>Add an Ask!</p>
-                                            </Button>
+                                            <AddCircleOutlineIcon style={{fontSize:50}}/>
                                         </Link>
                                     </td>
                                 </tr>

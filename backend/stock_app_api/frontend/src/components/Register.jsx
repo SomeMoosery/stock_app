@@ -80,7 +80,7 @@ class Login extends Component {
           <TextField
             id="bio"
             label="Bio"
-            placeholder="Give yourself a bio"
+            placeholder="Tell us about yourself"
             className={classes.textField}
             margin="normal"
             htmlFor="bio"

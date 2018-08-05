@@ -19,9 +19,9 @@ class UserBanks extends React.Component{
                     <td>
                         <Link to={'/banks/' + bank.id} params={{ bankId: id}} style={{textDecoration:'none', color:'black'}}>
                         <div style={{width:'60%'}}>
-                            <Card style = {{minWidth:275}}>
+                            <Card style = {{minWidth:200}} className='profileCard'>
                                 <CardContent>
-                                    <Typography style={{marginBottom:'16', fontSize:'14'}} variant="headline">
+                                    <Typography style={{marginBottom:'16', fontSize:'14'}} variant="headline" align='center'>
                                         {bank.bank_name}
                                     </Typography>
                                 </CardContent>
