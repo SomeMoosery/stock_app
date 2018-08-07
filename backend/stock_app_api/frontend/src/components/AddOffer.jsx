@@ -12,7 +12,6 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
 
@@ -116,7 +115,7 @@ class AddOffer extends React.Component{
                     <TextField
                         id="offerNumWeeks"
                         style={{width:'30%'}}
-                        label="Offer Number of Weeks"
+                        label="Number of Weeks"
                         placeholder="Over how many weeks will you expect repayment?"
                         className={classes.textField}
                         margin="normal"
