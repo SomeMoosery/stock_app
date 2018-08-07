@@ -109,7 +109,7 @@ class Pricing extends React.Component{
                           </Typography>
 
                           <Typography style={{marginBottom:'1em', fontSize:'24px', textAlign:'center'}}>
-                            AS AN ACTIVE INVESTMENT OPPORTUNITY
+                            AS A PASSIVE INVESTMENT OPPORTUNITY
                           </Typography><hr style={{width:'60%'}}/>
                           <Typography style={{marginBottom:'0.5em', fontSize:'16px'}}>
                             All loans under $200 will be charged a flat initial fee of $10.

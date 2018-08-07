@@ -9,6 +9,10 @@ import {offer} from '../actions';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
 
@@ -83,7 +87,8 @@ class AddOffer extends React.Component{
                     /><br/>
                     <TextField
                         required
-                        style={{width:'60%'}}
+                        multiline
+                        style={{width:'30%'}}
                         value={this.state.offerDescription}
                         id="offerDescription"
                         label="Offer Description"
@@ -94,17 +99,20 @@ class AddOffer extends React.Component{
                         type="text"
                         onChange={e => this.setState({offerDescription: e.target.value})}
                     /><br/>
-                    <TextField
-                        id="offerAmount"
-                        style={{width:'30%'}}
-                        label="Offer Amount"
-                        placeholder="How much are you willing to loan?"
-                        className={classes.textField}
-                        margin="normal"
-                        htmlFor="offerAmount"
-                        type="text"
-                        onChange={e => this.setState({offerAmount: e.target.value})}
-                    /><br/>
+                    <FormControl fullWidth className={classes.margin} style={{margin:'0 auto'}}><br/>
+                        <Input
+                            id="offerAmount"
+                            style={{width:'30%', margin:'0 auto'}}
+                            label="Offer Amount"
+                            placeholder="How much are you willing to loan?"
+                            className={classes.textField}
+                            margin="normal"
+                            htmlFor="offerAmount"
+                            type="text"
+                            onChange={e => this.setState({offerAmount: e.target.value})}
+                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                        />
+                    </FormControl><br/>
                     <TextField
                         id="offerNumWeeks"
                         style={{width:'30%'}}
@@ -116,19 +124,27 @@ class AddOffer extends React.Component{
                         type="text"
                         onChange={e => this.setState({offerNumWeeks: e.target.value})}
                     /><br/>
-                    <TextField
-                        id="offerInterest"
-                        style={{width:'30%'}}
-                        label="Offer Interest"
-                        placeholder="How much interest do you want to charge?"
-                        className={classes.textField}
-                        margin="normal"
-                        htmlFor="offerInterest"
-                        type="text"
-                        onChange={e => this.setState({offerInterest: e.target.value})}
-                    /><br/>
+                    <FormControl fullWidth className={classes.margin} style={{margin:'0 auto'}}><br/>
+                        <Input
+                            id="offerInterest"
+                            style={{width:'30%', margin:'0 auto'}}
+                            label="Offer Interest"
+                            placeholder="How much interest do you want to charge?"
+                            className={classes.textField}
+                            margin="normal"
+                            htmlFor="offerInterest"
+                            type="text"
+                            onChange={e => this.setState({offerInterest: e.target.value})}
+                            startAdornment={<InputAdornment position="start">%</InputAdornment>}
+                        />
+                    </FormControl><br/>
                     <div style={{height:'3em'}}></div>
-                    <Button type="submit" color="primary" variant='outlined'>Post an Offer</Button><br/>
+                    <Button type="submit" color="primary" style={{height:'4.4em'}}>Post an Offer</Button>
+                    <Link to='/profile' style={{textDecoration:'none', color:'red'}}>
+                        <Button color='secondary'>
+                            <p>Cancel</p>
+                        </Button>
+                    </Link>
                 </form>
             </div>
         )
