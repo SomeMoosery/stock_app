@@ -60,8 +60,8 @@ class ButtonAppBar extends React.Component {
                     <p>Profile</p>
                   </Button>
                 </Link>
-              <Link to='/' tyle={{textDecoration:'none', color:'inherit'}}>
-                <Button onClick={this.props.logout} color='white' >
+              <Link to='/' style={{textDecoration:'none', color:'inherit'}}>
+                <Button onClick={this.props.logout} color='inherit' >
                   <p>Logout</p>
                 </Button>
               </Link>
