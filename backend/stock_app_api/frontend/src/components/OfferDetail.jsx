@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom';
 
 import {offer, auth} from '../actions';
 
+import AppBar from './AppBar';
+
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
@@ -74,6 +76,8 @@ class OfferDetail extends React.Component{
 
         return(
             <div>
+                <AppBar/>
+                <div style={{height:'6em'}}></div>
                 <table>
                     <tbody>
                         {this.props.offers.map((offer, id) => (
