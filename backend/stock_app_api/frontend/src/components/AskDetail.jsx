@@ -72,16 +72,14 @@ class AskDetail extends React.Component{
             <div>
                 <AppBar/>
                 <div style={{height:'6em'}}></div>
-                <table>
+                <table style={{width:'100%', margin:'0 auto'}}>
                     <tbody>
                         {this.props.asks.map((ask, id) => (
-                            <tr key={`ask_${id}`}>
+                            <tr key={`ask_${id}`} style={{textAlign:'center', width:'100%'}}>
                                 <td>
                                     <p style={{marginBottom:'0.5em', fontSize: '2em'}}>{ask.title}</p>
                                     <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>{ask.description}</p>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${ask.amount}</p>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>For {ask.weeks} weeks</p>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>With {ask.interest}% interest</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${ask.amount} for {ask.weeks} weeks with {ask.interest}% interest</p>
                                     <p style={{fontSize:'1.5em'}}>Offered by {this.props.user.user} ({this.props.user.rating})</p>
                                 </td>
                             </tr>
