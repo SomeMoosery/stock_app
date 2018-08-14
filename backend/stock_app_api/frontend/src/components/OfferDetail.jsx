@@ -78,16 +78,14 @@ class OfferDetail extends React.Component{
             <div>
                 <AppBar/>
                 <div style={{height:'6em'}}></div>
-                <table>
-                    <tbody>
+                <table style={{width:'100%', margin:'0 auto'}}>
+                    <tbody style={{width:'100%', margin:'0 auto'}}>
                         {this.props.offers.map((offer, id) => (
-                            <tr key={`offer_${id}`}>
-                                <td>
+                            <tr key={`offer_${id}`} style={{width:'100%', margin:'0 auto'}}>
+                                <td style={{textAlign:'center', width:'100%', }}>
                                     <p style={{marginBottom:'0.5em', fontSize: '2em'}}>{offer.title}</p>
                                     <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>{offer.description}</p>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${offer.amount}</p>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>For {offer.weeks} weeks</p>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>With {offer.interest}% interest</p>
+                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${offer.amount} for {offer.weeks} weeks with {offer.interest}% interest</p>
                                     <p style={{fontSize:'1.5em'}}>Offered by {this.props.user.user} ({this.props.user.rating})</p>
                                 </td>
                             </tr>
