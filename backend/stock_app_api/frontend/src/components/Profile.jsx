@@ -53,6 +53,11 @@ class Profile extends React.Component{
         console.log('Exit!');
     }
 
+    selectForEdit = (id) => {
+        let stock = this.props.stocks[id];
+        this.setState({name: stock.name, updateStockId: id});
+      }
+
     render(){
 
         const { loading } = this.state;
@@ -121,6 +126,7 @@ class Profile extends React.Component{
                                                         </div>
                                                         </Link>
                                                     </td>
+                                                    <td><button onClick={() => this.selectForEdit(id)}>edit</button></td>
                                                 </tr>
                                             ))}
                                             </tbody>
@@ -149,6 +155,7 @@ class Profile extends React.Component{
                                                         </div>
                                                         </Link>
                                                     </td>
+                                                    <td><button onClick={() => this.selectForEdit(id)}>edit</button></td>
                                                 </tr>
                                             ))}
                                             </tbody>
