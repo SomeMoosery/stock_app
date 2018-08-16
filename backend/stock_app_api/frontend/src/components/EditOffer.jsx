@@ -17,6 +17,22 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { compose } from 'redux';
+import { TextField, withStyles } from '@material-ui/core';
+
+const styles = theme => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      width: 200,
+    },
+    menu: {
+      width: 200,
+    },
+  });
 
 
 const userId = window.localStorage.getItem('user_id');
@@ -38,6 +54,11 @@ class EditOffer extends React.Component{
     handleClose = () => {
         this.setState({ open: false });
     };  
+    
+    handleAgree = () => {
+        this.props.updateOffer(this.state.offerTitle, this.props.offers[0].id);
+        // setTimeout(function(){window.location.reload();},2000);        
+    }
 
     componentDidMount(){
         setTimeout(() => this.setState({loading: false}), 2000);
@@ -46,13 +67,18 @@ class EditOffer extends React.Component{
 
         setTimeout(() => {
             this.props.fetchUserDetail(this.props.offers[0].owner);
+            this.setState({offerTitle: this.props.offers[0].title});
         }, 1500);
+        setTimeout(() => {
+            console.log(this.props.offers[0]);    
+        }, 2000);
     }
     
     render(){
 
         const { loading } = this.state;
         const { fullScreen } = this.props;
+        const { classes } = this.props;
         let isUserOffer;
 
         if (loading){
@@ -84,6 +110,17 @@ class EditOffer extends React.Component{
                             <tr key={`offer_${id}`} style={{width:'100%', margin:'0 auto'}}>
                                 <td style={{textAlign:'center', width:'100%', }}>
                                     <p style={{marginBottom:'0.5em', fontSize: '2em'}}>{offer.title}</p>
+                                    <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.offerTitle}
+                                        id="offerTitle"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="offerTitle"
+                                        type="text"
+                                        onChange={e => this.setState({offerTitle: e.target.value})}
+                                    /><br/>
                                     <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>{offer.description}</p>
                                     <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${offer.amount} for {offer.weeks} weeks with {offer.interest}% interest</p>
                                     <p style={{fontSize:'1.5em'}}>Offered by {this.props.user.user} ({this.props.user.rating})</p>
@@ -120,7 +157,7 @@ class EditOffer extends React.Component{
                             <Button onClick={this.handleClose} color="secondary">
                             Cancel
                             </Button>
-                            <Button onClick={this.handleClose} color="primary" autoFocus>
+                            <Button onClick={this.handleAgree} color="primary" autoFocus>
                             Agree
                             </Button>
                         </DialogActions>
@@ -150,10 +187,14 @@ const mapDispatchToProps = dispatch => {
         fetchUserDetail: (id) => {
             dispatch(auth.fetchUserDetail(id));
         },
+        updateOffer: (offerTitle, id) => {
+            dispatch(offer.updateOffer(offerTitle, id));
+        }
     }
 }
 
 export default compose(
     withMobileDialog(),
+    withStyles(styles),
     connect(mapStateToProps, mapDispatchToProps)
   )(EditOffer);

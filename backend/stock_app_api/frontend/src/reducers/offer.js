@@ -11,8 +11,10 @@ export default function offer(state=initialState, action){
       return [...state, {offerTitle: action.offers}];
 
     case 'UPDATE_OFFER':
-      let offerToUpdate = offerList[action.index];
-      offerToUpdate.title = action.offer.title;
+      let offerToUpdate = offerList[0];
+      console.log(offerToUpdate);
+      console.log(action.offerTitle);
+      offerToUpdate.title = action.offerTitle;
       offerList.splice(action.index, 1, offerToUpdate);
       return offerList;
 

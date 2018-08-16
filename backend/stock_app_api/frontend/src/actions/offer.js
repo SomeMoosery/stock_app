@@ -47,10 +47,12 @@ return (dispatch, getState) => {
     headers["Authorization"] = `Token ${token}`;
   }
 
-  let body = JSON.stringify({offerTitle, });
-  let offerId = getState().offers[index].id;
+  let id = index;
+  let title = offerTitle;
+  let body = JSON.stringify({id, title});
 
-  return fetch(`http://localhost:8000/api/offers/${offerId}/`, {headers, method: "PUT", body})
+  console.log(body);
+  return fetch(`http://localhost:8000/api/offers/${index}/`, {headers, method: "PUT", body})
     .then(res => {
       if (res.status < 500) {
         return res.json().then(data => {
@@ -63,7 +65,8 @@ return (dispatch, getState) => {
     })
     .then(res => {
       if (res.status === 200) {
-        return dispatch({type: 'UPDATE_OFFER', offer: res.data, index});
+        console.log(res.data);
+        return dispatch({type: 'UPDATE_OFFER', offer: res.data, id, title});
       } else if (res.status === 401 || res.status === 403) {
         dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
         throw res.data;
