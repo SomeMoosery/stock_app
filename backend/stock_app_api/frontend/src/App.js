@@ -22,6 +22,8 @@ import AppBar from './components/AppBar';
 import About from './components/About';
 import Pricing from './components/Pricing';
 import Splash from './components/Splash';
+import EditOffer from './components/EditOffer';
+import EditAsk from './components/EditAsk';
 
 let store = createStore(stockApp, applyMiddleware(thunk));
 
@@ -85,6 +87,8 @@ class RootContainerComponent extends Component {
           <Route exact path="/about" component={About}/>
           <Route exact path="/pricing" component={Pricing}/>
           <Route exact path="/welcome" component={Splash}/>
+          <Route exact path="/edit/offers/:offer" component={EditOffer}/>
+          <Route exact path="/edit/asks/:ask" component={EditAsk}/>
         </Switch>
       </BrowserRouter>
     );

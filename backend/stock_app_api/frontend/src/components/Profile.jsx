@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+// import SquareEditOutlineIcon from '@material-ui/icons/SquareEditOutline';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
@@ -52,11 +53,6 @@ class Profile extends React.Component{
     handleOnExit(){
         console.log('Exit!');
     }
-
-    selectForEdit = (id) => {
-        let stock = this.props.stocks[id];
-        this.setState({name: stock.name, updateStockId: id});
-      }
 
     render(){
 
@@ -126,7 +122,7 @@ class Profile extends React.Component{
                                                         </div>
                                                         </Link>
                                                     </td>
-                                                    <td><button onClick={() => this.selectForEdit(id)}>edit</button></td>
+                                                    <td><Link to={'/edit/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>EDIT</Link></td>
                                                 </tr>
                                             ))}
                                             </tbody>
@@ -155,7 +151,7 @@ class Profile extends React.Component{
                                                         </div>
                                                         </Link>
                                                     </td>
-                                                    <td><button onClick={() => this.selectForEdit(id)}>edit</button></td>
+                                                    <td><Link to={'/edit/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>EDIT</Link></td>
                                                 </tr>
                                             ))}
                                             </tbody>
