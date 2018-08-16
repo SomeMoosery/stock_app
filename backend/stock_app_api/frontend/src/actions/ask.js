@@ -36,20 +36,26 @@ export const addAsk = (askTitle, askDescription, askAmount, askNumWeeks, askInte
   }
 }
 
-export const updateAsk = (askTitle, index) => {
+export const updateAsk = (askTitle, askDescription, askAmount, askNumWeeks, askInterest, index) => {
   return (dispatch, getState) => {
-
+  
     let headers = {"Content-Type": "application/json"};
     let {token} = getState().auth;
-
+  
     if (token) {
       headers["Authorization"] = `Token ${token}`;
     }
-
-    let body = JSON.stringify({askTitle, });
-    let askId = getState().asks[index].id;
-
-    return fetch(`http://localhost:8000/api/asks/${askId}/`, {headers, method: "PUT", body})
+  
+    let id = index;
+    let title = askTitle;
+    let description = askDescription;
+    let amount = askAmount;
+    let weeks = askNumWeeks;
+    let interest = askInterest;
+    let body = JSON.stringify({id, title, description, amount, weeks, interest});
+  
+    console.log(body);
+    return fetch(`http://localhost:8000/api/asks/${index}/`, {headers, method: "PUT", body})
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -62,14 +68,14 @@ export const updateAsk = (askTitle, index) => {
       })
       .then(res => {
         if (res.status === 200) {
-          return dispatch({type: 'UPDATE_ASK', ask: res.data, index});
+          return dispatch({type: 'UPDATE_ASK', ask: res.data, id, title});
         } else if (res.status === 401 || res.status === 403) {
           dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
           throw res.data;
         }
       })
   }
-}
+  }
 
 export const fetchAsks = () => {
     return (dispatch, getState) => {

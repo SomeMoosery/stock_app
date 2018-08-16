@@ -17,11 +17,35 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { compose } from 'redux';
+import { TextField, withStyles } from '@material-ui/core';
+
+const styles = theme => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      width: 200,
+    },
+    menu: {
+      width: 200,
+    },
+  });
+
+
+const userId = window.localStorage.getItem('user_id');
+let askOwnerId = 0;
 
 class EditAsk extends React.Component{
 
     state = { 
         askTitle: "",
+        askDescription: "",
+        askAmount: "",
+        askNumWeeks: "",
+        askInterest: "",
         updateAskId: null,
         loading: true,
         open: false,
@@ -33,7 +57,14 @@ class EditAsk extends React.Component{
 
     handleClose = () => {
         this.setState({ open: false });
-    }; 
+    };  
+    
+    handleAgree = () => {
+        this.props.updateAsk(this.state.askTitle, this.state.askDescription, 
+            this.state.askAmount, this.state.askNumWeeks, 
+            this.state.askInterest, this.props.asks[0].id);
+        setTimeout(function(){window.location.reload();},2000);        
+    }
 
     componentDidMount(){
         setTimeout(() => this.setState({loading: false}), 2000);
@@ -42,6 +73,13 @@ class EditAsk extends React.Component{
 
         setTimeout(() => {
             this.props.fetchUserDetail(this.props.asks[0].owner);
+            this.setState({
+                askTitle: this.props.asks[0].title,
+                askDescription: this.props.asks[0].description,
+                askAmount: this.props.asks[0].amount,
+                askNumWeeks: this.props.asks[0].weeks,
+                askInterest: this.props.asks[0].interest
+            });
         }, 1500);
     }
     
@@ -49,6 +87,8 @@ class EditAsk extends React.Component{
 
         const { loading } = this.state;
         const { fullScreen } = this.props;
+        const { classes } = this.props;
+        let isUserAsk;
 
         if (loading){
             return (
@@ -68,19 +108,71 @@ class EditAsk extends React.Component{
                 </div>
             )
         }
+
         return(
             <div>
                 <AppBar/>
                 <div style={{height:'6em'}}></div>
                 <table style={{width:'100%', margin:'0 auto'}}>
-                    <tbody>
+                    <tbody style={{width:'100%', margin:'0 auto'}}>
                         {this.props.asks.map((ask, id) => (
-                            <tr key={`ask_${id}`} style={{textAlign:'center', width:'100%'}}>
-                                <td>
-                                    <p style={{marginBottom:'0.5em', fontSize: '2em'}}>{ask.title}</p>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>{ask.description}</p>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${ask.amount} for {ask.weeks} weeks with {ask.interest}% interest</p>
-                                    <p style={{fontSize:'1.5em'}}>Offered by {this.props.user.user} ({this.props.user.rating})</p>
+                            <tr key={`ask_${id}`} style={{width:'100%', margin:'0 auto'}}>
+                                <td style={{textAlign:'center', width:'100%', }}>
+                                    <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.askTitle}
+                                        id="askTitle"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="askTitle"
+                                        type="text"
+                                        onChange={e => this.setState({askTitle: e.target.value})}
+                                    /><br/>
+                                     <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.askDescription}
+                                        id="askDescription"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="askDescription"
+                                        type="text"
+                                        onChange={e => this.setState({askDescription: e.target.value})}
+                                    /><br/>
+                                     <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.askAmount}
+                                        id="askAmount"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="askAmount"
+                                        type="text"
+                                        onChange={e => this.setState({askAmount: e.target.value})}
+                                    /><br/>
+                                     <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.askNumWeeks}
+                                        id="askNumWeeks"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="askNumWeeks"
+                                        type="text"
+                                        onChange={e => this.setState({askNumWeeks: e.target.value})}
+                                    /><br/>
+                                     <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.askInterest}
+                                        id="askInterest"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="askInterest"
+                                        type="text"
+                                        onChange={e => this.setState({askInterest: e.target.value})}
+                                    /><br/>
                                 </td>
                             </tr>
                         ))}
@@ -88,21 +180,21 @@ class EditAsk extends React.Component{
                 </table>
                 <div style={{height:'6em'}}></div>
                 <div style={{margin:'auto', width:'50%', padding: '10px'}}>
-                    <Button color='primary' style={{width:'100%'}} variant='outlined' onClick={this.handleClickOpen}><p>Give Loan</p></Button>
+                    <Button color='primary' style={{width:'100%'}} variant='outlined' onClick={this.handleClickOpen}><p>Update</p></Button>
                     <Dialog
                         fullScreen={fullScreen}
                         open={this.state.open}
                         onClose={this.handleClose}
                         aria-labelledby="responsive-dialog-title"
                         >
-                        <DialogTitle id="responsive-dialog-title">{"Are you sure you want to give this loan?"}</DialogTitle>
+                        <DialogTitle id="responsive-dialog-title">{"Are you sure you want to take this loan?"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
                             <table><tbody>
                             {this.props.asks.map((ask, id) => (
                                 <tr key={`ask_${id}`}>
                                     <td>
-                                        By clicking 'Agree,' you will be accepting to give {this.props.user.user} a loan for 
+                                        By clicking 'Agree,' you will be accepting to take {this.props.user.user}'s ask 
                                         for ${ask.amount} for {ask.weeks} weeks, with {ask.interest}% interest - and 
                                         hereby agree to Unloan's terms and conditions.
                                     </td>
@@ -114,7 +206,7 @@ class EditAsk extends React.Component{
                             <Button onClick={this.handleClose} color="secondary">
                             Cancel
                             </Button>
-                            <Button onClick={this.handleClose} color="primary" autoFocus>
+                            <Button onClick={this.handleAgree} color="primary" autoFocus>
                             Agree
                             </Button>
                         </DialogActions>
@@ -124,6 +216,10 @@ class EditAsk extends React.Component{
         )
     }
 }
+
+EditAsk.propTypes = {
+    fullScreen: PropTypes.bool.isRequired,
+  };
 
 const mapStateToProps = state => {
     return{
@@ -140,7 +236,14 @@ const mapDispatchToProps = dispatch => {
         fetchUserDetail: (id) => {
             dispatch(auth.fetchUserDetail(id));
         },
+        updateAsk: (askTitle, askDescription, askAmount, askNumWeeks, askInterest, id) => {
+            dispatch(ask.updateAsk(askTitle, askDescription, askAmount, askNumWeeks, askInterest, id));
+        }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditAsk);
+export default compose(
+    withMobileDialog(),
+    withStyles(styles),
+    connect(mapStateToProps, mapDispatchToProps)
+  )(EditAsk);

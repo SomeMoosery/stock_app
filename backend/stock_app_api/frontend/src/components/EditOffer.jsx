@@ -81,10 +81,6 @@ class EditOffer extends React.Component{
                 offerInterest: this.props.offers[0].interest
             });
         }, 1500);
-        setTimeout(() => {
-            console.log(this.props.offers[0]);
-            console.log(this.state);    
-        }, 2000);
     }
     
     render(){

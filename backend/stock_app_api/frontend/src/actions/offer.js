@@ -69,7 +69,6 @@ return (dispatch, getState) => {
     })
     .then(res => {
       if (res.status === 200) {
-        console.log(res.data);
         return dispatch({type: 'UPDATE_OFFER', offer: res.data, id, title});
       } else if (res.status === 401 || res.status === 403) {
         dispatch({type: "AUTHENTICATION_ERROR", data: res.data});

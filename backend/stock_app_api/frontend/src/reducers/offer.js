@@ -12,8 +12,6 @@ export default function offer(state=initialState, action){
 
     case 'UPDATE_OFFER':
       let offerToUpdate = offerList[0];
-      console.log(offerToUpdate);
-      console.log(action.offerTitle);
       offerToUpdate.title = action.offerTitle;
       offerToUpdate.description = action.offerDescription;
       offerToUpdate.amount = action.offerAmount;

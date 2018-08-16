@@ -11,8 +11,12 @@ export default function ask(state=initialState, action){
       return [...state, {askTitle: action.asks}];
 
     case 'UPDATE_ASK':
-      let askToUpdate = askList[action.index];
-      askToUpdate.title = action.ask.title;
+      let askToUpdate = askList[0];
+      askToUpdate.title = action.askTitle;
+      askToUpdate.description = action.askDescription;
+      askToUpdate.amount = action.askAmount;
+      askToUpdate.weeks = action.askNumWeeks;
+      askToUpdate.interest = action.askInterest;
       askList.splice(action.index, 1, askToUpdate);
       return askList;
 
