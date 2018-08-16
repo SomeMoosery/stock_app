@@ -15,6 +15,10 @@ export default function offer(state=initialState, action){
       console.log(offerToUpdate);
       console.log(action.offerTitle);
       offerToUpdate.title = action.offerTitle;
+      offerToUpdate.description = action.offerDescription;
+      offerToUpdate.amount = action.offerAmount;
+      offerToUpdate.weeks = action.offerNumWeeks;
+      offerToUpdate.interest = action.offerInterest;
       offerList.splice(action.index, 1, offerToUpdate);
       return offerList;
 

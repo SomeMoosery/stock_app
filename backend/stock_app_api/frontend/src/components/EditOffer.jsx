@@ -42,6 +42,10 @@ class EditOffer extends React.Component{
 
     state = { 
         offerTitle: "",
+        offerDescription: "",
+        offerAmount: "",
+        offerNumWeeks: "",
+        offerInterest: "",
         updateOfferId: null,
         loading: true,
         open: false,
@@ -56,8 +60,10 @@ class EditOffer extends React.Component{
     };  
     
     handleAgree = () => {
-        this.props.updateOffer(this.state.offerTitle, this.props.offers[0].id);
-        // setTimeout(function(){window.location.reload();},2000);        
+        this.props.updateOffer(this.state.offerTitle, this.state.offerDescription, 
+            this.state.offerAmount, this.state.offerNumWeeks, 
+            this.state.offerInterest, this.props.offers[0].id);
+        setTimeout(function(){window.location.reload();},2000);        
     }
 
     componentDidMount(){
@@ -67,10 +73,17 @@ class EditOffer extends React.Component{
 
         setTimeout(() => {
             this.props.fetchUserDetail(this.props.offers[0].owner);
-            this.setState({offerTitle: this.props.offers[0].title});
+            this.setState({
+                offerTitle: this.props.offers[0].title,
+                offerDescription: this.props.offers[0].description,
+                offerAmount: this.props.offers[0].amount,
+                offerNumWeeks: this.props.offers[0].weeks,
+                offerInterest: this.props.offers[0].interest
+            });
         }, 1500);
         setTimeout(() => {
-            console.log(this.props.offers[0]);    
+            console.log(this.props.offers[0]);
+            console.log(this.state);    
         }, 2000);
     }
     
@@ -109,7 +122,6 @@ class EditOffer extends React.Component{
                         {this.props.offers.map((offer, id) => (
                             <tr key={`offer_${id}`} style={{width:'100%', margin:'0 auto'}}>
                                 <td style={{textAlign:'center', width:'100%', }}>
-                                    <p style={{marginBottom:'0.5em', fontSize: '2em'}}>{offer.title}</p>
                                     <TextField
                                         required
                                         style={{width:'30%'}}
@@ -121,9 +133,50 @@ class EditOffer extends React.Component{
                                         type="text"
                                         onChange={e => this.setState({offerTitle: e.target.value})}
                                     /><br/>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>{offer.description}</p>
-                                    <p style={{marginBottom:'0.2em', fontSize: '1.5em'}}>Offering to loan ${offer.amount} for {offer.weeks} weeks with {offer.interest}% interest</p>
-                                    <p style={{fontSize:'1.5em'}}>Offered by {this.props.user.user} ({this.props.user.rating})</p>
+                                     <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.offerDescription}
+                                        id="offerDescription"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="offerDescription"
+                                        type="text"
+                                        onChange={e => this.setState({offerDescription: e.target.value})}
+                                    /><br/>
+                                     <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.offerAmount}
+                                        id="offerAmount"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="offerAmount"
+                                        type="text"
+                                        onChange={e => this.setState({offerAmount: e.target.value})}
+                                    /><br/>
+                                     <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.offerNumWeeks}
+                                        id="offerNumWeeks"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="offerNumWeeks"
+                                        type="text"
+                                        onChange={e => this.setState({offerNumWeeks: e.target.value})}
+                                    /><br/>
+                                     <TextField
+                                        required
+                                        style={{width:'30%'}}
+                                        value={this.state.offerInterest}
+                                        id="offerInterest"
+                                        className={classes.textField}
+                                        margin="normal"
+                                        htmlFor="offerInterest"
+                                        type="text"
+                                        onChange={e => this.setState({offerInterest: e.target.value})}
+                                    /><br/>
                                 </td>
                             </tr>
                         ))}
@@ -131,7 +184,7 @@ class EditOffer extends React.Component{
                 </table>
                 <div style={{height:'6em'}}></div>
                 <div style={{margin:'auto', width:'50%', padding: '10px'}}>
-                    <Button color='primary' style={{width:'100%'}} variant='outlined' onClick={this.handleClickOpen}><p>Take Offer</p></Button>
+                    <Button color='primary' style={{width:'100%'}} variant='outlined' onClick={this.handleClickOpen}><p>Update</p></Button>
                     <Dialog
                         fullScreen={fullScreen}
                         open={this.state.open}
@@ -187,8 +240,8 @@ const mapDispatchToProps = dispatch => {
         fetchUserDetail: (id) => {
             dispatch(auth.fetchUserDetail(id));
         },
-        updateOffer: (offerTitle, id) => {
-            dispatch(offer.updateOffer(offerTitle, id));
+        updateOffer: (offerTitle, offerDescription, offerAmount, offerNumWeeks, offerInterest, id) => {
+            dispatch(offer.updateOffer(offerTitle, offerDescription, offerAmount, offerNumWeeks, offerInterest, id));
         }
     }
 }

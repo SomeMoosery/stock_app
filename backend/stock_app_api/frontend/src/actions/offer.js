@@ -37,7 +37,7 @@ return (dispatch, getState) => {
 }
 }
 
-export const updateOffer = (offerTitle, index) => {
+export const updateOffer = (offerTitle, offerDescription, offerAmount, offerNumWeeks, offerInterest, index) => {
 return (dispatch, getState) => {
 
   let headers = {"Content-Type": "application/json"};
@@ -49,7 +49,11 @@ return (dispatch, getState) => {
 
   let id = index;
   let title = offerTitle;
-  let body = JSON.stringify({id, title});
+  let description = offerDescription;
+  let amount = offerAmount;
+  let weeks = offerNumWeeks;
+  let interest = offerInterest;
+  let body = JSON.stringify({id, title, description, amount, weeks, interest});
 
   console.log(body);
   return fetch(`http://localhost:8000/api/offers/${index}/`, {headers, method: "PUT", body})
