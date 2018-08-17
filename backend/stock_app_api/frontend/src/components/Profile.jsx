@@ -123,6 +123,7 @@ class Profile extends React.Component{
                                                         </Link>
                                                     </td>
                                                     <td><Link to={'/edit/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>EDIT</Link></td>
+                                                    <td><Button>Delete</Button></td>
                                                 </tr>
                                             ))}
                                             </tbody>
@@ -152,6 +153,7 @@ class Profile extends React.Component{
                                                         </Link>
                                                     </td>
                                                     <td><Link to={'/edit/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>EDIT</Link></td>
+                                                    <td><Button>Delete</Button></td>
                                                 </tr>
                                             ))}
                                             </tbody>
