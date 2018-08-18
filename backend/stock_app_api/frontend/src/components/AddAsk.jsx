@@ -45,8 +45,11 @@ class Addask extends React.Component{
 
     submitask = (e) => {
         e.preventDefault();
-        this.props.addask(this.state.askTitle, this.state.askDescription, this.state.askAmount, this.state.askNumWeeks, this.state.askInterest);
+        this.props.addAsk(this.state.askTitle, this.state.askDescription, this.state.askAmount, this.state.askNumWeeks, this.state.askInterest);
         this.setState({submitted: true});
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     }
 
     resetaskForm = () => {
@@ -158,8 +161,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        addask: (askTitle, askDescription, askAmount, askNumWeeks, askInterest) => {
-            dispatch(ask.addask(askTitle, askDescription, askAmount, askNumWeeks, askInterest));
+        addAsk: (askTitle, askDescription, askAmount, askNumWeeks, askInterest) => {
+            dispatch(ask.addAsk(askTitle, askDescription, askAmount, askNumWeeks, askInterest));
         },
     }
 }
