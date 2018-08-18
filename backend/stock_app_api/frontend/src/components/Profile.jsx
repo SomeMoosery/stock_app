@@ -54,6 +54,14 @@ class Profile extends React.Component{
         console.log('Exit!');
     }
 
+    handleOfferDelete = (id) => {
+        this.props.deleteOffer(id);
+    }
+
+    handleAskDelete = (id) => {
+        this.props.deleteAsk(id);
+    }
+
     render(){
 
         const { loading } = this.state;
@@ -123,7 +131,7 @@ class Profile extends React.Component{
                                                         </Link>
                                                     </td>
                                                     <td><Link to={'/edit/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>EDIT</Link></td>
-                                                    <td><Button>Delete</Button></td>
+                                                    <td><Button onClick={this.handleOfferDelete(offer.id)}>Delete</Button></td>
                                                 </tr>
                                             ))}
                                             </tbody>
@@ -153,7 +161,7 @@ class Profile extends React.Component{
                                                         </Link>
                                                     </td>
                                                     <td><Link to={'/edit/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>EDIT</Link></td>
-                                                    <td><Button>Delete</Button></td>
+                                                    <td><Button onClick={this.handleAskDelete(ask.id)}>Delete</Button></td>
                                                 </tr>
                                             ))}
                                             </tbody>
@@ -203,6 +211,12 @@ const mapDispatchToProps = dispatch => {
         },
         fetchUserDetail: (id) => {
             dispatch(auth.fetchUserDetail(id));
+        },
+        deleteOffer: (id) => {
+            dispatch(offer.deleteOffer(id));
+        },
+        deleteAsk: (id) => {
+            dispatch(ask.deleteAsk(id));
         }
     }
 }

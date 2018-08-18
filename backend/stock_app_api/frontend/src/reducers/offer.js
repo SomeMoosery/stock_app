@@ -26,6 +26,10 @@ export default function offer(state=initialState, action){
     case 'FETCH_OFFER_DETAIL':
       return [...state, ...action.offers];
 
+    case 'DELETE_OFFER':
+      offerList.splice(action.index, 1);
+      return offerList;
+
     default:
       return state;
   }

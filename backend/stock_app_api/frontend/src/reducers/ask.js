@@ -26,6 +26,10 @@ export default function ask(state=initialState, action){
     case 'FETCH_ASK_DETAIL':
       return [...state, ...action.asks];
 
+    case 'DELETE_ASK':
+      askList.splice(action.index, 1);
+      return askList;
+
     default:
       return state;
   }
