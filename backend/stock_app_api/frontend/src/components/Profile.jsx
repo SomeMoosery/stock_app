@@ -54,12 +54,14 @@ class Profile extends React.Component{
         console.log('Exit!');
     };
 
-    handleOfferDelete = () => {
-        this.props.deleteOffer();
+    handleOfferDelete = (id) => {
+        this.props.deleteOffer(id);
+        setTimeout(function(){window.location.reload();},1000);
     };
 
-    handleAskDelete = () => {
-        this.props.deleteAsk();
+    handleAskDelete = (id) => {
+        this.props.deleteAsk(id);
+        setTimeout(function(){window.location.reload();},1000);
     };
 
     render(){
@@ -131,7 +133,7 @@ class Profile extends React.Component{
                                                         </Link>
                                                     </td>
                                                     <td><Link to={'/edit/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>EDIT</Link></td>
-                                                    <td><Button onClick={() => this.handleOfferDelete(offer.id)}>Delete</Button></td>
+                                                    <td><Button value={offer.id} onClick={() => this.handleOfferDelete(offer.id)}>Delete</Button></td>
                                                 </tr>
                                             ))}
                                             </tbody>
