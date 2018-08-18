@@ -41,26 +41,26 @@ class Profile extends React.Component{
         }
         setTimeout(()=>this.props.fetchUserDetail(userId), 1200);
         setTimeout(()=>console.log(this.props), 1200);
-    }
+    };
 
     handleOnSuccess = (token, metadata) => {
         this.props.addBank(metadata.public_token, metadata.institution.name);
         this.setState({loading: true});
         setTimeout(() => this.setState({loading: false}), 2000);
-        setTimeout(function(){window.location.reload();},2000);
-    }
+        setTimeout(function(){window.location.reload();},1000);
+    };
     
     handleOnExit(){
         console.log('Exit!');
-    }
+    };
 
-    handleOfferDelete = (id) => {
-        this.props.deleteOffer(id);
-    }
+    handleOfferDelete = () => {
+        this.props.deleteOffer();
+    };
 
-    handleAskDelete = (id) => {
-        this.props.deleteAsk(id);
-    }
+    handleAskDelete = () => {
+        this.props.deleteAsk();
+    };
 
     render(){
 
@@ -131,7 +131,7 @@ class Profile extends React.Component{
                                                         </Link>
                                                     </td>
                                                     <td><Link to={'/edit/offers/' + offer.id} params={{ offerId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>EDIT</Link></td>
-                                                    <td><Button onClick={this.handleOfferDelete(offer.id)}>Delete</Button></td>
+                                                    <td><Button onClick={() => this.handleOfferDelete(offer.id)}>Delete</Button></td>
                                                 </tr>
                                             ))}
                                             </tbody>
@@ -161,7 +161,7 @@ class Profile extends React.Component{
                                                         </Link>
                                                     </td>
                                                     <td><Link to={'/edit/asks/' + ask.id} params={{ askId: id }} style={{textDecoration:'none', color:'black', width:'100%'}}>EDIT</Link></td>
-                                                    <td><Button onClick={this.handleAskDelete(ask.id)}>Delete</Button></td>
+                                                    <td><Button onClick={() => this.handleAskDelete(ask.id)}>Delete</Button></td>
                                                 </tr>
                                             ))}
                                             </tbody>

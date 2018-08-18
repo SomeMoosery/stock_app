@@ -47,6 +47,9 @@ class AddOffer extends React.Component{
         e.preventDefault();
         this.props.addOffer(this.state.offerTitle, this.state.offerDescription, this.state.offerAmount, this.state.offerNumWeeks, this.state.offerInterest);
         this.setState({submitted: true});
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     }
 
     resetOfferForm = () => {
