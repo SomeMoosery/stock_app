@@ -42,4 +42,7 @@ urlpatterns=[
     url(r'^asks/$', views.ListAsk.as_view()),
     url(r'^profiles/(?P<pk>[^/.]+)/asks/$', views.ListProfileAsk.as_view()),
     url(r'^asks/(?P<pk>[^/.]+)/$', views.ListAskDetail.as_view()),
+
+    #Dwolla:
+    url(r'^dwolla/customers/(?P<pk>[^/.]+)/$', views.DetailDwollaCustomer.as_view()),
 ]
