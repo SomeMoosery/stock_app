@@ -9,7 +9,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import { plaid, offer, ask, auth } from '../actions';
+import { plaid, offer, ask, auth, dwolla } from '../actions';
 import UserBanks from './UserBanks';
 
 import PlaidLink from 'react-plaid-link';
@@ -39,6 +39,7 @@ class Profile extends React.Component{
         if (this.props.asks.length === 0){
             this.props.fetchUserAsks();
         }
+        setTimeout(()=>this.props.fetchDwollaCustomer(userId), 1200);
         setTimeout(()=>this.props.fetchUserDetail(userId), 1200);
         setTimeout(()=>console.log(this.props), 1200);
     };
@@ -194,6 +195,7 @@ const mapStateToProps = state => {
       banks: state.plaid,
       offers: state.offer,
       asks: state.ask,
+      dwolla: state.dwolla,
     }
   }
 
@@ -219,7 +221,10 @@ const mapDispatchToProps = dispatch => {
         },
         deleteAsk: (id) => {
             dispatch(ask.deleteAsk(id));
-        }
+        },
+        fetchDwollaCustomer: (id) => {
+            dispatch(dwolla.fetchDwollaCustomer(id));
+        },
     }
 }
 

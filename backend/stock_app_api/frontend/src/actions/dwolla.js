@@ -7,6 +7,8 @@ export const fetchDwollaCustomer = (customerID) => {
             headers["Authorization"] = `Token ${token}`;
         }
 
+        console.log(customerID);
+
         return fetch(`https://localhost:8000/api/dwolla/customers/${customerID}`, {headers, })
         .then(res => {
             if (res.status < 500) {

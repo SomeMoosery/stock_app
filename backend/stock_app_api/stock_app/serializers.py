@@ -25,17 +25,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         )
         model = models.Profile
 
-class DwollaSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = (
-            'id',
-            'owner',
-            'name',
-            'plaid_token',
-            'account_url',
-        )
-        model = models.Dwolla
-
 class StockSerializer(serializers.ModelSerializer):
     # NOTE When dealing with setting a ReadOnlyField (this would just say 1 beforehand)
     # Use the Django shell to try, say, Stock.objects.get(id=1).owner - that gives Profile: <carter>
@@ -100,6 +89,18 @@ class OfferSerializer(serializers.ModelSerializer):
             'loaner',
         )
         model = models.Offer
+
+class DwollaSerializer(serializers.ModelSerializer):
+    owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        fields = (
+            'id',
+            'owner',
+            'name',
+            'plaid_token',
+            'account_url',
+        )
+        model = models.Dwolla
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
