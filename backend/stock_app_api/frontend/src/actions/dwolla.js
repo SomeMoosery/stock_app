@@ -22,8 +22,8 @@ export const fetchDwollaCustomer = (customerID) => {
           })
           .then(res => {
             if (res.status === 200) {
-              getState().ask.push(res.data);
-              return dispatch({type: 'FETCH_DWOLLA_CUSTOMER_DETAIL', dwolla_customer_detail: res.data});
+              getState().dwolla.push(res.data);
+              return dispatch({type: 'FETCH_DWOLLA_CUSTOMER_DETAIL', dwolla: res.data});
             } else if (res.status === 401 || res.status === 403) {
               dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
               throw res.data;

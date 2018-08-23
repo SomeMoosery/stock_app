@@ -41,8 +41,7 @@ class Profile extends React.Component{
         }
         this.props.fetchDwollaCustomer(userId);
         setTimeout(()=>this.props.fetchUserDetail(userId), 1200);
-        // setTimeout(()=>console.log(this.props), 2000);
-        setTimeout(()=>console.log(this.props.dwolla), 2500);
+        setTimeout(()=>console.log(this.props.dwolla[0].account_url), 2500);
     };
 
     handleOnSuccess = (token, metadata) => {
