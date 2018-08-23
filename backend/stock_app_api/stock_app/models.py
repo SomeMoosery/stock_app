@@ -26,6 +26,19 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
+class Dwolla(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    owner = models.OneToOneField(Profile, on_delete = models.CASCADE)
+    name = models.CharField(max_length = 100, blank = True)
+    plaid_token = models.CharField(max_length = 100, blank = True)
+    account_url = models.CharField(max_length = 100, blank = True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return str(self.name)
+
 class Bank(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, related_name="bank_accounts", on_delete=models.CASCADE, null=True)

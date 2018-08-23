@@ -1,4 +1,4 @@
-export const fetchDwollaUser = (customerID) => {
+export const fetchDwollaCustomer = (customerID) => {
     return (dispatch, getState) => {
         let headers = {"Content-Type": "application/json"};
         let {token} = getState().auth;

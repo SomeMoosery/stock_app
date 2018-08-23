@@ -107,6 +107,6 @@ class ListBanks(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class DetailProfile(generics.RetrieveUpdateDestroyAPIView):
+class DetailDwollaCustomer(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Dwolla.objects.all()
-    serializer_class = serializers.ProfileSerializer
+    serializer_class = serializers.DwollaSerializer
