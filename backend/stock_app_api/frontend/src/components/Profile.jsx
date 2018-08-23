@@ -40,6 +40,7 @@ class Profile extends React.Component{
             this.props.fetchUserAsks();
         }
         this.props.fetchDwollaCustomer(userId);
+        setTimeout(()=>this.props.getDwollaCustomer(this.props.dwolla[0].account_url), 2500);
         setTimeout(()=>this.props.fetchUserDetail(userId), 1200);
         setTimeout(()=>console.log(this.props.dwolla[0].account_url), 2500);
     };
@@ -224,6 +225,9 @@ const mapDispatchToProps = dispatch => {
         },
         fetchDwollaCustomer: (id) => {
             dispatch(dwolla.fetchDwollaCustomer(id));
+        },
+        getDwollaCustomer: (account_url) => {
+            dispatch(dwolla.getDwollaCustomer(account_url));
         },
     }
 }

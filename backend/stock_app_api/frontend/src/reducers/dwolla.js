@@ -7,6 +7,10 @@ export default function dwolla(state=initialState, action){
             console.log(action.dwolla);
             return [...state, ...action.dwolla];
 
+        case 'GET_DWOLLA_CUSTOMER':
+            console.log(action.dwolla.return_data);
+            return [...state, ...action.dwolla];
+
         default:
             return state;
     }

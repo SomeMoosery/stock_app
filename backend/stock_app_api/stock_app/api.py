@@ -2,6 +2,7 @@ from rest_framework import viewsets, permissions, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from plaid import Client
+import dwollav2
 
 from knox.models import AuthToken
 
@@ -56,6 +57,27 @@ def getTransaction(accessToken, startDate, endDate):
     #     transactionResponse = client.Transactions.get(accessToken, start_date=startDate, end_date=endDate, offset=len(transactionResponse))
     #     print('RESPONSE: ' + str(transactionResponse))
     #     transactions.extend(transactionResponse['transactions'])
+
+class GetDwollaCustomer(APIView):
+    def post(self, request, *args, **kwargs):
+        print('REQUEST: ' + str(request.data))
+        result = getDwollaCustomer(request.data['account_url'])
+        return Response({
+            "return_data": result
+        })
+
+def getDwollaCustomer(account_url):
+    app_key = 'PNQRGggoMwGefS97PGFBt44KO6cGM21pUwiSql9oxptYCIatMs'
+    app_secret = 'NToE2JWlzY0z8m6t0QYNxZ9hZgkBleSrQVntYWJd6z0gUvpYdp'
+    client = dwollav2.Client(key = app_key, secret = app_secret, environment = 'sandbox')
+    app_token = client.Auth.client()
+    full_account_url = 'https://api-sandbox.dwolla.com/accounts/' + str(account_url)
+    print('FULL ACCOUNT URL: ' + str(full_account_url))
+
+    account = app_token.get(full_account_url)
+    account.body['name']
+    print('ACCOUNT: ' + str(account.body))
+    return account.body
 
 class RegistrationAPI(generics.GenericAPIView):
     serializer_class = CreateUserSerializer

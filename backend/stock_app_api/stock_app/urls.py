@@ -45,4 +45,5 @@ urlpatterns=[
 
     #Dwolla:
     url(r'^dwolla/customers/(?P<pk>[^/.]+)/$', views.ListDwollaCustomerDetail.as_view()),
+    url(r'^get-dwolla-customer/$', GetDwollaCustomer.as_view()),
 ]
