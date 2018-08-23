@@ -9,7 +9,7 @@ export const fetchDwollaCustomer = (customerID) => {
 
         console.log(customerID);
 
-        return fetch(`https://localhost:8000/api/dwolla/customers/${customerID}`, {headers, })
+        return fetch(`http://localhost:8000/api/dwolla/customers/${customerID}`, {headers, })
         .then(res => {
             if (res.status < 500) {
               return res.json().then(data => {

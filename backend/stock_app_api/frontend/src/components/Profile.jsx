@@ -39,9 +39,10 @@ class Profile extends React.Component{
         if (this.props.asks.length === 0){
             this.props.fetchUserAsks();
         }
-        setTimeout(()=>this.props.fetchDwollaCustomer(userId), 1200);
+        this.props.fetchDwollaCustomer(userId);
         setTimeout(()=>this.props.fetchUserDetail(userId), 1200);
-        setTimeout(()=>console.log(this.props), 1200);
+        // setTimeout(()=>console.log(this.props), 2000);
+        setTimeout(()=>console.log(this.props.dwolla), 2500);
     };
 
     handleOnSuccess = (token, metadata) => {
