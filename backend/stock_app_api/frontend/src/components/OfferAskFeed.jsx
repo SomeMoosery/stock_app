@@ -127,7 +127,7 @@ class OfferAskFeed extends React.Component{
             </table>
             </div>
           </TabContainer>}
-          <AppBar position="static" style={{position: 'fixed', width: '100%', bottom: 0, backgroundColor:'#053786'}}>
+          <AppBar position="static" style={{position: 'fixed', width: '100%', bottom: 0, backgroundColor:'#626096'}}>
             <Tabs value={value} onChange={this.handleTabChange} centered>
               <Tab label="Offers" />
               <Tab label="Asks" />
