@@ -82,6 +82,7 @@ export const register = (username, password, bio, location, age, university) => 
       })
       .then(res => {
         if (res.status === 200) {
+          //TODO create Dwolla account here so it's seamless.
           dispatch({type: 'REGISTRATION_SUCCESSFUL', data: res.data });
           return res.data;
         } else if (res.status === 403 || res.status === 401) {
