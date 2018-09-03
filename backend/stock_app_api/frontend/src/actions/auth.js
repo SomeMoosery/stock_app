@@ -84,6 +84,10 @@ export const register = (username, password, bio, location, age, university) => 
         if (res.status === 200) {
           //TODO create Dwolla account here so it's seamless.
           //Need to send POST to dwolla to post user and maybe get more user information on account creation
+
+          //Need to reorganize into a new body here
+          //fetch("http://localhost:8000/api/auth/register-dwolla", {headers, body, method:"POST"})
+
           dispatch({type: 'REGISTRATION_SUCCESSFUL', data: res.data });
           return res.data;
         } else if (res.status === 403 || res.status === 401) {
