@@ -34,6 +34,15 @@ class Login extends Component {
     location: "",
     age: null,
     university: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    address1: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    dateOfBirth: "",
+    ssn: "",
   }
 
   componentDidMount(){
@@ -76,6 +85,105 @@ class Login extends Component {
             htmlFor="password"
             type="password"
             onChange={e => this.setState({password: e.target.value})}
+          /><br/>
+          <TextField
+            required
+            id="firstName"
+            label="First Name"
+            placeholder="First Name"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="firstName"
+            type="text"
+            onChange={e => this.setState({firstName: e.target.value})}
+          /><br/>
+          <TextField
+            required
+            id="lastName"
+            label="Last Name"
+            placeholder="Last Name"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="lastName"
+            type="text"
+            onChange={e => this.setState({lastName: e.target.value})}
+          /><br/>
+          <TextField
+            required
+            id="email"
+            label="Email"
+            placeholder="Email"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="email"
+            type="text"
+            onChange={e => this.setState({email: e.target.value})}
+          /><br/>
+          <TextField
+            required
+            id="address1"
+            label="Street Address"
+            placeholder="Street Address"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="address1"
+            type="text"
+            onChange={e => this.setState({address1: e.target.value})}
+          />
+          <TextField
+            required
+            id="city"
+            label="City"
+            placeholder="City"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="city"
+            type="text"
+            onChange={e => this.setState({city: e.target.value})}
+          />
+          <TextField
+            required
+            id="state"
+            label="State"
+            placeholder="State"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="state"
+            type="text"
+            onChange={e => this.setState({state: e.target.value})}
+          />
+          <TextField
+            required
+            id="postalCode"
+            label="Postal Code"
+            placeholder="Zip Code"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="postalCode"
+            type="text"
+            onChange={e => this.setState({postalCode: e.target.value})}
+          /><br/>
+          <TextField
+            required
+            id="dateOfBirth"
+            label="Date of Birth"
+            placeholder="Date of Birth"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="dateOfBirth"
+            type="text"
+            onChange={e => this.setState({dateOfBirth: e.target.value})}
+          /><br/>
+          <TextField
+            required
+            id="ssn"
+            label="SSN"
+            placeholder="Last 4 Digits of SSN"
+            className={classes.textField}
+            margin="normal"
+            htmlFor="ssn"
+            type="password"
+            onChange={e => this.setState({ssn: e.target.value})}
           /><br/>
           <TextField
             id="bio"
