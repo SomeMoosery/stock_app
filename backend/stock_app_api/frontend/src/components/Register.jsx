@@ -68,13 +68,13 @@ class Login extends Component {
             required
             id="username"
             label="Username"
-            placeholder="Username"
+            placeholder="Create a Username"
             className={classes.textField}
             margin="normal"
             htmlFor="username"
             type="text"
             onChange={e => this.setState({username: e.target.value})}
-          /><br/>
+          />
           <TextField
             required
             id="password"
@@ -96,7 +96,7 @@ class Login extends Component {
             htmlFor="firstName"
             type="text"
             onChange={e => this.setState({firstName: e.target.value})}
-          /><br/>
+          />
           <TextField
             required
             id="lastName"
@@ -107,7 +107,7 @@ class Login extends Component {
             htmlFor="lastName"
             type="text"
             onChange={e => this.setState({lastName: e.target.value})}
-          /><br/>
+          />
           <TextField
             required
             id="email"
@@ -173,12 +173,12 @@ class Login extends Component {
             htmlFor="dateOfBirth"
             type="text"
             onChange={e => this.setState({dateOfBirth: e.target.value})}
-          /><br/>
+          />
           <TextField
             required
             id="ssn"
             label="SSN"
-            placeholder="Last 4 Digits of SSN"
+            placeholder="Last 4 Digits of SSN (to verify)"
             className={classes.textField}
             margin="normal"
             htmlFor="ssn"
@@ -195,7 +195,7 @@ class Login extends Component {
             type="text"
             onChange={e => this.setState({bio: e.target.value})}
           /><br/>
-          <TextField
+          {/* <TextField
             id="location"
             label="Location"
             placeholder="Where are you from?"
@@ -214,7 +214,7 @@ class Login extends Component {
             htmlFor="age"
             type="text"
             onChange={e => this.setState({age: e.target.value})}
-          /><br/>
+          /><br/> */}
           <TextField
             style={{marginBottom:'0.8em'}}
             id="university"
