@@ -195,26 +195,6 @@ class Login extends Component {
             type="text"
             onChange={e => this.setState({bio: e.target.value})}
           /><br/>
-          {/* <TextField
-            id="location"
-            label="Location"
-            placeholder="Where are you from?"
-            className={classes.textField}
-            margin="normal"
-            htmlFor="location"
-            type="text"
-            onChange={e => this.setState({location: e.target.value})}
-          /><br/>
-          <TextField
-            id="age"
-            label="Age"
-            placeholder="What's your age?"
-            className={classes.textField}
-            margin="normal"
-            htmlFor="age"
-            type="text"
-            onChange={e => this.setState({age: e.target.value})}
-          /><br/> */}
           <TextField
             style={{marginBottom:'0.8em'}}
             id="university"
